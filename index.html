@@ -107,6 +107,27 @@ a{color:inherit;text-decoration:none}
 .stat p span{display:block;color:var(--dim);font-size:11.5px;margin-top:4px}
 .drag{position:absolute;right:6px;top:436px;font-size:12.5px;color:var(--dim);transform:translateZ(40px)}
 
+.tl{--w:12}
+.tl-title{font-size:15px;color:var(--text);font-weight:500;margin-bottom:22px}
+.tl-row{margin-bottom:26px}
+.tl-lab{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;font-size:14px}
+.tl-lab b{font-weight:500;color:var(--text)}
+.tl-lab span{color:var(--muted)}
+.tl-track{position:relative;background:repeating-linear-gradient(90deg,rgba(255,255,255,.06) 0 1px,transparent 1px calc(100%/3));border-radius:10px}
+.tl-track i{position:absolute;left:calc(var(--s)/var(--w)*100%);width:calc((var(--e) - var(--s))/var(--w)*100%);font-style:normal;font-size:11.5px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:clip;display:flex;align-items:center;padding:0 8px;border-radius:7px}
+.seq{height:34px}
+.seq i{top:0;bottom:0;background:#3b3742;color:#cfc9d3;border:1px solid #4a4552}
+.seq i:nth-child(2){background:repeating-linear-gradient(135deg,#2c2932 0 6px,#36323d 6px 12px);color:#a29da7}
+.par{height:118px}
+.par i{height:18px;color:#141317;font-size:10.5px}
+.par i:nth-child(1){top:2px;background:#ffc48a}.par i:nth-child(2){top:25px;background:#ff9fcf}.par i:nth-child(3){top:48px;background:#ff6fb5}.par i:nth-child(4){top:71px;background:#c7a8ff}.par i:nth-child(5){top:94px;background:#a493ff}
+.tl-ship{position:absolute;left:calc(var(--s)/var(--w)*100%);top:44px;margin-left:10px;font-size:12px;font-weight:600;color:#7be3a4;white-space:nowrap}
+.tl-ship::before{content:"";position:absolute;left:-10px;top:-44px;height:118px;border-left:1.5px dashed rgba(123,227,164,.6)}
+.tl-axis{position:relative;height:16px;margin-top:-14px;font-size:11.5px;color:var(--dim)}
+.tl-axis span{position:absolute;white-space:nowrap;left:calc(var(--s)/12*100%);transform:translateX(-50%)}
+.tl-axis span:first-child{transform:none}.tl-axis span:last-child{transform:translateX(-100%)}
+.tl-note{margin-top:22px;max-width:34em}
+@media (max-width:760px){.tl-track i{font-size:10px;padding:0 5px}.seq i:nth-child(2){color:transparent}.seq i:nth-child(5){padding:0 3px}}
 /* Built with AI */
 .bx{position:relative;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);overflow:hidden;isolation:isolate}
 .bx::before{content:"";position:absolute;width:640px;height:640px;border-radius:50%;background:var(--brand);filter:blur(120px);opacity:.22;z-index:-1;pointer-events:none}
@@ -222,13 +243,7 @@ h2{font-size:clamp(38px,5.4vw,68px);line-height:1.02;letter-spacing:-.04em;font-
 .model{margin-top:130px;border-radius:var(--r-lg);border:1px solid var(--line);background:radial-gradient(70% 90% at 100% 0%,rgba(164,147,255,.18),transparent 60%),radial-gradient(60% 80% at 0% 100%,rgba(255,196,138,.12),transparent 60%),var(--surface);padding:72px 64px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
 .model h2{max-width:11ch}
 .model .intro{color:var(--muted);margin-top:24px;max-width:30em}
-.bars{display:flex;flex-direction:column;gap:22px}
-.bar .lab{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);margin-bottom:10px}
-.bar .lab b{color:var(--text);font-weight:500;font-size:16px}
-.track{height:14px;border-radius:999px;background:rgba(255,255,255,.05);overflow:hidden}
-.fill{height:100%;border-radius:999px}
-.before .fill{width:100%;background:#3b3742}
-.after .fill{width:33%;background:var(--glow)}
+.before .after .steps{list-style:none;counter-reset:s;display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:34px}
 .steps{list-style:none;counter-reset:s;display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:34px}
 .steps li{counter-increment:s;border:1px solid var(--line);border-radius:var(--r-md);padding:16px 18px;font-size:15px;background:rgba(20,19,23,.4)}
 .steps li::before{content:counter(s);display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;border:1px solid #4a4552;font-size:12px;color:var(--muted);margin-right:10px}
@@ -442,11 +457,24 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
           <li>PO and auto QA <span>validate</span></li>
         </ol>
       </div>
-      <div class="bars" role="img" aria-label="Time to ship a feature: 8 to 12 weeks before, 2 to 4 weeks now">
-        <div class="bar before"><div class="lab"><span>Before</span><b>8 to 12 weeks</b></div><div class="track"><div class="fill"></div></div></div>
-        <div class="bar after"><div class="lab"><span>Now, one huddle</span><b>2 to 4 weeks</b></div><div class="track"><div class="fill"></div></div></div>
-        <p class="client" style="margin-top:6px">Built with Cursor, GitHub, Figma, and Miro.</p>
-      </div>
+      <div class="tl" role="img" aria-label="Time to ship one feature. With traditional handoffs, design, handoff, build, QA and release happen one after another over 8 to 12 weeks. In one huddle, product, UX, front-end, back-end and QA work at the same time and ship in 2 to 4 weeks.">
+          <p class="tl-title">Time to ship one feature</p>
+          <div class="tl-row">
+            <div class="tl-lab"><b>Traditional handoffs</b><span>8 to 12 weeks</span></div>
+            <div class="tl-track seq">
+              <i style="--s:0;--e:3">Design</i><i style="--s:3;--e:4.8">Handoff</i><i style="--s:4.8;--e:8.8">Build</i><i style="--s:8.8;--e:10.8">QA</i><i style="--s:10.8;--e:12">Ship</i>
+            </div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-lab"><b>One huddle</b><span>2 to 4 weeks</span></div>
+            <div class="tl-track par">
+              <i style="--s:0;--e:3.4">Product</i><i style="--s:0;--e:3.2">UX</i><i style="--s:.3;--e:3.4">Front-end</i><i style="--s:.3;--e:3.4">Back-end</i><i style="--s:.5;--e:3.6">QA</i>
+              <span class="tl-ship" style="--s:3.6">Shipped</span>
+            </div>
+          </div>
+          <div class="tl-axis" aria-hidden="true"><span style="--s:0">0</span><span style="--s:4">4 wks</span><span style="--s:8">8 wks</span><span style="--s:12">12 wks</span></div>
+          <p class="client tl-note">No handoffs: everyone works in the same sessions, so the work overlaps instead of waiting in line. Tools: Cursor, GitHub, Figma, and Miro.</p>
+        </div>
     </div>
   </div>
 </section>
