@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jose Togbe, Lead UX Designer</title>
+<meta name="description" content="Lead UX designer. 10+ years making complex products clear and measurable, across financial services, insurance, healthcare, and clinical tools.">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#141317;
+  --surface:#1c1a20;
+  --raise:#24212a;
+  --line:#2f2b35;
+  --text:#f3efea;
+  --muted:#a29da7;
+  --dim:#6f6a75;
+  --peach:#ffc48a;
+  --pink:#ff6fb5;
+  --lilac:#a493ff;
+  --glow:linear-gradient(90deg,var(--peach) 0%,var(--pink) 52%,var(--lilac) 100%);
+  --wrap:1180px;
+  --r-lg:28px;
+  --r-md:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--ink);color:var(--text);font-family:Geist,system-ui,sans-serif;font-size:17px;line-height:1.6;font-weight:400;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--pink);outline-offset:3px;border-radius:8px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
+.skip{position:absolute;left:-999px;top:12px;background:var(--text);color:var(--ink);padding:8px 14px;border-radius:999px;z-index:100}
+.skip:focus{left:12px}
+
+/* Nav: floating pill */
+.nav{position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:50;display:flex;align-items:center;gap:6px;padding:6px 6px 6px 18px;border:1px solid rgba(255,255,255,.08);border-radius:999px;background:rgba(28,26,32,.62);backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);white-space:nowrap}
+.nav .mark{font-weight:600;letter-spacing:-.02em;margin-right:10px;font-size:15px}
+.nav a.l{font-size:14px;color:var(--muted);padding:8px 12px;border-radius:999px;transition:color .2s,background .2s}
+.nav a.l:hover{color:var(--text);background:rgba(255,255,255,.05)}
+.btn{display:inline-flex;align-items:center;gap:8px;line-height:1.3;font-size:15px;font-weight:500;padding:11px 20px;border-radius:999px;border:1px solid var(--line);color:var(--text);background:transparent;transition:border-color .2s,background .2s;cursor:pointer;font-family:inherit}
+.btn:hover{border-color:#4a4552;background:rgba(255,255,255,.03)}
+.btn.solid{background:var(--text);color:var(--ink);border-color:var(--text)}
+.btn.solid:hover{background:#fff}
+.nav .btn{padding:8px 16px;font-size:14px}
+
+/* Hero */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;padding:130px 0 90px;isolation:isolate;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;align-items:center;gap:20px;width:100%}
+.huddle{position:relative;width:112%;max-width:700px;justify-self:end;margin-right:-50px;aspect-ratio:640/560;perspective:1800px;perspective-origin:50% 40%}
+.scaler{position:absolute;left:50%;top:48%;width:600px;height:470px;transform:translate(-50%,-50%) scale(var(--s,1));transform-style:preserve-3d}
+.board{position:absolute;inset:0;transform-style:preserve-3d;will-change:transform}
+.win{position:absolute;inset:0 0 30px 0;border-radius:18px;background:#17151b;border:1px solid #2f2b35;box-shadow:0 50px 110px rgba(0,0,0,.6);overflow:hidden}
+.chrome{height:34px;display:flex;align-items:center;gap:7px;padding:0 14px;border-bottom:1px solid #2a2630}
+.chrome i{width:10px;height:10px;border-radius:50%;background:#3a3541}
+.chrome b{margin-left:12px;font-size:12px;font-weight:500;color:#a29da7}
+.chrome b em{font-style:normal;color:#f3efea}
+.prompt{position:absolute;left:14px;right:14px;top:46px;height:44px;border-radius:14px;background:#211e26;border:1px solid #3a3541;display:flex;align-items:center;gap:10px;padding:0 8px 0 14px;font-size:13.5px;color:#f3efea;transition:border-color .3s,box-shadow .3s}
+.prompt.live{border-color:#ff6fb5;box-shadow:0 0 0 3px rgba(255,111,181,.15),0 0 30px rgba(255,111,181,.18)}
+.prompt .sp{font-size:15px;background:var(--glow);-webkit-background-clip:text;background-clip:text;color:transparent}
+.prompt .txt{flex:0 1 auto;white-space:nowrap;overflow:hidden}
+.prompt .txt:empty::before{content:"Describe what you want to design";color:#6f6a75}
+.caret{display:inline-block;width:1.5px;height:16px;background:#f3efea;vertical-align:-3px;margin-left:1px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.gen{margin-left:auto;font-size:12px;font-weight:600;padding:7px 12px;border-radius:10px;background:#f3efea;color:#141317;transition:transform .15s,background .3s}
+.gen.hit{transform:scale(.94);background:#ffd0e8}
+.prev{position:absolute;left:14px;top:102px;width:262px;height:330px;border-radius:18px;background:#f8f6f3;color:#1d1b21;overflow:hidden}
+.el{position:absolute;left:14px;right:14px;opacity:0;transform:translateY(8px);filter:blur(4px);transition:opacity .45s,transform .55s cubic-bezier(.2,.8,.2,1),filter .45s,top .7s cubic-bezier(.2,.8,.2,1),box-shadow .5s,background .5s,border-color .5s}
+.el.on{opacity:1;transform:none;filter:none}
+.e-hdr{top:14px}
+.e-hdr b{display:block;font-size:17px;font-weight:600;letter-spacing:-.02em}
+.e-hdr span{font-size:11.5px;color:#8a848f}
+.amtbox{height:56px;border-radius:14px;background:#fff;border:1px solid #ebe5df;padding:8px 12px;display:flex;justify-content:space-between;align-items:center}
+.amtbox small{display:block;font-size:10.5px;color:#8a848f}
+.amtbox strong{display:block;font-size:21px;font-weight:600;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.cur{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:5px 9px;border-radius:999px;background:#f2eee9}
+.cur i{width:16px;height:16px;border-radius:50%;display:block}
+.e-send{top:64px}.e-recv{top:128px}
+.e-rate{top:196px;font-size:11.5px;color:#6f6a75;display:flex;justify-content:space-between}
+.e-fee{top:220px;height:40px;border-radius:12px;border:1px solid #ebe5df;background:#fff;display:flex;align-items:center;gap:8px;padding:0 12px;font-size:11.5px;color:#6f6a75}
+.e-fee b{color:#1d1b21;font-weight:600}
+.p2 .e-fee{top:194px;border:1.5px solid transparent;background:linear-gradient(#fff,#fff) padding-box,var(--glow) border-box;box-shadow:0 8px 24px rgba(255,111,181,.25);color:#1d1b21;font-size:12px}
+.p2 .e-rate{top:244px}
+.e-btn{top:276px;height:42px;border-radius:12px;background:#1d1b21;color:#fff;display:grid;place-items:center;font-size:13px;font-weight:600}
+.chk{position:absolute;font-size:10.5px;font-weight:600;padding:4px 8px;border-radius:999px;background:#7be3a4;color:#0f2a1a;white-space:nowrap;opacity:0;transform:scale(.8);transition:opacity .35s,transform .45s cubic-bezier(.2,1.4,.4,1);box-shadow:0 6px 16px rgba(0,0,0,.25);z-index:3}
+.chk.on{opacity:1;transform:none}
+.code{position:absolute;left:288px;top:102px;right:14px;height:330px;border-radius:14px;background:#0f0e12;border:1px solid #2a2630;padding:12px 0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:10.2px;line-height:1.8;color:#cfc9d3;overflow:hidden}
+.code .ln{display:flex;padding:0 12px;white-space:pre;transition:background .4s}
+.code .ln::before{content:attr(data-n);width:18px;flex:0 0 18px;color:#4a4552;text-align:right;margin-right:12px}
+.code .ln.add{background:rgba(123,227,164,.1)}
+.code .ln.add::before{content:"+";color:#7be3a4}
+.k{color:#ff8fc7}.a{color:#ffc48a}.s{color:#a6e3b8}.c{color:#6f6a75}.g{color:#a493ff}
+.hist{position:absolute;left:0;right:0;bottom:0;display:flex;gap:8px;justify-content:center}
+.hist span{font-size:11.5px;color:var(--muted);padding:5px 10px;border-radius:999px;border:1px solid var(--line);opacity:.35;transition:opacity .4s,color .4s,border-color .4s}
+.hist span.on{opacity:1;color:var(--text);border-color:#4a4552}
+@media (max-width:980px){.huddle{width:100%;margin:0 auto 10px}}
+@media (max-width:760px){.code{display:none}.prev{left:50%;transform:translateX(-50%)}.prompt{font-size:12.5px}}
+#aurora{position:absolute;inset:0;width:100%;height:100%;z-index:-2;opacity:0;transition:opacity 2.4s ease}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(120% 70% at 50% 0%,transparent 40%,var(--ink) 92%),linear-gradient(transparent 70%,var(--ink))}
+.status{display:inline-flex;align-items:center;gap:10px;font-size:14px;color:var(--muted);padding:7px 16px 7px 12px;border:1px solid var(--line);border-radius:999px;background:rgba(20,19,23,.5);backdrop-filter:blur(8px)}
+.status i{width:8px;height:8px;border-radius:50%;background:#7be3a4;box-shadow:0 0 0 4px rgba(123,227,164,.15)}
+h1{font-size:clamp(44px,5.3vw,80px);line-height:1;letter-spacing:-.045em;font-weight:400;margin:28px 0 0;max-width:none}
+h1 .lit{background:var(--glow);-webkit-background-clip:text;background-clip:text;color:transparent;display:block}
+.lede{max-width:31em;margin:28px 0 0;color:var(--muted);font-size:clamp(17px,1.6vw,19px)}
+.lede b{color:var(--text);font-weight:500}
+.cta-row{display:flex;gap:12px;margin-top:36px;flex-wrap:wrap}
+.where{margin-top:26px;font-size:14px;color:var(--dim)}
+
+/* the one orchestrated moment: complexity comes into focus */
+.focus-in>*{filter:blur(16px);opacity:0;transform:translateY(8px)}
+.ready .focus-in>*{filter:blur(0);opacity:1;transform:none;transition:filter 1.3s cubic-bezier(.2,.7,.2,1),opacity 1.1s ease,transform 1.3s cubic-bezier(.2,.7,.2,1)}
+.ready .focus-in>*:nth-child(2){transition-delay:.12s}
+.ready .focus-in>*:nth-child(3){transition-delay:.32s}
+.ready .focus-in>*:nth-child(4){transition-delay:.45s}
+.ready .focus-in>*:nth-child(5){transition-delay:.55s}
+.ready #aurora{opacity:1}
+
+/* Clients */
+.clients{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:26px 0}
+.clients .wrap{display:flex;align-items:center;gap:36px;flex-wrap:wrap;justify-content:space-between}
+.clients p{font-size:14px;color:var(--dim);flex:0 0 auto}
+.clients ul{list-style:none;display:flex;flex-wrap:wrap;gap:10px 34px;font-size:18px;letter-spacing:-.02em;color:#cfc9d3}
+
+/* Section heads */
+section{scroll-margin-top:90px}
+.sec{padding:130px 0 0}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:56px;flex-wrap:wrap}
+h2{font-size:clamp(38px,5.4vw,68px);line-height:1.02;letter-spacing:-.04em;font-weight:400;max-width:14ch}
+.head p{max-width:30em;color:var(--muted)}
+
+/* Work */
+.feature{position:relative;display:grid;grid-template-columns:1.25fr 1fr;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:var(--surface);margin-bottom:22px;min-height:560px}
+.feature .stage{position:relative;overflow:hidden;padding:48px 0 0 48px;display:flex;align-items:flex-end}
+.feature .stage::before{content:"";position:absolute;inset:0;background:var(--tint);opacity:.9}
+.feature .stage img{position:relative;width:100%;border-radius:14px 0 0 0;box-shadow:0 30px 80px rgba(0,0,0,.45);transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.feature:hover .stage img{transform:translateY(-8px)}
+.feature .copy{padding:48px 46px;display:flex;flex-direction:column}
+.client{font-size:14px;color:var(--muted)}
+.feature h3{font-size:clamp(28px,2.8vw,38px);line-height:1.08;letter-spacing:-.03em;font-weight:400;margin:14px 0 18px}
+.feature .copy>p{color:var(--muted);font-size:16px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.tags span{font-size:13px;color:#cfc9d3;padding:5px 12px;border:1px solid var(--line);border-radius:999px}
+.metric{margin-top:auto;padding-top:34px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px}
+.metric .n{font-size:64px;line-height:.9;letter-spacing:-.05em;background:var(--glow);-webkit-background-clip:text;background-clip:text;color:transparent}
+.metric .k{font-size:14px;color:var(--muted);max-width:16em}
+.read{font-size:15px;font-weight:500;padding:10px 18px;border:1px solid var(--line);border-radius:999px;white-space:nowrap;transition:border-color .2s,background .2s}
+.feature:hover .read,.tile:hover .read{border-color:var(--text);background:var(--text);color:var(--ink)}
+.feature>a.cover{position:absolute;inset:0;z-index:2}
+.metlife{--tint:radial-gradient(90% 90% at 20% 10%,rgba(255,196,138,.35),transparent 60%),radial-gradient(80% 80% at 90% 100%,rgba(255,111,181,.22),transparent 60%)}
+.hanger{--tint:radial-gradient(90% 90% at 80% 10%,rgba(164,147,255,.35),transparent 60%),radial-gradient(80% 80% at 10% 100%,rgba(255,111,181,.2),transparent 60%)}
+
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.tile{position:relative;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);padding:34px;display:flex;flex-direction:column;min-height:400px;overflow:hidden}
+.tile .big{font-size:clamp(84px,9vw,128px);line-height:.85;letter-spacing:-.06em;margin:auto 0 0;padding-top:40px;color:var(--text)}
+.tile .big small{display:block;font-size:15px;letter-spacing:0;color:var(--muted);margin-top:14px;line-height:1.4}
+.tile h3{font-size:24px;letter-spacing:-.025em;font-weight:400;line-height:1.2;margin:12px 0 10px}
+.tile p{color:var(--muted);font-size:15px;max-width:34em}
+.tile .foot{display:flex;justify-content:space-between;align-items:center;margin-top:26px;padding-top:22px;border-top:1px solid var(--line)}
+.tile>a.cover{position:absolute;inset:0;z-index:2}
+.tile::before{content:"";position:absolute;width:420px;height:420px;border-radius:50%;right:-160px;top:-180px;background:var(--orb);filter:blur(70px);opacity:.45;pointer-events:none}
+.t1{--orb:var(--peach)}.t2{--orb:var(--lilac)}.t3{--orb:var(--pink)}.t4{--orb:#7be3a4}
+
+/* Operating model */
+.model{margin-top:130px;border-radius:var(--r-lg);border:1px solid var(--line);background:radial-gradient(70% 90% at 100% 0%,rgba(164,147,255,.18),transparent 60%),radial-gradient(60% 80% at 0% 100%,rgba(255,196,138,.12),transparent 60%),var(--surface);padding:72px 64px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.model h2{max-width:11ch}
+.model .intro{color:var(--muted);margin-top:24px;max-width:30em}
+.bars{display:flex;flex-direction:column;gap:22px}
+.bar .lab{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);margin-bottom:10px}
+.bar .lab b{color:var(--text);font-weight:500;font-size:16px}
+.track{height:14px;border-radius:999px;background:rgba(255,255,255,.05);overflow:hidden}
+.fill{height:100%;border-radius:999px}
+.before .fill{width:100%;background:#3b3742}
+.after .fill{width:33%;background:var(--glow)}
+.steps{list-style:none;counter-reset:s;display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:34px}
+.steps li{counter-increment:s;border:1px solid var(--line);border-radius:var(--r-md);padding:16px 18px;font-size:15px;background:rgba(20,19,23,.4)}
+.steps li::before{content:counter(s);display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;border:1px solid #4a4552;font-size:12px;color:var(--muted);margin-right:10px}
+.steps li span{color:var(--muted)}
+
+/* Approach */
+.principles{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line)}
+.principles article{padding:36px 32px 10px 0;border-right:1px solid var(--line)}
+.principles article+article{padding-left:32px}
+.principles article:last-child{border-right:0}
+.principles h3{font-size:26px;line-height:1.15;letter-spacing:-.03em;font-weight:400;margin-bottom:16px}
+.principles p{color:var(--muted);font-size:15.5px}
+.principles .tags{margin-top:20px}
+.note{margin-top:90px;font-size:clamp(24px,2.8vw,34px);line-height:1.3;letter-spacing:-.025em;max-width:30ch;color:#d9d3dd}
+.note span{color:var(--dim)}
+
+/* Recommendations */
+.quotes{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.quote{border:1px solid var(--line);border-radius:var(--r-lg);padding:38px;background:var(--surface);display:flex;flex-direction:column}
+.quote blockquote{font-size:21px;line-height:1.45;letter-spacing:-.015em;color:#e4dee7}
+.quote figcaption{margin-top:auto;padding-top:28px;display:flex;align-items:center;gap:14px;font-size:15px}
+.quote figcaption i{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:14px;font-weight:500;color:var(--ink);background:var(--glow)}
+.quote figcaption span{display:block;color:var(--muted);font-size:14px}
+
+/* Contact */
+.contact{margin:130px 0 0;position:relative;text-align:center;padding:120px 28px;border-top:1px solid var(--line);overflow:hidden;isolation:isolate}
+.contact::before{content:"";position:absolute;left:50%;bottom:-340px;transform:translateX(-50%);width:1100px;height:600px;border-radius:50%;background:var(--glow);filter:blur(120px);opacity:.28;z-index:-1}
+.contact h2{margin:0 auto;max-width:12ch;font-size:clamp(48px,7.4vw,100px)}
+.contact h2 .lit{background:var(--glow);-webkit-background-clip:text;background-clip:text;color:transparent}
+.contact>p{max-width:34em;margin:26px auto 0;color:var(--muted)}
+.links{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:40px}
+footer{border-top:1px solid var(--line);padding:28px 0 40px;font-size:14px;color:var(--dim)}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;background:var(--text);color:var(--ink);padding:10px 18px;border-radius:999px;font-size:14px;font-weight:500;transition:.3s;pointer-events:none;z-index:80}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+@media (max-width:980px){
+  .hero{padding-top:110px}
+  .hero-grid{grid-template-columns:1fr}
+  .huddle{order:-1;margin:0 auto 10px}
+  .feature{grid-template-columns:1fr;min-height:0}
+  .feature .stage{padding:34px 0 0 34px;min-height:300px}
+  .model{grid-template-columns:1fr;padding:48px 32px;gap:40px}
+  .principles{grid-template-columns:1fr}
+  .principles article,.principles article+article{padding:30px 0;border-right:0;border-bottom:1px solid var(--line)}
+}
+@media (max-width:760px){
+  body{font-size:16px}
+  .nav a.l{display:none}
+  .nav{width:calc(100% - 28px);justify-content:space-between}
+  .grid,.quotes{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+  .feature .copy,.tile,.quote{padding:28px}
+  .metric{flex-direction:column;align-items:flex-start}
+  .sec{padding-top:96px}
+  .model{margin-top:96px}
+}
+@media (prefers-reduced-motion:reduce){
+  .focus-in>*{filter:none;opacity:1;transform:none}
+  .ready .focus-in>*{transition:none}
+  #aurora{opacity:1;transition:none}
+  .feature .stage img{transition:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<nav class="nav" aria-label="Primary">
+  <a class="mark" href="#top">Jose Togbe</a>
+  <a class="l" href="#work">Work</a>
+  <a class="l" href="#how">How I work</a>
+  <a class="l" href="#approach">Approach</a>
+  <a class="l" href="#recommendations">Kind words</a>
+  <a class="btn solid" href="#contact">Get in touch</a>
+</nav>
+
+<main id="main">
+<header class="hero" id="top">
+  <canvas id="aurora" aria-hidden="true"></canvas>
+  <div class="wrap hero-grid">
+    <div class="focus-in">
+    <p class="status"><i aria-hidden="true"></i>Open to senior, lead, and principal roles in 2026</p>
+    <h1>Designing complex products people <span class="lit">actually understand.</span></h1>
+    <p class="lede">I'm <b>Jose Togbe</b>, a lead UX designer with a decade of experience across financial services, insurance, healthcare, and clinical tools. I focus on high-stakes products, where clarity matters most.</p>
+    <div class="cta-row">
+      <a class="btn solid" href="#work">See the work</a>
+      <a class="btn" href="Jose-Togbe-Resume.pdf" target="_blank" rel="noopener">View résumé</a>
+    </div>
+    <p class="where">Based in the United States. Remote, hybrid, or open to relocating.</p>
+  </div>
+    <div class="huddle" id="huddle" aria-hidden="true">
+      <div class="scaler" id="scaler"><div class="board" id="board">
+        <div class="win">
+          <div class="chrome"><i></i><i></i><i></i><b><em>Prototype</em> / Send money</b></div>
+          <div class="prompt" id="prompt"><span class="sp">✦</span><span class="txt" id="ptxt"></span><span class="caret"></span><span class="gen" id="gen">Generate</span></div>
+          <div class="prev" id="prev">
+            <div class="el e-hdr"><b>Send to Ana</b><span>Mexico, bank deposit</span></div>
+            <div class="el e-send amtbox"><div><small>You send</small><strong>$500.00</strong></div><span class="cur"><i style="background:linear-gradient(#3c5bd8 50%,#e34a4a 50%)"></i>USD</span></div>
+            <div class="el e-recv amtbox"><div><small>Ana gets</small><strong>8,612.40</strong></div><span class="cur"><i style="background:linear-gradient(90deg,#2e9a5a 33%,#fff 33% 66%,#d8453f 66%)"></i>MXN</span></div>
+            <div class="el e-rate"><span>Exchange rate</span><span>1 USD = 17.22 MXN</span></div>
+            <div class="el e-fee" id="fee"><span>Fee</span><b>$3.99</b><span style="margin-left:auto">Arrives in minutes</span></div>
+            <div class="el e-btn">Review transfer</div>
+            <span class="chk" style="left:140px;top:112px">✓ Contrast AA</span>
+            <span class="chk" style="left:140px;top:176px">✓ Focus order</span>
+            <span class="chk" style="left:140px;top:262px">✓ 44px targets</span>
+          </div>
+          <div class="code" id="code"></div>
+        </div>
+        <div class="hist" id="hist"><span>Build the flow</span><span>Make the fee clear</span><span>Check accessibility</span></div>
+      </div></div>
+    </div>
+  </div>
+</header>
+
+<div class="clients" aria-label="Selected teams and clients">
+  <div class="wrap">
+    <p>Teams I've designed with since 2015</p>
+    <ul>
+      <li>MetLife</li><li>Citi</li><li>Navy Federal</li><li>Morgan Stanley</li><li>E*TRADE</li><li>TIAA</li><li>Charles Schwab</li><li>Allstate</li>
+    </ul>
+  </div>
+</div>
+
+<section class="sec" id="work" aria-labelledby="work-h">
+  <div class="wrap">
+    <div class="head">
+      <h2 id="work-h">Selected case studies.</h2>
+      <p>Life insurance claims, clinical device ordering, mortgages, wealth platforms, account management, and a consumer app I designed and built. Each one shows the research, the trade-offs, and what the work was built to move.</p>
+    </div>
+
+    <article class="feature metlife">
+      <div class="stage"><img src="assets/metlife-landing.png" alt="MetLife Life Insurance Beneficiary Center landing page that beneficiaries reach from their claim kit" loading="lazy"></div>
+      <div class="copy">
+        <p class="client">MetLife, life insurance claims</p>
+        <h3>Life beneficiary claims experience.</h3>
+        <p>How beneficiaries file a life insurance claim, starting from the landing page in their claim kit. Three clear steps: find the claim-kit code, create an account, and file. For people who need help, a phone path lets a rep capture the claim on the call and send a secure link to verify, upload documents, and e-sign.</p>
+        <div class="tags"><span>Landing page</span><span>Account setup</span><span>Telephonic intake</span><span>E-signature</span></div>
+        <div class="metric"><span class="k">Self-service and phone-assisted paths, designed as one claim</span><span class="read">Read the case study</span></div>
+      </div>
+      <a class="cover" href="metlife.html" aria-label="Read the MetLife case study"></a>
+    </article>
+
+    <article class="feature hanger">
+      <div class="stage"><img src="assets/guided-configurator.png" alt="Hanger Clinic Guided Configurator alignment step for an ankle-foot orthosis order, with sample patient data" loading="lazy"></div>
+      <div class="copy">
+        <p class="client">Hanger Clinic, orthotics and prosthetics</p>
+        <h3>Guided device configurator.</h3>
+        <p>A guided configurator that helps orthotic clinicians choose and set up the right device for each patient. It starts from the mobility tasks a patient struggled with in their outcomes survey, then walks through measurements, materials, alignment, and trimlines in one place.</p>
+        <div class="tags"><span>Outcomes-informed setup</span><span>Device specification</span><span>Clinical workflow</span></div>
+        <div class="metric"><div><span class="n">$3M</span><p class="k">Revenue growth it contributed to, at only 30% adoption so far</p></div><span class="read">Read the case study</span></div>
+      </div>
+      <a class="cover" href="configurator.html" aria-label="Read the Hanger Clinic case study"></a>
+    </article>
+
+    <div class="grid">
+      <article class="tile t1">
+        <p class="client">Navy Federal Credit Union, mortgage</p>
+        <h3>Mortgage experience redesign.</h3>
+        <p>Rebuilt the application around the moments members actually got stuck, simplifying navigation and making the path to approval clear.</p>
+        <p class="big">37%<small>Lower exit rates on key pages</small></p>
+        <div class="foot"><span class="client">PDF case study</span><span class="read">Read ↗</span></div>
+        <a class="cover" href="Navy-Federal.pdf" target="_blank" rel="noopener" aria-label="Read the Navy Federal case study (PDF)"></a>
+      </article>
+      <article class="tile t2">
+        <p class="client">Morgan Stanley and E*TRADE, wealth platform</p>
+        <h3>Platform integration after acquisition.</h3>
+        <p>A unified account-linking experience that brought two customer bases together, bridging two mental models to earn trust during a critical transition.</p>
+        <p class="big">30%<small>Account-linking adoption</small></p>
+        <div class="foot"><span class="client">PDF case study</span><span class="read">Read ↗</span></div>
+        <a class="cover" href="Etrade.pdf" target="_blank" rel="noopener" aria-label="Read the Morgan Stanley and E*TRADE case study (PDF)"></a>
+      </article>
+      <article class="tile t3">
+        <p class="client">Citi, account management</p>
+        <h3>Profile management redesign.</h3>
+        <p>Restructured the profile area around how often people do each task, separating everyday updates from high-stakes changes.</p>
+        <p class="big">40%<small>Less time to finish common actions</small></p>
+        <div class="foot"><span class="client">Case study overview</span><span class="read">Read ↗</span></div>
+        <a class="cover" href="Citi.png" target="_blank" rel="noopener" aria-label="Read the Citi case study overview"></a>
+      </article>
+      <article class="tile t4">
+        <p class="client">Pactara, designed and built</p>
+        <h3>Group fitness accountability app.</h3>
+        <p>Small groups commit to a challenge and check in together. I designed and built it end to end in React, TypeScript, and Capacitor. It's live on the App Store.</p>
+        <p class="big">50+<small>Active users</small></p>
+        <div class="foot"><span class="client">pactara.app</span><span class="read">Visit ↗</span></div>
+        <a class="cover" href="https://pactara.app" target="_blank" rel="noopener" aria-label="Visit Pactara"></a>
+      </article>
+    </div>
+
+    <div class="model" id="how">
+      <div>
+        <h2>From twelve weeks to four.</h2>
+        <p class="intro">I work in a model where product, UX, front-end, back-end, and QA shape, build, and validate features in the same sessions, without traditional handoffs. My role stays anchored in research, IA, and design thinking. The model simply gets that work to users faster.</p>
+        <ol class="steps">
+          <li>Design system in code <span>is the source</span></li>
+          <li>Cursor generates <span>the UI</span></li>
+          <li>Developers wire <span>the stack</span></li>
+          <li>PO and auto QA <span>validate</span></li>
+        </ol>
+      </div>
+      <div class="bars" role="img" aria-label="Time to ship a feature: 8 to 12 weeks before, 2 to 4 weeks now">
+        <div class="bar before"><div class="lab"><span>Before</span><b>8 to 12 weeks</b></div><div class="track"><div class="fill"></div></div></div>
+        <div class="bar after"><div class="lab"><span>Now, one huddle</span><b>2 to 4 weeks</b></div><div class="track"><div class="fill"></div></div></div>
+        <p class="client" style="margin-top:6px">Built with Cursor, GitHub, Figma, and Miro.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="approach" aria-labelledby="approach-h">
+  <div class="wrap">
+    <div class="head">
+      <h2 id="approach-h">How I approach the work.</h2>
+      <p>I partner with cross-functional teams to turn research into design decisions, validate ideas through rapid prototyping, and ship work that moves real business outcomes.</p>
+    </div>
+    <div class="principles">
+      <article>
+        <h3>Anchor every project to a measurable outcome.</h3>
+        <p>Before design begins, I define what success looks like for users and for the business. A clear metric, whether conversion, completion time, or satisfaction, shapes every trade-off after that.</p>
+        <div class="tags"><span>Success metrics</span><span>Research plans</span></div>
+      </article>
+      <article>
+        <h3>Drive alignment through artifacts.</h3>
+        <p>When stakeholders stall, the issue is usually abstraction. Journey maps, service blueprints, and decision logs make trade-offs visible. A team that can point to the same artifact moves faster.</p>
+        <div class="tags"><span>Journey maps</span><span>Service blueprints</span></div>
+      </article>
+      <article>
+        <h3>Design within compliance, not around it.</h3>
+        <p>I've shipped inside HMDA, TRID, TILA, and fiduciary frameworks. Regulation is a design constraint like accessibility or screen size. The best solutions make guardrails feel like guidance.</p>
+        <div class="tags"><span>HMDA</span><span>TRID</span><span>TILA</span></div>
+      </article>
+    </div>
+    <p class="note">Much of my work has been in industries that aren't known for great design. <span>That's where I learned to make complex things clear, and those lessons carry to any product where the details matter.</span></p>
+  </div>
+</section>
+
+<section class="sec" id="recommendations" aria-labelledby="rec-h">
+  <div class="wrap">
+    <div class="head">
+      <h2 id="rec-h">What collaborators say.</h2>
+      <p>Four of many. More on <a href="https://www.linkedin.com/in/jose-togbe/" target="_blank" rel="noopener" style="color:var(--text);border-bottom:1px solid var(--line)">LinkedIn</a>.</p>
+    </div>
+    <div class="quotes">
+      <figure class="quote"><blockquote>“One of the most talented, empathetic, strategic and creative individuals I've collaborated with. He brings a visionary perspective while ensuring the finer details align with the broader goals.”</blockquote><figcaption><i aria-hidden="true">ES</i><div>Erin Spottswood<span>Sr. Experience Researcher</span></div></figcaption></figure>
+      <figure class="quote"><blockquote>“An intelligent and intuitive information architect. His skills are top-notch and his breadth of experience brings a broad spectrum of expertise to every engagement.”</blockquote><figcaption><i aria-hidden="true">JD</i><div>Jim Dalglish<span>Director, UX Research and Strategy</span></div></figcaption></figure>
+      <figure class="quote"><blockquote>“As a UX writer, I couldn't ask for a better partner. Jose's keen design insights and openness to feedback have elevated our work, making it truly user-centered.”</blockquote><figcaption><i aria-hidden="true">GS</i><div>Gopa Shahane<span>UX Content Designer</span></div></figcaption></figure>
+      <figure class="quote"><blockquote>“His insights and data-driven approach have enhanced the team's strategies. He has an exceptional ability to empathize with users, extracting insights that drive our design decisions.”</blockquote><figcaption><i aria-hidden="true">CG</i><div>Chris Garvey<span>Sr. Manager, Experience Design</span></div></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact" aria-labelledby="contact-h">
+  <h2 id="contact-h">Let's build something <span class="lit">clear.</span></h2>
+  <p>I'm open to senior, lead, and principal UX roles, full-time or contract, on complex, high-stakes products in any industry.</p>
+  <div class="links">
+    <button class="btn solid" id="copy" data-email="josetogbe@gmail.com">Copy email</button>
+    <a class="btn" href="mailto:josetogbe@gmail.com">josetogbe@gmail.com</a>
+    <a class="btn" href="https://www.linkedin.com/in/jose-togbe/" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <a class="btn" href="https://www.behance.net/josetogbe" target="_blank" rel="noopener">Behance ↗</a>
+    <a class="btn" href="Jose-Togbe-Resume.pdf" target="_blank" rel="noopener">Résumé ↗</a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap"><span>© 2026 Jose Togbe</span><span>English and Français</span><span>Designed and built with intent</span></div>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){ document.documentElement.classList.add('ready'); }); });
+
+  // Ambient aurora: a few soft lights drifting slowly behind the hero
+  var c = document.getElementById('aurora'), x = c.getContext('2d'), w, h, dpr = Math.min(window.devicePixelRatio||1, 1.5);
+  var orbs = [
+    {c:[255,196,138], r:.55, x:.28, y:.30, sx:.00011, sy:.00007, p:0},
+    {c:[255,111,181], r:.50, x:.70, y:.35, sx:.00009, sy:.00012, p:2},
+    {c:[164,147,255], r:.60, x:.50, y:.75, sx:.00007, sy:.00010, p:4}
+  ];
+  function size(){ w = c.clientWidth; h = c.clientHeight; c.width = w*dpr; c.height = h*dpr; x.setTransform(dpr,0,0,dpr,0,0); }
+  function draw(t){
+    x.clearRect(0,0,w,h);
+    x.globalCompositeOperation = 'lighter';
+    orbs.forEach(function(o){
+      var ox = (o.x + Math.sin(t*o.sx + o.p)*.12)*w, oy = (o.y + Math.cos(t*o.sy + o.p)*.10)*h, R = o.r*Math.max(w,h);
+      var g = x.createRadialGradient(ox,oy,0,ox,oy,R);
+      g.addColorStop(0,'rgba('+o.c+',.30)'); g.addColorStop(1,'rgba('+o.c+',0)');
+      x.fillStyle = g; x.fillRect(0,0,w,h);
+    });
+    if(!reduce && visible) requestAnimationFrame(draw);
+  }
+  var visible = true;
+  new IntersectionObserver(function(e){ var was = visible; visible = e[0].isIntersecting; if(visible && !was && !reduce) requestAnimationFrame(draw); }).observe(c);
+  size(); draw(0); window.addEventListener('resize', function(){ size(); if(reduce) draw(0); });
+
+  // Copy email
+  var b = document.getElementById('copy'), toast = document.getElementById('toast');
+  b.addEventListener('click', function(){
+    var done = function(){ toast.textContent = 'Email copied'; toast.classList.add('on'); setTimeout(function(){ toast.classList.remove('on'); }, 1800); };
+    if(navigator.clipboard){ navigator.clipboard.writeText(b.dataset.email).then(done, function(){ location.href = 'mailto:' + b.dataset.email; }); }
+    else { location.href = 'mailto:' + b.dataset.email; }
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var host=document.getElementById('huddle'); if(!host) return;
+  var scaler=document.getElementById('scaler'), board=document.getElementById('board'), prompt=document.getElementById('prompt'), ptxt=document.getElementById('ptxt'), gen=document.getElementById('gen'), prev=document.getElementById('prev'), code=document.getElementById('code');
+  var els=[].slice.call(prev.querySelectorAll('.el')), chks=[].slice.call(prev.querySelectorAll('.chk')), hist=[].slice.call(document.querySelectorAll('#hist span'));
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function fit(){ scaler.style.setProperty('--s', Math.min(host.clientWidth/640, host.clientHeight/560)); }
+  new ResizeObserver(fit).observe(host); fit();
+  function sleep(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
+  var lines=[
+    '<span class="k">&lt;Screen</span> <span class="a">title</span>=<span class="s">"Send to Ana"</span><span class="k">&gt;</span>',
+    '  <span class="k">&lt;AmountInput</span> <span class="a">label</span>=<span class="s">"You send"</span> <span class="a">currency</span>=<span class="s">"USD"</span> <span class="k">/&gt;</span>',
+    '  <span class="k">&lt;AmountInput</span> <span class="a">label</span>=<span class="s">"Ana gets"</span> <span class="a">readOnly</span> <span class="k">/&gt;</span>',
+    '  <span class="k">&lt;Rate</span> <span class="a">from</span>=<span class="s">"USD"</span> <span class="a">to</span>=<span class="s">"MXN"</span> <span class="k">/&gt;</span>',
+    '  <span class="k">&lt;FeeRow</span> <span class="a">fee</span>={<span class="g">3.99</span>} <span class="a">eta</span>=<span class="s">"minutes"</span> <span class="k">/&gt;</span>',
+    '  <span class="k">&lt;Button</span> <span class="a">variant</span>=<span class="s">"primary"</span><span class="k">&gt;</span>Review<span class="k">&lt;/Button&gt;</span>',
+    '<span class="k">&lt;/Screen&gt;</span>'
+  ];
+  var feeEmph='  <span class="k">&lt;FeeRow</span> <span class="a">fee</span>={<span class="g">3.99</span>} <span class="a">eta</span>=<span class="s">"minutes"</span> <span class="a">emphasis</span> <span class="k">/&gt;</span>';
+  var a11y='<span class="c">// a11y: contrast AA, focus order, 44px targets</span>';
+  function renum(){ [].slice.call(code.children).forEach(function(l,i){ l.dataset.n=i+1; }); }
+  function addLine(html, before){ var d=document.createElement('div'); d.className='ln'; d.innerHTML='<span>'+html+'</span>'; if(before) code.insertBefore(d,before); else code.appendChild(d); renum(); return d; }
+  async function type(t){ ptxt.textContent=''; prompt.classList.add('live'); for(var i=0;i<t.length;i++){ ptxt.textContent+=t[i]; await sleep(28); } await sleep(250); gen.classList.add('hit'); await sleep(160); gen.classList.remove('hit'); prompt.classList.remove('live'); }
+  function step(i){ hist.forEach(function(h,k){ h.classList.toggle('on', k===i); }); }
+  var tilt={x:0,y:0}, tt={x:0,y:0}, running=true;
+  addEventListener('pointermove',function(e){ tt.x=(e.clientX/innerWidth-.5)*2; tt.y=(e.clientY/innerHeight-.5)*2; },{passive:true});
+  function frame(){ tilt.x+=(tt.x-tilt.x)*.06; tilt.y+=(tt.y-tilt.y)*.06; board.style.transform='rotateX('+(8-tilt.y*5)+'deg) rotateY('+(-14+tilt.x*8)+'deg)'; if(running) requestAnimationFrame(frame); }
+  if(reduce){ els.forEach(function(e){ e.classList.add('on'); }); chks.forEach(function(c){ c.classList.add('on'); }); prev.classList.add('p2'); lines.forEach(function(l){ addLine(l); }); ptxt.textContent='Check accessibility'; step(2); board.style.transform='rotateX(8deg) rotateY(-14deg)'; return; }
+  new IntersectionObserver(function(es){ var v=es[0].isIntersecting; if(v&&!running){ running=true; requestAnimationFrame(frame);} running=v; }).observe(host);
+  requestAnimationFrame(frame);
+  (async function loop(){
+    for(;;){
+      if(!running){ await sleep(500); continue; }
+      els.forEach(function(e){ e.classList.remove('on'); }); chks.forEach(function(c){ c.classList.remove('on'); }); prev.classList.remove('p2'); code.innerHTML=''; ptxt.textContent=''; step(0);
+      await sleep(700);
+      await type('A first-time user sends money to family abroad');
+      for(var i=0;i<els.length;i++){ els[i].classList.add('on'); addLine(lines[i]); await sleep(330); }
+      addLine(lines[6]); await sleep(1500);
+      step(1); await type('Make the fee impossible to miss');
+      prev.classList.add('p2');
+      var ls=code.children, feeLn=ls[4], rateLn=ls[3];
+      code.insertBefore(feeLn, rateLn); feeLn.innerHTML='<span>'+feeEmph+'</span>'; feeLn.classList.add('add'); renum();
+      await sleep(1900);
+      step(2); await type('Check accessibility');
+      var cl=addLine(a11y, code.firstChild); cl.classList.add('add');
+      for(var j=0;j<chks.length;j++){ chks[j].classList.add('on'); await sleep(320); }
+      await sleep(3200);
+    }
+  })();
+})();
+</script>
+</body>
+</html>
