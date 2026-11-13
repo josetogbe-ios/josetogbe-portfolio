@@ -1,681 +1,412 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Jose Togbe</title>
+<title>Jose Togbe, Lead UX Designer</title>
+<meta name="description" content="Lead UX designer. 10+ years making complex products clear and measurable, across financial services, insurance, healthcare, and clinical tools.">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="description" content="Lead UX designer. 10+ years making complex products clear and measurable, across financial services, insurance, healthcare, and clinical tools.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#F4F3EE; --bg-2:#ECEAE2; --card:#FBFAF6;
-  --ink:#25281F; --ink-2:#5D6155; --ink-3:#85897B;
-  --line:#DCDAD0; --line-2:#C9C7BC;
-  --accent:#5B7049; --accent-soft:#E3E8D8;
-  --wash-a:rgba(190,219,184,.60); --wash-b:rgba(240,224,172,.50); --wash-c:rgba(244,202,184,.45);
-  --shadow:0 1px 2px rgba(37,40,31,.05),0 18px 40px -18px rgba(37,40,31,.22);
-  /* story panel is dusk in both themes */
-  --dusk-1:#231F3B; --dusk-2:#5B4368; --dusk-3:#B98A92; --dusk-ink:#FFF1E9; --dusk-ink-2:#E2D2E1; --dusk-ink-3:#BCADC9;
-  --sans:"Instrument Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --ink:#141317;
+  --surface:#1c1a20;
+  --raise:#24212a;
+  --line:#2f2b35;
+  --text:#f3efea;
+  --muted:#a29da7;
+  --dim:#6f6a75;
+  --peach:#ffc48a;
+  --pink:#ff6fb5;
+  --lilac:#a493ff;
+  --glow:linear-gradient(90deg,var(--peach) 0%,var(--pink) 52%,var(--lilac) 100%);
+  --wrap:1180px;
+  --r-lg:28px;
+  --r-md:18px;
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    color-scheme:dark;
-    --bg:#141611; --bg-2:#1A1D16; --card:#1C1F18;
-    --ink:#ECEBE3; --ink-2:#B0B3A6; --ink-3:#7F8375;
-    --line:#2C3027; --line-2:#3A3F33;
-    --accent:#AFC495; --accent-soft:#252C1E;
-    --wash-a:rgba(92,120,84,.28); --wash-b:rgba(120,104,60,.20); --wash-c:rgba(120,78,70,.18);
-    --shadow:0 1px 2px rgba(0,0,0,.3),0 18px 40px -18px rgba(0,0,0,.6);
-  }
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--ink);color:var(--text);font-family:Geist,system-ui,sans-serif;font-size:17px;line-height:1.6;font-weight:400;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--pink);outline-offset:3px;border-radius:8px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
+.skip{position:absolute;left:-999px;top:12px;background:var(--text);color:var(--ink);padding:8px 14px;border-radius:999px;z-index:100}
+.skip:focus{left:12px}
+
+/* Nav: floating pill */
+.nav{position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:50;display:flex;align-items:center;gap:6px;padding:6px 6px 6px 18px;border:1px solid rgba(255,255,255,.08);border-radius:999px;background:rgba(28,26,32,.62);backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);white-space:nowrap}
+.nav .mark{font-weight:600;letter-spacing:-.02em;margin-right:10px;font-size:15px}
+.nav a.l{font-size:14px;color:var(--muted);padding:8px 12px;border-radius:999px;transition:color .2s,background .2s}
+.nav a.l:hover{color:var(--text);background:rgba(255,255,255,.05)}
+.btn{display:inline-flex;align-items:center;gap:8px;line-height:1.3;font-size:15px;font-weight:500;padding:11px 20px;border-radius:999px;border:1px solid var(--line);color:var(--text);background:transparent;transition:border-color .2s,background .2s;cursor:pointer;font-family:inherit}
+.btn:hover{border-color:#4a4552;background:rgba(255,255,255,.03)}
+.btn.solid{background:var(--text);color:var(--ink);border-color:var(--text)}
+.btn.solid:hover{background:#fff}
+.nav .btn{padding:8px 16px;font-size:14px}
+
+/* Hero */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;padding:140px 0 110px;isolation:isolate;overflow:hidden}
+#aurora{position:absolute;inset:0;width:100%;height:100%;z-index:-2;opacity:0;transition:opacity 2.4s ease}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(120% 70% at 50% 0%,transparent 40%,var(--ink) 92%),linear-gradient(transparent 70%,var(--ink))}
+.status{display:inline-flex;align-items:center;gap:10px;font-size:14px;color:var(--muted);padding:7px 16px 7px 12px;border:1px solid var(--line);border-radius:999px;background:rgba(20,19,23,.5);backdrop-filter:blur(8px)}
+.status i{width:8px;height:8px;border-radius:50%;background:#7be3a4;box-shadow:0 0 0 4px rgba(123,227,164,.15)}
+h1{font-size:clamp(44px,7.2vw,98px);line-height:.98;letter-spacing:-.045em;font-weight:400;margin:28px auto 0;max-width:15.5ch}
+h1 .lit{background:var(--glow);-webkit-background-clip:text;background-clip:text;color:transparent;display:block}
+.lede{max-width:34em;margin:30px auto 0;color:var(--muted);font-size:clamp(17px,1.6vw,19px)}
+.lede b{color:var(--text);font-weight:500}
+.cta-row{display:flex;gap:12px;justify-content:center;margin-top:38px;flex-wrap:wrap}
+.where{margin-top:26px;font-size:14px;color:var(--dim)}
+
+/* the one orchestrated moment: complexity comes into focus */
+.focus-in>*{filter:blur(16px);opacity:0;transform:translateY(8px)}
+.ready .focus-in>*{filter:blur(0);opacity:1;transform:none;transition:filter 1.3s cubic-bezier(.2,.7,.2,1),opacity 1.1s ease,transform 1.3s cubic-bezier(.2,.7,.2,1)}
+.ready .focus-in>*:nth-child(2){transition-delay:.12s}
+.ready .focus-in>*:nth-child(3){transition-delay:.32s}
+.ready .focus-in>*:nth-child(4){transition-delay:.45s}
+.ready .focus-in>*:nth-child(5){transition-delay:.55s}
+.ready #aurora{opacity:1}
+
+/* Clients */
+.clients{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:26px 0}
+.clients .wrap{display:flex;align-items:center;gap:36px;flex-wrap:wrap;justify-content:space-between}
+.clients p{font-size:14px;color:var(--dim);flex:0 0 auto}
+.clients ul{list-style:none;display:flex;flex-wrap:wrap;gap:10px 34px;font-size:18px;letter-spacing:-.02em;color:#cfc9d3}
+
+/* Section heads */
+section{scroll-margin-top:90px}
+.sec{padding:130px 0 0}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:56px;flex-wrap:wrap}
+h2{font-size:clamp(38px,5.4vw,68px);line-height:1.02;letter-spacing:-.04em;font-weight:400;max-width:14ch}
+.head p{max-width:30em;color:var(--muted)}
+
+/* Work */
+.feature{position:relative;display:grid;grid-template-columns:1.25fr 1fr;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:var(--surface);margin-bottom:22px;min-height:560px}
+.feature .stage{position:relative;overflow:hidden;padding:48px 0 0 48px;display:flex;align-items:flex-end}
+.feature .stage::before{content:"";position:absolute;inset:0;background:var(--tint);opacity:.9}
+.feature .stage img{position:relative;width:100%;border-radius:14px 0 0 0;box-shadow:0 30px 80px rgba(0,0,0,.45);transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.feature:hover .stage img{transform:translateY(-8px)}
+.feature .copy{padding:48px 46px;display:flex;flex-direction:column}
+.client{font-size:14px;color:var(--muted)}
+.feature h3{font-size:clamp(28px,2.8vw,38px);line-height:1.08;letter-spacing:-.03em;font-weight:400;margin:14px 0 18px}
+.feature .copy>p{color:var(--muted);font-size:16px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.tags span{font-size:13px;color:#cfc9d3;padding:5px 12px;border:1px solid var(--line);border-radius:999px}
+.metric{margin-top:auto;padding-top:34px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px}
+.metric .n{font-size:64px;line-height:.9;letter-spacing:-.05em;background:var(--glow);-webkit-background-clip:text;background-clip:text;color:transparent}
+.metric .k{font-size:14px;color:var(--muted);max-width:16em}
+.read{font-size:15px;font-weight:500;padding:10px 18px;border:1px solid var(--line);border-radius:999px;white-space:nowrap;transition:border-color .2s,background .2s}
+.feature:hover .read,.tile:hover .read{border-color:var(--text);background:var(--text);color:var(--ink)}
+.feature>a.cover{position:absolute;inset:0;z-index:2}
+.metlife{--tint:radial-gradient(90% 90% at 20% 10%,rgba(255,196,138,.35),transparent 60%),radial-gradient(80% 80% at 90% 100%,rgba(255,111,181,.22),transparent 60%)}
+.hanger{--tint:radial-gradient(90% 90% at 80% 10%,rgba(164,147,255,.35),transparent 60%),radial-gradient(80% 80% at 10% 100%,rgba(255,111,181,.2),transparent 60%)}
+
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.tile{position:relative;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);padding:34px;display:flex;flex-direction:column;min-height:400px;overflow:hidden}
+.tile .big{font-size:clamp(84px,9vw,128px);line-height:.85;letter-spacing:-.06em;margin:auto 0 0;padding-top:40px;color:var(--text)}
+.tile .big small{display:block;font-size:15px;letter-spacing:0;color:var(--muted);margin-top:14px;line-height:1.4}
+.tile h3{font-size:24px;letter-spacing:-.025em;font-weight:400;line-height:1.2;margin:12px 0 10px}
+.tile p{color:var(--muted);font-size:15px;max-width:34em}
+.tile .foot{display:flex;justify-content:space-between;align-items:center;margin-top:26px;padding-top:22px;border-top:1px solid var(--line)}
+.tile>a.cover{position:absolute;inset:0;z-index:2}
+.tile::before{content:"";position:absolute;width:420px;height:420px;border-radius:50%;right:-160px;top:-180px;background:var(--orb);filter:blur(70px);opacity:.45;pointer-events:none}
+.t1{--orb:var(--peach)}.t2{--orb:var(--lilac)}.t3{--orb:var(--pink)}.t4{--orb:#7be3a4}
+
+/* Operating model */
+.model{margin-top:130px;border-radius:var(--r-lg);border:1px solid var(--line);background:radial-gradient(70% 90% at 100% 0%,rgba(164,147,255,.18),transparent 60%),radial-gradient(60% 80% at 0% 100%,rgba(255,196,138,.12),transparent 60%),var(--surface);padding:72px 64px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.model h2{max-width:11ch}
+.model .intro{color:var(--muted);margin-top:24px;max-width:30em}
+.bars{display:flex;flex-direction:column;gap:22px}
+.bar .lab{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);margin-bottom:10px}
+.bar .lab b{color:var(--text);font-weight:500;font-size:16px}
+.track{height:14px;border-radius:999px;background:rgba(255,255,255,.05);overflow:hidden}
+.fill{height:100%;border-radius:999px}
+.before .fill{width:100%;background:#3b3742}
+.after .fill{width:33%;background:var(--glow)}
+.steps{list-style:none;counter-reset:s;display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:34px}
+.steps li{counter-increment:s;border:1px solid var(--line);border-radius:var(--r-md);padding:16px 18px;font-size:15px;background:rgba(20,19,23,.4)}
+.steps li::before{content:counter(s);display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;border:1px solid #4a4552;font-size:12px;color:var(--muted);margin-right:10px}
+.steps li span{color:var(--muted)}
+
+/* Approach */
+.principles{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line)}
+.principles article{padding:36px 32px 10px 0;border-right:1px solid var(--line)}
+.principles article+article{padding-left:32px}
+.principles article:last-child{border-right:0}
+.principles h3{font-size:26px;line-height:1.15;letter-spacing:-.03em;font-weight:400;margin-bottom:16px}
+.principles p{color:var(--muted);font-size:15.5px}
+.principles .tags{margin-top:20px}
+.note{margin-top:90px;font-size:clamp(24px,2.8vw,34px);line-height:1.3;letter-spacing:-.025em;max-width:30ch;color:#d9d3dd}
+.note span{color:var(--dim)}
+
+/* Recommendations */
+.quotes{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.quote{border:1px solid var(--line);border-radius:var(--r-lg);padding:38px;background:var(--surface);display:flex;flex-direction:column}
+.quote blockquote{font-size:21px;line-height:1.45;letter-spacing:-.015em;color:#e4dee7}
+.quote figcaption{margin-top:auto;padding-top:28px;display:flex;align-items:center;gap:14px;font-size:15px}
+.quote figcaption i{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:14px;font-weight:500;color:var(--ink);background:var(--glow)}
+.quote figcaption span{display:block;color:var(--muted);font-size:14px}
+
+/* Contact */
+.contact{margin:130px 0 0;position:relative;text-align:center;padding:120px 28px;border-top:1px solid var(--line);overflow:hidden;isolation:isolate}
+.contact::before{content:"";position:absolute;left:50%;bottom:-340px;transform:translateX(-50%);width:1100px;height:600px;border-radius:50%;background:var(--glow);filter:blur(120px);opacity:.28;z-index:-1}
+.contact h2{margin:0 auto;max-width:12ch;font-size:clamp(48px,7.4vw,100px)}
+.contact h2 .lit{background:var(--glow);-webkit-background-clip:text;background-clip:text;color:transparent}
+.contact>p{max-width:34em;margin:26px auto 0;color:var(--muted)}
+.links{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:40px}
+footer{border-top:1px solid var(--line);padding:28px 0 40px;font-size:14px;color:var(--dim)}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;background:var(--text);color:var(--ink);padding:10px 18px;border-radius:999px;font-size:14px;font-weight:500;transition:.3s;pointer-events:none;z-index:80}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+@media (max-width:980px){
+  .feature{grid-template-columns:1fr;min-height:0}
+  .feature .stage{padding:34px 0 0 34px;min-height:300px}
+  .model{grid-template-columns:1fr;padding:48px 32px;gap:40px}
+  .principles{grid-template-columns:1fr}
+  .principles article,.principles article+article{padding:30px 0;border-right:0;border-bottom:1px solid var(--line)}
 }
-:root[data-theme="dark"]{
-  color-scheme:dark;
-  --bg:#141611; --bg-2:#1A1D16; --card:#1C1F18;
-  --ink:#ECEBE3; --ink-2:#B0B3A6; --ink-3:#7F8375;
-  --line:#2C3027; --line-2:#3A3F33;
-  --accent:#AFC495; --accent-soft:#252C1E;
-  --wash-a:rgba(92,120,84,.28); --wash-b:rgba(120,104,60,.20); --wash-c:rgba(120,78,70,.18);
-  --shadow:0 1px 2px rgba(0,0,0,.3),0 18px 40px -18px rgba(0,0,0,.6);
+@media (max-width:760px){
+  body{font-size:16px}
+  .nav a.l{display:none}
+  .nav{width:calc(100% - 28px);justify-content:space-between}
+  .grid,.quotes{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+  .feature .copy,.tile,.quote{padding:28px}
+  .metric{flex-direction:column;align-items:flex-start}
+  .sec{padding-top:96px}
+  .model{margin-top:96px}
 }
-
-*{box-sizing:border-box}
-[hidden]{display:none!important}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-a{color:inherit}
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
-.wrap{max-width:1320px;margin-inline:auto;padding-inline:clamp(16px,4vw,48px)}
-.label{font-size:11.5px;letter-spacing:.02em;color:var(--ink-3)}
-.mono{font-family:var(--mono);font-size:11px;letter-spacing:.02em}
-.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:var(--bg);padding:8px 12px;border-radius:6px;z-index:99}
-.skip:focus{left:16px}
-h1,h2,h3{font-weight:400;margin:0;text-wrap:balance}
-
-/* NAV */
-.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .3s}
-.nav.scrolled{border-bottom-color:var(--line)}
-.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:68px}
-.brand{font-size:20px;font-weight:600;letter-spacing:-.045em;text-decoration:none}
-.nav-links{display:flex;align-items:center;gap:26px;font-size:13px}
-.nav-links a{text-decoration:none;color:var(--ink-2);transition:color .2s}
-.nav-links a:hover{color:var(--ink)}
-.nav-links .contact{color:var(--ink)}
-.clock{display:flex;align-items:center;gap:8px;color:var(--ink-3)}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);display:inline-block;flex:none}
-@media (max-width:760px){.nav-links a:not(.contact){display:none}.clock{display:none}}
-
-/* HERO */
-.hero{position:relative;overflow:hidden;padding-block:clamp(56px,9vw,120px) clamp(48px,6vw,80px)}
-.hero::before{content:"";position:absolute;inset:-40% -10% auto -10%;height:120%;z-index:-1;
-  background:radial-gradient(40% 55% at 12% 20%,var(--wash-a),transparent 70%),radial-gradient(35% 50% at 55% 8%,var(--wash-b),transparent 70%),radial-gradient(40% 55% at 92% 18%,var(--wash-c),transparent 70%);filter:blur(10px)}
-.hero-grid{display:grid;grid-template-columns:minmax(0,1.9fr) minmax(0,1fr);gap:clamp(32px,6vw,96px);align-items:end}
-.hero h1{font-size:clamp(44px,6vw,88px);line-height:.98;letter-spacing:-.058em}
-.hero h1 em{font-style:normal;color:var(--accent)}
-.hero-side{display:grid;gap:22px;max-width:420px;padding-bottom:10px}
-.hero-side p{margin:0;font-size:17.5px;line-height:1.62;color:var(--ink-2);letter-spacing:-.01em}
-.hero-side p b{color:var(--ink);font-weight:500}
-.status{display:grid;gap:6px;font-size:12px;color:var(--ink-3)}
-.status .row{display:flex;align-items:center;gap:10px}
-@media (max-width:900px){.hero-grid{grid-template-columns:minmax(0,1fr);align-items:start}}
-
-/* STORY PANEL */
-.story{position:relative;border-radius:6px;overflow:hidden;color:var(--dusk-ink);isolation:isolate;
-  background:linear-gradient(172deg,var(--dusk-1) 0%,var(--dusk-2) 55%,var(--dusk-3) 100%);min-height:620px}
-.story canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
-.story-inner{position:relative;padding:clamp(22px,3.4vw,44px);display:grid;gap:clamp(36px,5vw,64px)}
-.story-top{display:flex;justify-content:space-between;gap:16px;font-size:11px;letter-spacing:.03em;color:var(--dusk-ink-2)}
-.story-head{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:40px;align-items:end}
-.story .kicker{font-size:12px;color:var(--dusk-ink-3);margin-bottom:18px}
-.story h2{font-size:clamp(40px,5.4vw,78px);line-height:1;letter-spacing:-.05em;color:var(--dusk-ink)}
-.story h2 em{font-style:normal;color:#F3C9B4}
-.story-lede{margin:0;font-size:16.5px;line-height:1.7;color:var(--dusk-ink-2);max-width:460px}
-.story-lede b{color:var(--dusk-ink);font-weight:500}
-.run{appearance:none;cursor:pointer;display:inline-flex;align-items:center;gap:14px;padding:12px 18px 12px 14px;border-radius:6px;
-  background:rgba(255,240,230,.10);border:1px solid rgba(255,240,230,.22);color:var(--dusk-ink);font:inherit;font-size:13px;backdrop-filter:blur(6px);transition:background .2s}
-.run:hover{background:rgba(255,240,230,.18)}
-.run .tri{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:rgba(255,240,230,.16)}
-.run small{display:block;font-size:10.5px;color:var(--dusk-ink-3)}
-.cycle{display:grid;grid-template-columns:auto 1fr;gap:clamp(24px,4vw,56px);align-items:stretch;border-top:1px solid rgba(255,240,230,.18);padding-top:28px}
-.weeks{display:flex;align-items:center;gap:22px}
-.weeks .n{font-size:clamp(40px,4.4vw,60px);letter-spacing:-.05em;line-height:1;font-variant-numeric:tabular-nums}
-.weeks .n.before{color:var(--dusk-ink-3);text-decoration:line-through;text-decoration-thickness:1px}
-.weeks .cap{font-size:10.5px;color:var(--dusk-ink-3);margin-top:6px;letter-spacing:.03em}
-.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;list-style:none;margin:0;padding:0}
-.steps li{border:1px solid rgba(255,240,230,.18);border-radius:6px;padding:14px;display:grid;gap:18px;transition:background .4s,border-color .4s,transform .4s}
-.steps li .i{font-family:var(--mono);font-size:10.5px;color:var(--dusk-ink-3)}
-.steps li .t{font-size:15px;line-height:1.3;letter-spacing:-.01em}
-.steps li .t span{color:var(--dusk-ink-3)}
-.steps li.on{background:rgba(255,240,230,.14);border-color:rgba(243,201,180,.7);transform:translateY(-3px)}
-.team{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.chip{display:inline-flex;align-items:center;gap:8px;padding:6px 12px 6px 6px;border-radius:999px;background:rgba(255,240,230,.08);border:1px solid rgba(255,240,230,.16);font-size:12px;color:var(--dusk-ink-2)}
-.chip b{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:9.5px;font-weight:600;background:rgba(255,240,230,.18);color:var(--dusk-ink)}
-.chip.me b{background:#F3C9B4;color:#2A2338}
-.story-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 48px;font-size:14.5px;line-height:1.7;color:var(--dusk-ink-2)}
-.story-cols p{margin:0}
-.story-cols b{color:var(--dusk-ink);font-weight:500}
-.story-foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:center}
-.stack{display:flex;gap:18px;font-size:12px;color:var(--dusk-ink-3)}
-.stack span:first-child{color:var(--dusk-ink-2)}
-@media (max-width:900px){.story-head,.cycle,.story-cols{grid-template-columns:minmax(0,1fr)}.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
-
-/* CLIENTS */
-.section{padding-block:clamp(72px,9vw,128px)}
-.sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:22px}
-.clients{--line-soft:color-mix(in srgb,var(--line) 45%,transparent);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line-soft);border-left:1px solid var(--line-soft)}
-.clients div{border-right:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);min-height:96px;display:grid;place-items:center;padding:16px;text-align:center;color:var(--ink-2)}
-.w1{font-size:21px;font-weight:600;letter-spacing:-.04em}
-.w2{font-size:15px;font-weight:500;letter-spacing:.14em;text-transform:uppercase}
-.w3{font-size:20px;letter-spacing:-.02em}
-.w4{font-size:13px;font-weight:600;letter-spacing:.22em;text-transform:uppercase}
-.stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;margin-top:48px;border-top:1px solid var(--line)}
-.stats div{padding:20px 20px 0 0}
-.stats .v{font-size:clamp(30px,3.2vw,44px);letter-spacing:-.05em;line-height:1;font-variant-numeric:tabular-nums}
-.stats .k{font-size:12.5px;color:var(--ink-3);margin-top:10px;line-height:1.45}
-@media (max-width:760px){.clients{grid-template-columns:repeat(2,minmax(0,1fr))}.stats{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:24px}}
-
-/* WORK */
-.work-title{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:40px;align-items:end;margin-bottom:clamp(36px,5vw,64px)}
-.h2{font-size:clamp(38px,4.6vw,64px);line-height:1.02;letter-spacing:-.05em}
-.h2 em{font-style:normal;color:var(--accent)}
-.intro{margin:0;color:var(--ink-2);font-size:16.5px;line-height:1.65;max-width:440px}
-@media (max-width:900px){.work-title{grid-template-columns:minmax(0,1fr)}}
-
-.recon{background:var(--card);border:1px solid var(--line);border-radius:6px;box-shadow:var(--shadow);display:grid;grid-template-columns:230px minmax(0,1fr);overflow:hidden;min-height:470px}
-.rside{border-right:1px solid var(--line);padding:18px;display:grid;align-content:start;gap:4px;background:var(--bg)}
-.rbrand{display:flex;align-items:center;gap:10px;font-size:12.5px;font-weight:600;margin-bottom:18px;letter-spacing:-.01em}
-.rbrand i{width:26px;height:26px;border-radius:6px;background:var(--ink);display:grid;place-items:center;color:var(--bg);font-style:normal;font-size:11px}
-.rstep{appearance:none;border:0;background:none;font:inherit;text-align:left;cursor:pointer;display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:center;padding:9px 10px;border-radius:6px;font-size:13px;color:var(--ink-2)}
-.rstep .n{width:22px;height:22px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;font-family:var(--mono);font-size:10px}
-.rstep:hover{background:var(--bg-2)}
-.rstep[aria-selected="true"]{background:var(--accent-soft);color:var(--ink)}
-.rstep[aria-selected="true"] .n{background:var(--accent);border-color:var(--accent);color:var(--card)}
-.rstep.done .n{border-color:var(--accent);color:var(--accent)}
-.rmain{padding:clamp(18px,2.6vw,32px);display:grid;gap:22px;align-content:start}
-.rtop{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.rtop h3{font-size:22px;letter-spacing:-.03em}
-.rail{display:flex;gap:6px}
-.rail span{height:4px;flex:1;border-radius:2px;background:var(--line)}
-.rail span.on{background:var(--accent)}
-.rbody{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:18px}
-.panel{border:1px solid var(--line);border-radius:6px;padding:18px;display:grid;gap:12px;align-content:start;background:var(--card)}
-.panel .ttl{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
-.field{display:grid;gap:6px}
-.field .l{font-size:12px;color:var(--ink-2)}
-.field .b{height:36px;border:1px solid var(--line-2);border-radius:5px;background:var(--bg);display:flex;align-items:center;padding-inline:12px;font-size:13px;color:var(--ink-2)}
-.field .h{font-size:11.5px;color:var(--accent)}
-.checkrow{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink-2);padding-block:6px;border-bottom:1px dashed var(--line)}
-.checkrow:last-child{border-bottom:0}
-.checkrow i{width:16px;height:16px;border-radius:4px;border:1px solid var(--line-2);flex:none;display:grid;place-items:center;font-style:normal;font-size:10px;color:var(--card)}
-.checkrow i.y{background:var(--accent);border-color:var(--accent)}
-.move{background:var(--accent-soft);border-radius:6px;padding:18px;display:grid;gap:8px;align-content:start}
-.move .ttl{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
-.move p{margin:0;font-size:15px;line-height:1.55;color:var(--ink)}
-.save{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink-3)}
-.recon-foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:12px}
-@media (max-width:820px){.recon{grid-template-columns:minmax(0,1fr)}.rside{border-right:0;border-bottom:1px solid var(--line);grid-auto-flow:column;grid-auto-columns:max-content;overflow-x:auto;align-items:center}.rbrand{margin:0 8px 0 0}.rbody{grid-template-columns:minmax(0,1fr)}}
-
-.shot{margin:0;background:var(--card);border:1px solid var(--line);border-radius:6px;box-shadow:var(--shadow);overflow:hidden}
-.shot-bar{display:flex;align-items:center;gap:6px;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--bg)}
-.shot-bar i{width:9px;height:9px;border-radius:50%;background:var(--line-2);display:inline-block}
-.shot-bar span{margin-left:10px;font-size:11.5px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.shot img{display:block;width:100%;height:auto;max-width:100%;background:#fff}
-.closing-note{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:40px;margin-top:clamp(64px,8vw,112px);padding-top:32px;border-top:1px solid var(--line);align-items:start}
-.closing-note p:not(.note){margin:0;color:var(--ink-2);font-size:15.5px;line-height:1.65}
-@media (max-width:900px){.closing-note{grid-template-columns:minmax(0,1fr)}}
-.feature-2{margin-top:clamp(72px,9vw,128px)}
-.feat-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:6px 0 18px;padding-top:16px;border-top:1px solid var(--line)}
-.feat-stats .v{font-size:clamp(30px,3vw,40px);letter-spacing:-.05em;line-height:1;font-variant-numeric:tabular-nums;color:var(--ink)}
-.feat-stats .k{font-size:12.5px;color:var(--ink-3);margin-top:8px;line-height:1.45}
-.feat-cap{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:40px;margin-top:28px;align-items:start}
-.feat-cap h3{font-size:clamp(28px,3vw,40px);letter-spacing:-.045em;line-height:1.05;margin-top:8px}
-.feat-cap p{margin:0 0 14px;color:var(--ink-2);font-size:15.5px;line-height:1.65}
-.read{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;color:var(--accent);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px}
-.read:hover{color:var(--ink)}
-.meta-line{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--ink-3)}
-@media (max-width:900px){.feat-cap{grid-template-columns:minmax(0,1fr);gap:12px}}
-
-.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(28px,4vw,64px) clamp(24px,3vw,48px);margin-top:clamp(64px,8vw,112px)}
-.card{display:grid;gap:18px;align-content:start}
-.card .read{justify-self:start}
-.cover{text-decoration:none;color:inherit;position:relative;aspect-ratio:4/3;max-width:100%;border-radius:6px;overflow:hidden;background:var(--bg-2);border:1px solid var(--line);display:grid;place-items:center;transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s}
-.card:hover .cover{transform:translateY(-4px);box-shadow:var(--shadow)}
-.cover .big{position:absolute;left:18px;bottom:12px;font-size:clamp(40px,5vw,72px);letter-spacing:-.06em;line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
-.cover .tagline{position:absolute;right:18px;bottom:18px;font-size:11px;color:var(--ink-3)}
-.card h3{font-size:clamp(24px,2.4vw,32px);letter-spacing:-.04em;line-height:1.1}
-.card p{margin:0;color:var(--ink-2);font-size:15px;line-height:1.65;max-width:560px}
-@media (max-width:760px){.cards{grid-template-columns:minmax(0,1fr)}}
-
-/* covers */
-.link-art{position:relative;width:62%;height:56%}
-.link-art .c{position:absolute;top:0;width:58%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;font-size:11px;letter-spacing:.02em}
-.link-art .c1{left:0;justify-items:start;padding-left:12%;border:1px solid var(--ink-3);color:var(--ink-2)}
-.link-art .c2{right:0;justify-items:end;padding-right:9%;background:color-mix(in srgb,var(--accent) 16%,transparent);border:1px solid var(--accent);color:var(--ink)}
-.link-art .pill{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--ink);color:var(--bg);font-size:11px;padding:6px 12px;border-radius:999px;white-space:nowrap}
-.split-art{width:72%;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:40px}
-.split-art .col{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:12px;display:grid;gap:8px;align-content:start}
-.split-art .col .h{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
-.split-art .r{height:22px;border-radius:4px;background:var(--bg-2);display:flex;align-items:center;padding-inline:8px;font-size:11px;color:var(--ink-2)}
-.split-art .col.hi{border-color:var(--accent)}
-.split-art .col.hi .r{background:var(--accent-soft)}
-.ring-art{display:flex;align-items:center;gap:22px;margin-bottom:34px}
-.ring-art svg{width:clamp(110px,14vw,160px);height:auto}
-.ring-art .legend{display:grid;gap:8px;font-size:12px;color:var(--ink-2)}
-.ring-art .legend span{display:flex;align-items:center;gap:8px}
-.ring-art .legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
-
-/* PARTICLE BAND */
-.band{position:relative;height:220px;border-bottom:1px solid var(--line)}
-.band canvas{position:absolute;inset:0;width:100%;height:100%}
-.band-cap{position:absolute;left:0;right:0;bottom:12px;display:flex;justify-content:space-between;gap:12px;font-size:12px;color:var(--ink-3)}
-
-/* APPROACH */
-.approach{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(32px,6vw,96px)}
-.note{margin:0;font-size:clamp(19px,1.8vw,24px);line-height:1.5;letter-spacing:-.02em;color:var(--ink)}
-.note-sig{font-size:12px;color:var(--ink-3);margin-top:14px}
-.tabs{display:flex;gap:26px;border-bottom:1px solid var(--line);margin-top:40px;overflow-x:auto}
-.tab{appearance:none;background:none;border:0;border-bottom:1px solid transparent;margin-bottom:-1px;padding:0 0 12px;font:inherit;font-size:13px;color:var(--ink-3);cursor:pointer;white-space:nowrap}
-.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
-.tabpanel{padding-top:28px;display:grid;gap:14px}
-.tabpanel h3{font-size:clamp(24px,2.4vw,32px);letter-spacing:-.04em;line-height:1.12}
-.tabpanel h3 em{font-style:normal;color:var(--accent)}
-.tabpanel p{margin:0;color:var(--ink-2);font-size:15.5px;line-height:1.7;max-width:600px}
-.tabpanel .tags{font-size:12px;color:var(--ink-3)}
-@media (max-width:900px){.approach{grid-template-columns:minmax(0,1fr)}}
-
-/* RECS */
-.recs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(24px,4vw,64px)}
-.rec{border-top:1px solid var(--line);padding-block:28px 36px;display:grid;grid-template-columns:120px minmax(0,1fr);gap:20px}
-.rec .role{font-size:12px;color:var(--ink-3);padding-top:6px}
-.rec blockquote{margin:0;font-size:clamp(18px,1.6vw,21px);line-height:1.5;letter-spacing:-.02em}
-.rec blockquote em{font-style:normal;color:var(--accent)}
-.rec .who{margin-top:16px;font-size:13px;color:var(--ink-2)}
-.rec .who span{color:var(--ink-3)}
-@media (max-width:900px){.recs{grid-template-columns:minmax(0,1fr)}}
-@media (max-width:520px){.rec{grid-template-columns:minmax(0,1fr);gap:8px}}
-
-/* CONTACT */
-.contact{border-top:1px solid var(--line)}
-.contact-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(32px,6vw,96px);align-items:start}
-.contact h2{font-size:clamp(46px,6.4vw,92px);line-height:.98;letter-spacing:-.058em}
-.contact h2 em{font-style:normal;color:var(--accent)}
-.contact p{margin:0;color:var(--ink-2);font-size:16.5px;line-height:1.7;max-width:520px}
-.contact p b{color:var(--ink);font-weight:500}
-.links{list-style:none;margin:32px 0 0;padding:0;border-top:1px solid var(--line)}
-.links li{display:grid;grid-template-columns:100px minmax(0,1fr) auto;gap:16px;align-items:center;padding-block:18px;border-bottom:1px solid var(--line)}
-.links .k{font-size:12px;color:var(--ink-3)}
-.links a{text-decoration:none;font-size:clamp(17px,1.6vw,21px);letter-spacing:-.02em;overflow-wrap:anywhere}
-.links a:hover{color:var(--accent)}
-.copy{appearance:none;cursor:pointer;background:none;border:1px solid var(--line-2);border-radius:999px;padding:5px 12px;font:inherit;font-size:12px;color:var(--ink-2)}
-.copy:hover{border-color:var(--ink);color:var(--ink)}
-.arrow{font-size:14px;color:var(--ink-3)}
-footer{padding-block:28px 40px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--ink-3)}
-@media (max-width:900px){.contact-grid{grid-template-columns:minmax(0,1fr)}}
-
-@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}html{scroll-behavior:auto}}
-/* Titles first, description below, at every width */
-.story-top{align-items:center}
-#how{scroll-margin-top:84px}
-.how-badge{display:inline-flex;align-items:center;gap:10px;padding:10px 18px;border-radius:999px;background:#F3C9B4;color:#2A2338;font-size:clamp(14px,1.2vw,16px);font-weight:600;letter-spacing:-.01em;box-shadow:0 8px 24px -8px rgba(243,201,180,.55);white-space:nowrap}
-.how-badge i{width:8px;height:8px;border-radius:50%;background:#2A2338;box-shadow:0 0 0 3px rgba(42,35,56,.18)}
-
-.story-cols{grid-template-columns:minmax(0,1fr)!important}.story-cols p{max-width:760px}
-.hero-grid,.story-head,.work-title,.closing-note,.feat-cap,.approach,.contact-grid,.split{grid-template-columns:minmax(0,1fr)!important;align-items:start}
-.hero-grid{gap:clamp(24px,3vw,40px)}
-.hero-side{max-width:680px}
-.story-head{gap:24px}
-.work-title,.closing-note,.split{gap:20px}
-.feat-cap{gap:14px}
-.approach,.contact-grid{gap:clamp(28px,4vw,48px)}
-.split>div:empty{display:none}
-.intro,.story-lede,.contact p{max-width:760px}
-.feat-cap>div:last-child,.closing-note>div,.split .brief{max-width:760px}
+@media (prefers-reduced-motion:reduce){
+  .focus-in>*{filter:none;opacity:1;transform:none}
+  .ready .focus-in>*{transition:none}
+  #aurora{opacity:1;transition:none}
+  .feature .stage img{transition:none}
+  html{scroll-behavior:auto}
+}
 </style>
 </head>
 <body>
-
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="nav" id="nav">
-  <div class="wrap">
-    <a class="brand" href="#top">Jose Togbe</a>
-    <nav class="nav-links" aria-label="Primary">
-      <a href="#work">Work</a>
-      <a href="#how">How I work</a>
-      <a href="#approach">Approach</a>
-      <a href="#recommendations">Recommendations</a>
-      <a href="Jose-Togbe-Resume.pdf" target="_blank" rel="noopener">Résumé</a>
-      <a class="contact" href="#contact">Contact ↗</a>
-    </nav>
+<nav class="nav" aria-label="Primary">
+  <a class="mark" href="#top">Jose Togbe</a>
+  <a class="l" href="#work">Work</a>
+  <a class="l" href="#how">How I work</a>
+  <a class="l" href="#approach">Approach</a>
+  <a class="l" href="#recommendations">Kind words</a>
+  <a class="btn solid" href="#contact">Get in touch</a>
+</nav>
+
+<main id="main">
+<header class="hero" id="top">
+  <canvas id="aurora" aria-hidden="true"></canvas>
+  <div class="wrap focus-in">
+    <p class="status"><i aria-hidden="true"></i>Open to senior, lead, and principal roles in 2026</p>
+    <h1>Designing complex products people <span class="lit">actually understand.</span></h1>
+    <p class="lede">I'm <b>Jose Togbe</b>, a lead UX designer with a decade of experience across financial services, insurance, healthcare, and clinical tools. I focus on high-stakes products, where clarity matters most.</p>
+    <div class="cta-row">
+      <a class="btn solid" href="#work">See the work</a>
+      <a class="btn" href="Jose-Togbe-Resume.pdf" target="_blank" rel="noopener">View résumé</a>
+    </div>
+    <p class="where">Based in the United States. Remote, hybrid, or open to relocating.</p>
   </div>
 </header>
 
-<main id="main">
-  <section class="hero" id="top">
-    <div class="wrap hero-grid">
-      <h1>Designing complex products people actually <em>understand.</em></h1>
-      <div class="hero-side">
-        <p>I'm <b>Jose Togbe</b>, a lead UX designer with a decade of experience across financial services, insurance, healthcare, and clinical tools. I focus on complex products with high stakes, where clarity matters most.</p>
-        <div class="status">
-          <div class="row"><span class="dot" aria-hidden="true"></span>Open to senior, lead, and principal roles · 2026</div>
-          <div class="row" style="padding-left:17px">United States · Available remote or willing to relocate</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
+<div class="clients" aria-label="Selected teams and clients">
   <div class="wrap">
-    <section class="story" id="how" aria-labelledby="story-h">
-      <canvas id="storyCanvas" aria-hidden="true"></canvas>
-      <div class="story-inner">
-        <div class="story-top"><span>Jose Togbe / A new way of working</span><span class="how-badge"><i aria-hidden="true"></i>How I work today</span></div>
-
-        <div class="story-head">
-          <div>
-            <div class="kicker">Product, UX, front-end, back-end, and QA in one huddle.</div>
-            <h2 id="story-h">From <em>twelve weeks</em><br>to four.</h2>
-          </div>
-          <div style="display:grid;gap:22px;justify-items:start">
-            <p class="story-lede">I work within a modern operating model where <b>product, UX, front-end, back-end, and QA</b> collaborate as a single huddle. We shape, build, and validate features in the same sessions, without traditional handoffs. The result is a meaningful reduction in time to market: features that previously took <b>8 to 12 weeks now ship in 2 to 4</b>. My role remains anchored in research, IA, and design thinking. The model simply lets that work reach users faster.</p>
-          </div>
-        </div>
-
-        <div class="cycle">
-          <div class="weeks" aria-label="Sprint cycle went from 8 to 12 weeks down to 2 to 4 weeks">
-            <div><div class="n before">8–12</div><div class="cap">Weeks · before</div></div>
-            <div aria-hidden="true" style="color:var(--dusk-ink-3)">→</div>
-            <div><div class="n" id="weeksNow">2–4</div><div class="cap">Weeks · now</div></div>
-          </div>
-          <ol class="steps" id="steps">
-            <li><span class="i">01 / Source</span><span class="t">Design system <span>in code</span></span></li>
-            <li><span class="i">02 / Generate</span><span class="t">Cursor builds <span>UI</span></span></li>
-            <li><span class="i">03 / Integrate</span><span class="t">Devs wire <span>the stack</span></span></li>
-            <li><span class="i">04 / Validate</span><span class="t">PO and <span>auto QA</span></span></li>
-          </ol>
-        </div>
-
-        <div class="story-foot">
-          <div class="team" aria-label="Team">
-            <span class="chip me"><b>J</b>UX Designer · Research, IA, prototype</span>
-            <span class="chip"><b>PO</b>Product Owner</span>
-            <span class="chip"><b>FE</b>Front-end</span>
-            <span class="chip"><b>BE</b>Back-end</span>
-            <span class="chip"><b>QA</b>Automated tests</span>
-          </div>
-          <div class="stack"><span>Stack</span><span>Cursor</span><span>GitHub</span><span>Figma</span><span>Miro</span></div>
-        </div>
-      </div>
-    </section>
+    <p>Teams I've designed with since 2015</p>
+    <ul>
+      <li>MetLife</li><li>Citi</li><li>Navy Federal</li><li>Morgan Stanley</li><li>E*TRADE</li><li>TIAA</li><li>Charles Schwab</li><li>Allstate</li>
+    </ul>
   </div>
+</div>
 
-  <section class="section" aria-labelledby="clients-h">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="label" id="clients-h">Selected teams and clients</span>
-        <span class="label">Since 2015</span>
+<section class="sec" id="work" aria-labelledby="work-h">
+  <div class="wrap">
+    <div class="head">
+      <h2 id="work-h">Selected case studies.</h2>
+      <p>Life insurance claims, clinical device ordering, mortgages, wealth platforms, account management, and a consumer app I designed and built. Each one shows the research, the trade-offs, and what the work was built to move.</p>
+    </div>
+
+    <article class="feature metlife">
+      <div class="stage"><img src="assets/metlife-landing.png" alt="MetLife Life Insurance Beneficiary Center landing page that beneficiaries reach from their claim kit" loading="lazy"></div>
+      <div class="copy">
+        <p class="client">MetLife, life insurance claims</p>
+        <h3>Life beneficiary claims experience.</h3>
+        <p>How beneficiaries file a life insurance claim, starting from the landing page in their claim kit. Three clear steps: find the claim-kit code, create an account, and file. For people who need help, a phone path lets a rep capture the claim on the call and send a secure link to verify, upload documents, and e-sign.</p>
+        <div class="tags"><span>Landing page</span><span>Account setup</span><span>Telephonic intake</span><span>E-signature</span></div>
+        <div class="metric"><span class="k">Self-service and phone-assisted paths, designed as one claim</span><span class="read">Read the case study</span></div>
       </div>
-      <div class="clients">
-        <div><span class="w1">MetLife</span></div>
-        <div><span class="w1">Citi</span></div>
-        <div><span class="w2">Navy Federal</span></div>
-        <div><span class="w3">Morgan Stanley</span></div>
-        <div><span class="w1">E*TRADE</span></div>
-        <div><span class="w4">TIAA</span></div>
-        <div><span class="w3">Charles Schwab</span></div>
-        <div><span class="w2">Allstate</span></div>
-        <div><span class="w1">Freedom Mortgage</span></div>
+      <a class="cover" href="metlife.html" aria-label="Read the MetLife case study"></a>
+    </article>
+
+    <article class="feature hanger">
+      <div class="stage"><img src="assets/guided-configurator.png" alt="Hanger Clinic Guided Configurator alignment step for an ankle-foot orthosis order, with sample patient data" loading="lazy"></div>
+      <div class="copy">
+        <p class="client">Hanger Clinic, orthotics and prosthetics</p>
+        <h3>Guided device configurator.</h3>
+        <p>A guided configurator that helps orthotic clinicians choose and set up the right device for each patient. It starts from the mobility tasks a patient struggled with in their outcomes survey, then walks through measurements, materials, alignment, and trimlines in one place.</p>
+        <div class="tags"><span>Outcomes-informed setup</span><span>Device specification</span><span>Clinical workflow</span></div>
+        <div class="metric"><div><span class="n">$3M</span><p class="k">Revenue growth it contributed to, at only 30% adoption so far</p></div><span class="read">Read the case study</span></div>
       </div>
-      <div class="stats">
-        <div><div class="v">37%</div><div class="k">Lower exit rates<br>Navy Federal</div></div>
-        <div><div class="v">40%</div><div class="k">Faster profile updates<br>Citi</div></div>
-        <div><div class="v">30%</div><div class="k">Account-linking adoption<br>Morgan Stanley × E*TRADE</div></div>
-        <div><div class="v">$3M</div><div class="k">Revenue growth<br>Hanger Clinic</div></div>
-        <div><div class="v">10+</div><div class="k">Years designing<br>complex products</div></div>
+      <a class="cover" href="configurator.html" aria-label="Read the Hanger Clinic case study"></a>
+    </article>
+
+    <div class="grid">
+      <article class="tile t1">
+        <p class="client">Navy Federal Credit Union, mortgage</p>
+        <h3>Mortgage experience redesign.</h3>
+        <p>Rebuilt the application around the moments members actually got stuck, simplifying navigation and making the path to approval clear.</p>
+        <p class="big">37%<small>Lower exit rates on key pages</small></p>
+        <div class="foot"><span class="client">PDF case study</span><span class="read">Read ↗</span></div>
+        <a class="cover" href="Navy-Federal.pdf" target="_blank" rel="noopener" aria-label="Read the Navy Federal case study (PDF)"></a>
+      </article>
+      <article class="tile t2">
+        <p class="client">Morgan Stanley and E*TRADE, wealth platform</p>
+        <h3>Platform integration after acquisition.</h3>
+        <p>A unified account-linking experience that brought two customer bases together, bridging two mental models to earn trust during a critical transition.</p>
+        <p class="big">30%<small>Account-linking adoption</small></p>
+        <div class="foot"><span class="client">PDF case study</span><span class="read">Read ↗</span></div>
+        <a class="cover" href="Etrade.pdf" target="_blank" rel="noopener" aria-label="Read the Morgan Stanley and E*TRADE case study (PDF)"></a>
+      </article>
+      <article class="tile t3">
+        <p class="client">Citi, account management</p>
+        <h3>Profile management redesign.</h3>
+        <p>Restructured the profile area around how often people do each task, separating everyday updates from high-stakes changes.</p>
+        <p class="big">40%<small>Less time to finish common actions</small></p>
+        <div class="foot"><span class="client">Case study overview</span><span class="read">Read ↗</span></div>
+        <a class="cover" href="Citi.png" target="_blank" rel="noopener" aria-label="Read the Citi case study overview"></a>
+      </article>
+      <article class="tile t4">
+        <p class="client">Pactara, designed and built</p>
+        <h3>Group fitness accountability app.</h3>
+        <p>Small groups commit to a challenge and check in together. I designed and built it end to end in React, TypeScript, and Capacitor. It's live on the App Store.</p>
+        <p class="big">50+<small>Active users</small></p>
+        <div class="foot"><span class="client">pactara.app</span><span class="read">Visit ↗</span></div>
+        <a class="cover" href="https://pactara.app" target="_blank" rel="noopener" aria-label="Visit Pactara"></a>
+      </article>
+    </div>
+
+    <div class="model" id="how">
+      <div>
+        <h2>From twelve weeks to four.</h2>
+        <p class="intro">I work in a model where product, UX, front-end, back-end, and QA shape, build, and validate features in the same sessions, without traditional handoffs. My role stays anchored in research, IA, and design thinking. The model simply gets that work to users faster.</p>
+        <ol class="steps">
+          <li>Design system in code <span>is the source</span></li>
+          <li>Cursor generates <span>the UI</span></li>
+          <li>Developers wire <span>the stack</span></li>
+          <li>PO and auto QA <span>validate</span></li>
+        </ol>
+      </div>
+      <div class="bars" role="img" aria-label="Time to ship a feature: 8 to 12 weeks before, 2 to 4 weeks now">
+        <div class="bar before"><div class="lab"><span>Before</span><b>8 to 12 weeks</b></div><div class="track"><div class="fill"></div></div></div>
+        <div class="bar after"><div class="lab"><span>Now, one huddle</span><b>2 to 4 weeks</b></div><div class="track"><div class="fill"></div></div></div>
+        <p class="client" style="margin-top:6px">Built with Cursor, GitHub, Figma, and Miro.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="section" id="work" aria-labelledby="work-h" style="padding-top:0">
-    <div class="wrap">
-      <div class="sec-head"><span class="label">01 / Selected work</span><span class="label">2017 to 2026</span></div>
-      <div class="work-title">
-        <h2 class="h2" id="work-h">Selected <em>case studies.</em></h2>
-        <p class="intro">Life insurance claims, clinical device ordering, mortgages, wealth platforms, account management, and a consumer app I designed and built. Each one shows the research, the trade-offs, and what the work was built to move.</p>
-      </div>
-
-      <!-- Featured: MetLife -->
-      <figure class="shot">
-        <div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>Life Insurance Beneficiary Center · Landing page</span></div>
-        <a href="metlife.html#top" aria-label="Read the MetLife case study" style="display:block"><img src="assets/metlife-landing.png" width="1300" height="940" alt="MetLife Life Insurance Beneficiary Center landing page: a hero that reads We're here to help you, with Create an account and Log in buttons, next to three steps for filing a claim, followed by frequently asked questions." loading="eager"></a>
-      </figure>
-      <div class="recon-foot">
-        <span class="label">Vanity URL landing page · The entry point from the claim kit</span>
-        <span class="label">Self-service and phone-assisted paths</span>
-      </div>
-
-      <div class="feat-cap">
-        <div>
-          <div class="meta-line"><span>MetLife</span><span>/</span><span>Life insurance claims</span></div>
-          <h3>Life beneficiary claims experience.</h3>
-        </div>
-        <div>
-          <p>Designed how beneficiaries file a life insurance claim, starting from the landing page they reach through their claim kit. It explains the process in three steps: find the claim-kit code, create an account, and file. For beneficiaries who need help, a telephonic path lets a call center rep capture the claim on the call and send a secure link so they can verify, review, upload documents, and e-sign.</p>
-          <div class="meta-line"><span>Landing page</span><span>·</span><span>Account setup</span><span>·</span><span>Telephonic intake</span><span>·</span><span>E-signature</span></div>
-          <a class="read" href="metlife.html#top" style="margin-top:16px">Read the case study ↗</a>
-        </div>
-      </div>
-
-      <div class="feature-2">
-        <figure class="shot">
-          <div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>Guided Configurator · Clinician view</span></div>
-          <a href="configurator.html#top" aria-label="Read the Guided Configurator case study" style="display:block"><img src="assets/guided-configurator.png" width="1440" height="1141" alt="Guided Configurator screen for an ankle-foot orthosis order, with the Alignment section expanded next to an illustration of the device." loading="lazy"></a>
-        </figure>
-        <div class="recon-foot">
-          <span class="label">Alignment step of an ankle-foot orthosis (AFO) order</span>
-          <span class="label">Patient details shown are sample data</span>
-        </div>
-        <div class="feat-cap">
-          <div>
-            <div class="meta-line"><span>Hanger Clinic</span><span>/</span><span>Orthotics and prosthetics</span></div>
-            <h3>Guided device configurator.</h3>
-          </div>
-          <div>
-            <p>Designed a guided configurator that helps orthotic clinicians choose and set up the right device for each patient. It starts from the mobility tasks a patient reported struggling with in their outcomes survey, then walks the clinician through measurements, materials and design, alignment, and trimlines in one place before review.</p>
-            <div class="feat-stats">
-              <div><div class="v">$3M</div><div class="k">Revenue growth over the previous year that the configurator contributed to</div></div>
-              <div><div class="v">30%</div><div class="k">Adoption so far, so the impact is still growing</div></div>
-            </div>
-            <div class="meta-line"><span>Outcomes-informed setup</span><span>·</span><span>Device specification</span><span>·</span><span>Clinical workflow</span></div>
-            <a class="read" href="configurator.html#top" style="margin-top:16px">Read the case study ↗</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="cards">
-        <article class="card">
-          <a href="https://josetogbe.com/Navy-Federal.pdf" target="_blank" rel="noopener" class="cover" aria-label="Navy Federal case study">
-            <div class="split-art" aria-hidden="true" style="grid-template-columns:1fr">
-              <div class="col hi"><div class="h">Path to approval</div><div class="r">Application received</div><div class="r">Processing</div><div class="r" style="background:var(--bg-2)">Underwriting</div><div class="r" style="background:var(--bg-2)">Closing</div></div>
-            </div>
-            <span class="big">37%</span><span class="tagline">Lower exit rates</span>
-          </a>
-          <div class="meta-line"><span>Navy Federal Credit Union</span><span>/</span><span>Mortgage</span></div>
-          <h3>Mortgage experience redesign.</h3>
-          <p>Redesigned the mortgage application platform around the actual moments members got stuck, simplifying navigation and clarifying the path to approval. Resulted in 37% lower exit rates on key pages.</p>
-          <a class="read" href="https://josetogbe.com/Navy-Federal.pdf" target="_blank" rel="noopener">Read ↗</a>
-        </article>
-        <article class="card">
-          <a href="https://josetogbe.com/Etrade.pdf" target="_blank" rel="noopener" class="cover" aria-label="Morgan Stanley and E*TRADE case study">
-            <div class="link-art" aria-hidden="true">
-              <div class="c c1">E*TRADE</div>
-              <div class="c c2">Morgan Stanley</div>
-              <div class="pill">Link accounts</div>
-            </div>
-            <span class="big">30%</span><span class="tagline">Account-linking adoption</span>
-          </a>
-          <div class="meta-line"><span>Morgan Stanley × E*TRADE</span><span>/</span><span>Wealth platform</span></div>
-          <h3>Platform integration after acquisition.</h3>
-          <p>Designed a unified account-linking experience to bring E*TRADE and Morgan Stanley customers together post-acquisition, navigating two distinct mental models to earn user trust during a critical transition.</p>
-          <a class="read" href="https://josetogbe.com/Etrade.pdf" target="_blank" rel="noopener">Read ↗</a>
-        </article>
-
-        <article class="card">
-          <a href="https://josetogbe.com/Citi.png" target="_blank" rel="noopener" class="cover" aria-label="Citi case study">
-            <div class="split-art" aria-hidden="true">
-              <div class="col"><div class="h">Everyday updates</div><div class="r">Mailing address</div><div class="r">Phone</div><div class="r">Email</div><div class="r">Paperless</div></div>
-              <div class="col hi"><div class="h">High-stakes changes</div><div class="r">Legal name</div><div class="r">Account owners</div><div class="r">Tax details</div></div>
-            </div>
-            <span class="big">40%</span><span class="tagline">Faster common actions</span>
-          </a>
-          <div class="meta-line"><span>Citi</span><span>/</span><span>Account management</span></div>
-          <h3>Profile management redesign.</h3>
-          <p>Restructured the profile management interface around user task frequency, separating high-volume updates from high-stakes changes. Delivered a 40% reduction in time to complete common actions.</p>
-          <a class="read" href="https://josetogbe.com/Citi.png" target="_blank" rel="noopener">Read ↗</a>
-        </article>
-
-        <article class="card">
-          <a href="https://pactara.app" target="_blank" rel="noopener" class="cover" aria-label="Pactara app">
-            <div class="ring-art" aria-hidden="true">
-              <svg viewBox="0 0 120 120">
-                <circle cx="60" cy="60" r="48" fill="none" stroke="var(--line)" stroke-width="10"/>
-                <circle cx="60" cy="60" r="48" fill="none" stroke="var(--accent)" stroke-width="10" stroke-linecap="round" stroke-dasharray="301.6" stroke-dashoffset="96" transform="rotate(-90 60 60)"/>
-                <circle cx="60" cy="60" r="32" fill="none" stroke="var(--line)" stroke-width="8"/>
-                <circle cx="60" cy="60" r="32" fill="none" stroke="var(--ink-3)" stroke-width="8" stroke-linecap="round" stroke-dasharray="201" stroke-dashoffset="90" transform="rotate(-90 60 60)"/>
-              </svg>
-              <div class="legend"><span><i style="background:var(--accent)"></i>Challenge progress</span><span><i style="background:var(--ink-3)"></i>Group check-ins</span></div>
-            </div>
-            <span class="big">50+</span><span class="tagline">Active users</span>
-          </a>
-          <div class="meta-line"><span>Pactara</span><span>/</span><span>Designed and built</span></div>
-          <h3>Group fitness accountability app.</h3>
-          <p>A fitness app where small groups commit to a challenge and check in together. I designed and built it end to end in React, TypeScript, and Capacitor. It's live on the App Store with 50+ active users.</p>
-          <a class="read" href="https://pactara.app" target="_blank" rel="noopener">Visit ↗</a>
-        </article>
-
-      </div>
-      <div class="closing-note">
-        <p class="note">Much of my work has been in industries that aren't known for great design. Finance, insurance, healthcare. That's where I learned to make complex things clear.</p>
-        <div><p>The constraints are real and the stakes are high. Those lessons carry to any product where people face a hard task and the details matter.</p><div class="note-sig">A note from Jose</div></div>
-      </div>
+<section class="sec" id="approach" aria-labelledby="approach-h">
+  <div class="wrap">
+    <div class="head">
+      <h2 id="approach-h">How I approach the work.</h2>
+      <p>I partner with cross-functional teams to turn research into design decisions, validate ideas through rapid prototyping, and ship work that moves real business outcomes.</p>
     </div>
-  </section>
-
-  <section class="section" id="approach" aria-labelledby="approach-h">
-    <div class="wrap">
-      <div class="sec-head"><span class="label">02 / Approach</span><span class="label">Three principles refined over a decade</span></div>
-      <div class="approach">
-        <h2 class="h2" id="approach-h">How I approach<br><em>the work.</em></h2>
-        <div>
-          <p class="note">I partner with cross-functional teams to translate research into design decisions, validate ideas through rapid prototyping, and ship work that delivers measurable business outcomes.</p>
-          <div class="tabs" role="tablist" aria-label="Principles">
-            <button class="tab" role="tab" id="t1" aria-controls="p1" aria-selected="true">Measurable outcomes</button>
-            <button class="tab" role="tab" id="t2" aria-controls="p2" aria-selected="false" tabindex="-1">Alignment through artifacts</button>
-            <button class="tab" role="tab" id="t3" aria-controls="p3" aria-selected="false" tabindex="-1">Designing within compliance</button>
-          </div>
-          <div class="tabpanel" role="tabpanel" id="p1" aria-labelledby="t1">
-            <h3>Anchor every project to a <em>measurable outcome.</em></h3>
-            <p>Before design begins, I establish what success looks like for users and for the business. A clearly defined metric, whether that's conversion, completion time, or satisfaction, shapes the trade-offs the team makes through the rest of the project.</p>
-            <div class="tags">Success metrics · Research plans · Trade-off decisions</div>
-          </div>
-          <div class="tabpanel" role="tabpanel" id="p2" aria-labelledby="t2" hidden>
-            <h3>Drive alignment through <em>artifacts.</em></h3>
-            <p>When stakeholders stall, the issue is usually abstraction. Journey maps, service blueprints, and decision logs make trade-offs visible and decisions durable. A team that can point to the same artifact moves faster than one that can't.</p>
-            <div class="tags">Journey maps · Service blueprints · Decision logs</div>
-          </div>
-          <div class="tabpanel" role="tabpanel" id="p3" aria-labelledby="t3" hidden>
-            <h3>Design within <em>compliance,</em> not around it.</h3>
-            <p>I've shipped inside HMDA, TRID, TILA, and a range of fiduciary frameworks. Regulation is a design constraint, no different from accessibility or screen size. The strongest solutions make those guardrails feel like guidance rather than friction.</p>
-            <div class="tags">HMDA · TRID · TILA · Fiduciary frameworks</div>
-          </div>
-        </div>
-      </div>
+    <div class="principles">
+      <article>
+        <h3>Anchor every project to a measurable outcome.</h3>
+        <p>Before design begins, I define what success looks like for users and for the business. A clear metric, whether conversion, completion time, or satisfaction, shapes every trade-off after that.</p>
+        <div class="tags"><span>Success metrics</span><span>Research plans</span></div>
+      </article>
+      <article>
+        <h3>Drive alignment through artifacts.</h3>
+        <p>When stakeholders stall, the issue is usually abstraction. Journey maps, service blueprints, and decision logs make trade-offs visible. A team that can point to the same artifact moves faster.</p>
+        <div class="tags"><span>Journey maps</span><span>Service blueprints</span></div>
+      </article>
+      <article>
+        <h3>Design within compliance, not around it.</h3>
+        <p>I've shipped inside HMDA, TRID, TILA, and fiduciary frameworks. Regulation is a design constraint like accessibility or screen size. The best solutions make guardrails feel like guidance.</p>
+        <div class="tags"><span>HMDA</span><span>TRID</span><span>TILA</span></div>
+      </article>
     </div>
-  </section>
+    <p class="note">Much of my work has been in industries that aren't known for great design. <span>That's where I learned to make complex things clear, and those lessons carry to any product where the details matter.</span></p>
+  </div>
+</section>
 
-  <section class="section" id="recommendations" aria-labelledby="recs-h" style="padding-top:0">
-    <div class="wrap">
-      <div class="sec-head"><span class="label">03 / Recommendations</span><span class="label">Four selected, more on LinkedIn</span></div>
-      <div class="work-title">
-        <h2 class="h2" id="recs-h">What collaborators <em>have to say.</em></h2>
-      </div>
-      <div class="recs">
-        <figure class="rec" style="margin:0">
-          <div class="role">Senior Researcher</div>
-          <div>
-            <blockquote>One of the most <em>talented, empathetic, strategic</em> and creative individuals I've collaborated with. He brings a visionary perspective while ensuring the finer details align with the broader goals.</blockquote>
-            <figcaption class="who">Erin Spottswood <span>· Sr. Experience Researcher</span></figcaption>
-          </div>
-        </figure>
-        <figure class="rec" style="margin:0">
-          <div class="role">Research Director</div>
-          <div>
-            <blockquote>An intelligent and intuitive <em>information architect.</em> His skills are top-notch and his breadth of experience across business environments brings a broad spectrum of expertise to every engagement.</blockquote>
-            <figcaption class="who">Jim Dalglish <span>· Director, UX Research and Strategy</span></figcaption>
-          </div>
-        </figure>
-        <figure class="rec" style="margin:0">
-          <div class="role">Content Designer</div>
-          <div>
-            <blockquote>As a UX writer, I couldn't ask for a better partner. Jose's keen design insights and openness to feedback have elevated our work, making it <em>truly user-centered.</em></blockquote>
-            <figcaption class="who">Gopa Shahane <span>· UX Content Designer</span></figcaption>
-          </div>
-        </figure>
-        <figure class="rec" style="margin:0">
-          <div class="role">Design Manager</div>
-          <div>
-            <blockquote>His insights and data-driven approach have enhanced the team's strategies. He possesses an exceptional ability to <em>empathize with users,</em> extracting meaningful and actionable insights that drive our design decisions.</blockquote>
-            <figcaption class="who">Chris Garvey <span>· Sr. Manager, Experience Design</span></figcaption>
-          </div>
-        </figure>
-      </div>
+<section class="sec" id="recommendations" aria-labelledby="rec-h">
+  <div class="wrap">
+    <div class="head">
+      <h2 id="rec-h">What collaborators say.</h2>
+      <p>Four of many. More on <a href="https://www.linkedin.com/in/jose-togbe/" target="_blank" rel="noopener" style="color:var(--text);border-bottom:1px solid var(--line)">LinkedIn</a>.</p>
     </div>
-  </section>
+    <div class="quotes">
+      <figure class="quote"><blockquote>“One of the most talented, empathetic, strategic and creative individuals I've collaborated with. He brings a visionary perspective while ensuring the finer details align with the broader goals.”</blockquote><figcaption><i aria-hidden="true">ES</i><div>Erin Spottswood<span>Sr. Experience Researcher</span></div></figcaption></figure>
+      <figure class="quote"><blockquote>“An intelligent and intuitive information architect. His skills are top-notch and his breadth of experience brings a broad spectrum of expertise to every engagement.”</blockquote><figcaption><i aria-hidden="true">JD</i><div>Jim Dalglish<span>Director, UX Research and Strategy</span></div></figcaption></figure>
+      <figure class="quote"><blockquote>“As a UX writer, I couldn't ask for a better partner. Jose's keen design insights and openness to feedback have elevated our work, making it truly user-centered.”</blockquote><figcaption><i aria-hidden="true">GS</i><div>Gopa Shahane<span>UX Content Designer</span></div></figcaption></figure>
+      <figure class="quote"><blockquote>“His insights and data-driven approach have enhanced the team's strategies. He has an exceptional ability to empathize with users, extracting insights that drive our design decisions.”</blockquote><figcaption><i aria-hidden="true">CG</i><div>Chris Garvey<span>Sr. Manager, Experience Design</span></div></figcaption></figure>
+    </div>
+  </div>
+</section>
 
-  <section class="section contact" id="contact" aria-labelledby="contact-h">
-    <div class="wrap">
-      <div class="sec-head"><span class="label">04 / Get in touch</span><span class="label">Good work starts with a conversation</span></div>
-      <div class="contact-grid">
-        <h2 id="contact-h">Let's work together. <em>Get in touch.</em></h2>
-        <div>
-          <p>I'm currently open to <b>senior, lead, and principal UX roles</b>, full-time or contract. I'm particularly interested in teams working on <b>complex, high-stakes products</b>, in any industry. Available remote, hybrid, or open to relocation for the right opportunity.</p>
-          <ul class="links">
-            <li><span class="k">Email</span><a href="mailto:josetogbe@gmail.com" id="email">josetogbe@gmail.com</a><button class="copy" type="button" id="copyEmail">Copy</button></li>
-            <li><span class="k">LinkedIn</span><a href="https://www.linkedin.com/in/jose-togbe/" target="_blank" rel="noopener">/in/jose-togbe</a><span class="arrow" aria-hidden="true">↗</span></li>
-            <li><span class="k">Résumé</span><a href="Jose-Togbe-Resume.pdf" target="_blank" rel="noopener">View résumé</a><span class="arrow" aria-hidden="true">↗</span></li>
-            <li><span class="k">Behance</span><a href="https://www.behance.net/josetogbe" target="_blank" rel="noopener">/josetogbe</a><span class="arrow" aria-hidden="true">↗</span></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
+<section class="contact" id="contact" aria-labelledby="contact-h">
+  <h2 id="contact-h">Let's build something <span class="lit">clear.</span></h2>
+  <p>I'm open to senior, lead, and principal UX roles, full-time or contract, on complex, high-stakes products in any industry.</p>
+  <div class="links">
+    <button class="btn solid" id="copy" data-email="josetogbe@gmail.com">Copy email</button>
+    <a class="btn" href="mailto:josetogbe@gmail.com">josetogbe@gmail.com</a>
+    <a class="btn" href="https://www.linkedin.com/in/jose-togbe/" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <a class="btn" href="https://www.behance.net/josetogbe" target="_blank" rel="noopener">Behance ↗</a>
+    <a class="btn" href="Jose-Togbe-Resume.pdf" target="_blank" rel="noopener">Résumé ↗</a>
+  </div>
+</section>
 </main>
 
-<div class="wrap">
-  <footer>
-    <span>© 2026 Jose Togbe</span>
-    <span>English · Français</span>
-    <span>Designed and built with intent</span>
-  </footer>
-</div>
+<footer>
+  <div class="wrap"><span>© 2026 Jose Togbe</span><span>English and Français</span><span>Designed and built with intent</span></div>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
 (function(){
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){ document.documentElement.classList.add('ready'); }); });
 
-  // Nav border on scroll
-  const nav = document.getElementById('nav');
-  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 8);
-  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
-
-
-  // Principles tabs
-  const tabs = [...document.querySelectorAll('.tab')];
-  function selectTab(t){
-    tabs.forEach(x => { const on = x===t; x.setAttribute('aria-selected', on); x.tabIndex = on?0:-1; document.getElementById(x.getAttribute('aria-controls')).hidden = !on; });
-  }
-  tabs.forEach((t,i) => {
-    t.addEventListener('click', () => selectTab(t));
-    t.addEventListener('keydown', e => {
-      if (e.key==='ArrowRight'){ const n=tabs[(i+1)%tabs.length]; selectTab(n); n.focus(); }
-      if (e.key==='ArrowLeft'){ const n=tabs[(i-1+tabs.length)%tabs.length]; selectTab(n); n.focus(); }
+  // Ambient aurora: a few soft lights drifting slowly behind the hero
+  var c = document.getElementById('aurora'), x = c.getContext('2d'), w, h, dpr = Math.min(window.devicePixelRatio||1, 1.5);
+  var orbs = [
+    {c:[255,196,138], r:.55, x:.28, y:.30, sx:.00011, sy:.00007, p:0},
+    {c:[255,111,181], r:.50, x:.70, y:.35, sx:.00009, sy:.00012, p:2},
+    {c:[164,147,255], r:.60, x:.50, y:.75, sx:.00007, sy:.00010, p:4}
+  ];
+  function size(){ w = c.clientWidth; h = c.clientHeight; c.width = w*dpr; c.height = h*dpr; x.setTransform(dpr,0,0,dpr,0,0); }
+  function draw(t){
+    x.clearRect(0,0,w,h);
+    x.globalCompositeOperation = 'lighter';
+    orbs.forEach(function(o){
+      var ox = (o.x + Math.sin(t*o.sx + o.p)*.12)*w, oy = (o.y + Math.cos(t*o.sy + o.p)*.10)*h, R = o.r*Math.max(w,h);
+      var g = x.createRadialGradient(ox,oy,0,ox,oy,R);
+      g.addColorStop(0,'rgba('+o.c+',.30)'); g.addColorStop(1,'rgba('+o.c+',0)');
+      x.fillStyle = g; x.fillRect(0,0,w,h);
     });
-  });
+    if(!reduce && visible) requestAnimationFrame(draw);
+  }
+  var visible = true;
+  new IntersectionObserver(function(e){ var was = visible; visible = e[0].isIntersecting; if(visible && !was && !reduce) requestAnimationFrame(draw); }).observe(c);
+  size(); draw(0); window.addEventListener('resize', function(){ size(); if(reduce) draw(0); });
 
   // Copy email
-  const copyBtn = document.getElementById('copyEmail');
-  copyBtn.addEventListener('click', () => {
-    const txt = 'josetogbe@gmail.com';
-    const done = () => { copyBtn.textContent = 'Copied'; setTimeout(() => copyBtn.textContent = 'Copy', 1600); };
-    const fallback = () => { const r = document.createRange(); r.selectNodeContents(document.getElementById('email')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); copyBtn.textContent = 'Selected'; setTimeout(() => copyBtn.textContent = 'Copy', 1600); };
-    try { navigator.clipboard.writeText(txt).then(done, fallback); } catch(e){ fallback(); }
+  var b = document.getElementById('copy'), toast = document.getElementById('toast');
+  b.addEventListener('click', function(){
+    var done = function(){ toast.textContent = 'Email copied'; toast.classList.add('on'); setTimeout(function(){ toast.classList.remove('on'); }, 1800); };
+    if(navigator.clipboard){ navigator.clipboard.writeText(b.dataset.email).then(done, function(){ location.href = 'mailto:' + b.dataset.email; }); }
+    else { location.href = 'mailto:' + b.dataset.email; }
   });
-
-  // Canvas helpers
-  function fit(c){ const r = c.getBoundingClientRect(); const d = Math.min(window.devicePixelRatio||1, 2); c.width = Math.max(1, r.width*d); c.height = Math.max(1, r.height*d); const x = c.getContext('2d'); x.setTransform(d,0,0,d,0,0); return {w:r.width, h:r.height, x}; }
-
-  // Story panel: dusk hills + drifting particles + orbit rings
-  const sc = document.getElementById('storyCanvas');
-  let S = fit(sc);
-  const stars = Array.from({length:140}, () => ({x:Math.random(), y:Math.random()*0.75, r:Math.random()*1.3+.3, a:Math.random()*.6+.2, s:Math.random()*0.00015+0.00003}));
-  function drawStory(t){
-    const {w,h,x} = S; x.clearRect(0,0,w,h);
-    for (const p of stars){ const px = ((p.x + t*p.s) % 1) * w; const tw = .5 + .5*Math.sin(t*0.002 + p.x*40); x.fillStyle = `rgba(255,240,230,${p.a*tw})`; x.beginPath(); x.arc(px, p.y*h, p.r, 0, Math.PI*2); x.fill(); }
-    const cx = w*0.72, cy = h*0.62;
-    for (let i=0;i<5;i++){ x.strokeStyle = `rgba(255,240,230,${0.07 - i*0.01})`; x.lineWidth = 1; x.beginPath(); x.arc(cx, cy, 90 + i*46 + Math.sin(t*0.0006+i)*4, 0, Math.PI*2); x.stroke(); }
-    const layers = [{y:.74, amp:24, c:'rgba(150,120,170,.35)', f:.004, sp:.00012},{y:.82, amp:30, c:'rgba(120,98,150,.45)', f:.003, sp:.00008},{y:.9, amp:22, c:'rgba(70,58,100,.55)', f:.005, sp:.00005}];
-    for (const L of layers){ x.fillStyle = L.c; x.beginPath(); x.moveTo(0,h); for (let px=0; px<=w; px+=12){ x.lineTo(px, h*L.y + Math.sin(px*L.f + t*L.sp)*L.amp + Math.sin(px*L.f*2.3 + t*L.sp*1.7)*L.amp*.35); } x.lineTo(w,h); x.closePath(); x.fill(); }
-  }
-
-  window.addEventListener('resize', () => { S = fit(sc); if (reduce) drawStory(0); });
-
-  if (reduce){ drawStory(0); }
-  else { const loop = t => { drawStory(t); requestAnimationFrame(loop); }; requestAnimationFrame(loop); }
 })();
 </script>
 </body>
