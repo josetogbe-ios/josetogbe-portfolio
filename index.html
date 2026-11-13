@@ -107,6 +107,51 @@ a{color:inherit;text-decoration:none}
 .stat p span{display:block;color:var(--dim);font-size:11.5px;margin-top:4px}
 .drag{position:absolute;right:6px;top:436px;font-size:12.5px;color:var(--dim);transform:translateZ(40px)}
 
+/* Built with AI */
+.bx{position:relative;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);overflow:hidden;isolation:isolate}
+.bx::before{content:"";position:absolute;width:640px;height:640px;border-radius:50%;background:var(--brand);filter:blur(120px);opacity:.22;z-index:-1;pointer-events:none}
+.bx-top{display:flex;align-items:center;gap:14px}
+.appic{width:52px;height:52px;border-radius:14px;flex:0 0 52px;box-shadow:0 8px 20px rgba(0,0,0,.35)}
+.dwic{display:grid;place-items:center;background:#d8ff3c;color:#141317;font-size:30px;font-weight:500;line-height:1}
+.bx-top h3{font-size:26px;font-weight:500;letter-spacing:-.03em;line-height:1.1}
+.live{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:#cfc9d3;margin-top:3px}
+.live i{width:7px;height:7px;border-radius:50%;background:#7be3a4;box-shadow:0 0 0 3px rgba(123,227,164,.15)}
+.bx .pitch{font-size:clamp(22px,2.2vw,28px);line-height:1.2;letter-spacing:-.025em;margin:26px 0 14px;max-width:20ch}
+.bx .desc{color:var(--muted);font-size:15.5px;max-width:36em}
+.bx .tags{margin-top:20px}
+.bx-foot{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;margin-top:26px}
+.bx-foot .stat2{font-size:14px;color:var(--muted)}
+.bx-foot .stat2 b{color:var(--text);font-weight:500}
+.dw{--brand:#d8ff3c;display:grid;grid-template-columns:.85fr 1.15fr;gap:40px;align-items:center;padding:46px;margin-bottom:22px}
+.dw::before{right:-220px;top:-260px}
+.browser{border-radius:16px;overflow:hidden;background:#0c0b0f;border:1px solid #34303a;box-shadow:0 40px 90px rgba(0,0,0,.55);transform:perspective(1600px) rotateY(-6deg) rotateX(2deg);transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.dw:hover .browser{transform:perspective(1600px) rotateY(-2deg) rotateX(0)}
+.browser .bar{height:32px;display:flex;align-items:center;gap:6px;padding:0 12px;background:#1b1920;border-bottom:1px solid #2a2630}
+.browser .bar i{width:9px;height:9px;border-radius:50%;background:#3a3541}
+.browser .bar span{margin-left:10px;font-size:11.5px;color:#8a848f;padding:3px 12px;border-radius:7px;background:#121016}
+.browser video{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#0c0b0f}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.pair .bx{padding:40px 40px 0;display:flex;flex-direction:column}
+.pair .fan{margin-top:auto;padding-top:34px;box-sizing:content-box}
+.pa{--brand:#7a5cff}.pa::before{left:-200px;bottom:-320px}
+.sl{--brand:#ff5a36}.sl::before{right:-220px;bottom:-320px}
+.fan{position:relative;height:430px;margin-top:34px}
+.fan img{position:absolute;left:50%;bottom:-70px;width:200px;border-radius:24px;box-shadow:0 24px 50px rgba(0,0,0,.5);transform-origin:50% 130%;transform:translateX(-50%) translateX(calc(var(--i)*52px)) rotate(calc(var(--i)*8deg));transition:transform .7s cubic-bezier(.2,.8,.2,1);z-index:calc(10 - var(--a))}
+.bx:hover .fan img,.bx:focus-within .fan img{transform:translateX(-50%) translateX(calc(var(--i)*92px)) rotate(calc(var(--i)*10deg)) translateY(calc(var(--a)*6px - 18px))}
+@media (max-width:980px){
+  .dw{grid-template-columns:1fr;padding:32px;gap:30px}
+  .pair{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr}
+  .browser{transform:none}
+}
+@media (max-width:760px){
+  .pair .bx{padding:28px 28px 0}
+  .fan{height:auto;display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:26px -28px 0;padding:0 28px 28px;scrollbar-width:none}
+  .fan::-webkit-scrollbar{display:none}
+  .fan img{position:static;transform:none!important;width:170px;flex:0 0 170px;scroll-snap-align:start}
+}
+@media (prefers-reduced-motion:reduce){.fan img,.browser{transition:none}}
+
 @media (max-width:980px){.huddle{width:100%;margin:0 auto 10px}}
 #aurora{position:absolute;inset:0;width:100%;height:100%;z-index:-2;opacity:0;transition:opacity 2.4s ease}
 .hero::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(120% 70% at 50% 0%,transparent 40%,var(--ink) 92%),linear-gradient(transparent 70%,var(--ink))}
@@ -162,7 +207,7 @@ h2{font-size:clamp(38px,5.4vw,68px);line-height:1.02;letter-spacing:-.04em;font-
 .metlife{--tint:radial-gradient(90% 90% at 20% 10%,rgba(255,196,138,.35),transparent 60%),radial-gradient(80% 80% at 90% 100%,rgba(255,111,181,.22),transparent 60%)}
 .hanger{--tint:radial-gradient(90% 90% at 80% 10%,rgba(164,147,255,.35),transparent 60%),radial-gradient(80% 80% at 10% 100%,rgba(255,111,181,.2),transparent 60%)}
 
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .tile{position:relative;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);padding:34px;display:flex;flex-direction:column;min-height:400px;overflow:hidden}
 .tile .big{font-size:clamp(84px,9vw,128px);line-height:.85;letter-spacing:-.06em;margin:auto 0 0;padding-top:40px;color:var(--text)}
 .tile .big small{display:block;font-size:15px;letter-spacing:0;color:var(--muted);margin-top:14px;line-height:1.4}
@@ -257,7 +302,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   <a class="mark" href="#top">Jose Togbe</a>
   <a class="l" href="#work">Work</a>
   <a class="l" href="#how">How I work</a>
-  <a class="l" href="#approach">Approach</a>
+  <a class="l" href="#built">Built with AI</a>
   <a class="l" href="#recommendations">Kind words</a>
   <a class="btn solid" href="#contact">Get in touch</a>
 </nav>
@@ -332,7 +377,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   <div class="wrap">
     <div class="head">
       <h2 id="work-h">Selected case studies.</h2>
-      <p>Life insurance claims, clinical device ordering, mortgages, wealth platforms, account management, and a consumer app I designed and built. Each one shows the research, the trade-offs, and what the work was built to move.</p>
+      <p>Life insurance claims, clinical device ordering, mortgages, wealth platforms, and account management. Each one shows the research, the trade-offs, and what the work was built to move.</p>
     </div>
 
     <article class="feature metlife">
@@ -384,14 +429,6 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
         <div class="foot"><span class="client">Case study overview</span><span class="read">Read ↗</span></div>
         <a class="cover" href="Citi.png" target="_blank" rel="noopener" aria-label="Read the Citi case study overview"></a>
       </article>
-      <article class="tile t4">
-        <p class="client">Pactara, designed and built</p>
-        <h3>Group fitness accountability app.</h3>
-        <p>Small groups commit to a challenge and check in together. I designed and built it end to end in React, TypeScript, and Capacitor. It's live on the App Store.</p>
-        <p class="big">50+<small>Active users</small></p>
-        <div class="foot"><span class="client">pactara.app</span><span class="read">Visit ↗</span></div>
-        <a class="cover" href="https://pactara.app" target="_blank" rel="noopener" aria-label="Visit Pactara"></a>
-      </article>
     </div>
 
     <div class="model" id="how">
@@ -410,6 +447,59 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
         <div class="bar after"><div class="lab"><span>Now, one huddle</span><b>2 to 4 weeks</b></div><div class="track"><div class="fill"></div></div></div>
         <p class="client" style="margin-top:6px">Built with Cursor, GitHub, Figma, and Miro.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="built" aria-labelledby="built-h">
+  <div class="wrap">
+    <div class="head">
+      <h2 id="built-h">Things I've built with AI.</h2>
+      <p>Products I took from idea to launch on my own: the research, the design, the code, and the launch. AI handles a lot of the typing, so I can spend my time on the product decisions.</p>
+    </div>
+
+    <article class="bx dw">
+      <div>
+        <div class="bx-top"><span class="appic dwic" aria-hidden="true">+</span><div><h3>Dreamwall</h3><span class="live"><i aria-hidden="true"></i>Live at dreamwall.app</span></div></div>
+        <p class="pitch">A vision board that lives on your wallpaper.</p>
+        <p class="desc">Pick a template or describe your year, drag in photos, and turn each dream into a goal with a plan and a Sunday check-in. Then set the board as your desktop wallpaper and screensaver, so you see it every day.</p>
+        <div class="tags"><span>Web app</span><span>Mac app</span><span>Vercel</span><span>Supabase</span></div>
+        <div class="bx-foot"><a class="btn solid" href="https://dreamwall.app" target="_blank" rel="noopener">Visit dreamwall.app ↗</a></div>
+      </div>
+      <div class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>dreamwall.app</span></div>
+        <video id="dwv" src="assets/built/dreamwall.mp4" poster="assets/built/dreamwall-poster.jpg" muted loop playsinline preload="metadata" aria-label="Dreamwall demo: choosing a template, adding photos and goals, then setting the board as a wallpaper"></video>
+      </div>
+    </article>
+
+    <div class="pair">
+      <article class="bx pa">
+        <div class="bx-top"><img class="appic" src="assets/built/pactara-icon.webp" alt="" width="52" height="52"><div><h3>Pactara</h3><span class="live"><i aria-hidden="true"></i>Live on the App Store</span></div></div>
+        <p class="pitch">Accountability that keeps you showing up.</p>
+        <p class="desc">Get matched with a partner, make a pact, and prove you showed up with a quick video check-in. Streaks keep the momentum going.</p>
+        <div class="tags"><span>iOS</span><span>React</span><span>TypeScript</span><span>Capacitor</span></div>
+        <div class="bx-foot"><a class="btn" href="https://apps.apple.com/us/app/pactara/id6779681656" target="_blank" rel="noopener">View on the App Store ↗</a><span class="stat2"><b>50+</b> active users</span></div>
+        <div class="fan" aria-label="Pactara App Store screens">
+          <img src="assets/built/pactara-2.webp" alt="Find your accountability partner: a match screen" loading="lazy" style="--i:-2;--a:2">
+          <img src="assets/built/pactara-3.webp" alt="Make the pact: a 90-day commitment with a partner" loading="lazy" style="--i:-1;--a:1">
+          <img src="assets/built/pactara-1.webp" alt="Your goals, your people: the Pactara group feed" loading="lazy" style="--i:0;--a:0">
+          <img src="assets/built/pactara-5.webp" alt="Prove you showed up with a quick video" loading="lazy" style="--i:1;--a:1">
+          <img src="assets/built/pactara-6.webp" alt="A 14-day streak celebration" loading="lazy" style="--i:2;--a:2">
+        </div>
+      </article>
+      <article class="bx sl">
+        <div class="bx-top"><img class="appic" src="assets/built/slip-icon.webp" alt="" width="52" height="52"><div><h3>Slip</h3><span class="live"><i aria-hidden="true"></i>Live on the App Store, Houston</span></div></div>
+        <p class="pitch">Dating apps give you information. Real life gives you chemistry. Slip gives you both.</p>
+        <p class="desc">Share a card instead of your number, see who's single in the room at Slip events, and send an opener that counts.</p>
+        <div class="tags"><span>iOS</span><span>React</span><span>Capacitor</span><span>Live events</span></div>
+        <div class="bx-foot"><a class="btn" href="https://apps.apple.com/us/app/slip-your-dating-card/id6822983519" target="_blank" rel="noopener">View on the App Store ↗</a></div>
+        <div class="fan" aria-label="Slip App Store screens">
+          <img src="assets/built/slip-2.webp" alt="See who's single in the room at a Slip event" loading="lazy" style="--i:-2;--a:2">
+          <img src="assets/built/slip-3.webp" alt="Know what they're looking for before you say hi" loading="lazy" style="--i:-1;--a:1">
+          <img src="assets/built/slip-1.webp" alt="Your Slip dating card" loading="lazy" style="--i:0;--a:0">
+          <img src="assets/built/slip-5.webp" alt="Share your card by QR code, not your number" loading="lazy" style="--i:1;--a:1">
+          <img src="assets/built/slip-6.webp" alt="Chat in Slip and take your card back anytime" loading="lazy" style="--i:2;--a:2">
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -544,6 +634,13 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
     if(running) requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
+})();
+</script>
+<script>
+(function(){
+  var v=document.getElementById('dwv'); if(!v) return;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){ v.controls=true; return; }
+  new IntersectionObserver(function(es){ es[0].isIntersecting ? v.play().catch(function(){ v.controls=true; }) : v.pause(); },{threshold:.25}).observe(v);
 })();
 </script>
 </body>
