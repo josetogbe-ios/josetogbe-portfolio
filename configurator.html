@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hanger Guided Configurator · Jose Togbe</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="description" content="Case study: designing Hanger Clinic's Guided Configurator for ordering custom orthoses, which contributed to $3M in revenue growth.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F4F3EE; --bg-2:#ECEAE2; --card:#FBFAF6;
+  --ink:#25281F; --ink-2:#5D6155; --ink-3:#85897B;
+  --line:#DCDAD0; --line-2:#C9C7BC;
+  --accent:#5B7049; --accent-soft:#E3E8D8;
+  --wash-a:rgba(190,219,184,.60); --wash-b:rgba(240,224,172,.50); --wash-c:rgba(244,202,184,.45);
+  --shadow:0 1px 2px rgba(37,40,31,.05),0 18px 40px -18px rgba(37,40,31,.22);
+  /* story panel is dusk in both themes */
+  --dusk-1:#231F3B; --dusk-2:#5B4368; --dusk-3:#B98A92; --dusk-ink:#FFF1E9; --dusk-ink-2:#E2D2E1; --dusk-ink-3:#BCADC9;
+  --sans:"Instrument Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#141611; --bg-2:#1A1D16; --card:#1C1F18;
+    --ink:#ECEBE3; --ink-2:#B0B3A6; --ink-3:#7F8375;
+    --line:#2C3027; --line-2:#3A3F33;
+    --accent:#AFC495; --accent-soft:#252C1E;
+    --wash-a:rgba(92,120,84,.28); --wash-b:rgba(120,104,60,.20); --wash-c:rgba(120,78,70,.18);
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 18px 40px -18px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#141611; --bg-2:#1A1D16; --card:#1C1F18;
+  --ink:#ECEBE3; --ink-2:#B0B3A6; --ink-3:#7F8375;
+  --line:#2C3027; --line-2:#3A3F33;
+  --accent:#AFC495; --accent-soft:#252C1E;
+  --wash-a:rgba(92,120,84,.28); --wash-b:rgba(120,104,60,.20); --wash-c:rgba(120,78,70,.18);
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 18px 40px -18px rgba(0,0,0,.6);
+}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1320px;margin-inline:auto;padding-inline:clamp(16px,4vw,48px)}
+.label{font-size:11.5px;letter-spacing:.02em;color:var(--ink-3)}
+.mono{font-family:var(--mono);font-size:11px;letter-spacing:.02em}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:var(--bg);padding:8px 12px;border-radius:6px;z-index:99}
+.skip:focus{left:16px}
+h1,h2,h3{font-weight:400;margin:0;text-wrap:balance}
+
+/* NAV */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .3s}
+.nav.scrolled{border-bottom-color:var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:68px}
+.brand{font-size:20px;font-weight:600;letter-spacing:-.045em;text-decoration:none}
+.nav-links{display:flex;align-items:center;gap:26px;font-size:13px}
+.nav-links a{text-decoration:none;color:var(--ink-2);transition:color .2s}
+.nav-links a:hover{color:var(--ink)}
+.nav-links .contact{color:var(--ink)}
+.clock{display:flex;align-items:center;gap:8px;color:var(--ink-3)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);display:inline-block;flex:none}
+@media (max-width:760px){.nav-links a:not(.contact){display:none}.clock{display:none}}
+
+/* HERO */
+.hero{position:relative;overflow:hidden;padding-block:clamp(56px,9vw,120px) clamp(48px,6vw,80px)}
+.hero::before{content:"";position:absolute;inset:-40% -10% auto -10%;height:120%;z-index:-1;
+  background:radial-gradient(40% 55% at 12% 20%,var(--wash-a),transparent 70%),radial-gradient(35% 50% at 55% 8%,var(--wash-b),transparent 70%),radial-gradient(40% 55% at 92% 18%,var(--wash-c),transparent 70%);filter:blur(10px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.9fr) minmax(0,1fr);gap:clamp(32px,6vw,96px);align-items:end}
+.hero h1{font-size:clamp(44px,6vw,88px);line-height:.98;letter-spacing:-.058em}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero-side{display:grid;gap:22px;max-width:420px;padding-bottom:10px}
+.hero-side p{margin:0;font-size:17.5px;line-height:1.62;color:var(--ink-2);letter-spacing:-.01em}
+.hero-side p b{color:var(--ink);font-weight:500}
+.status{display:grid;gap:6px;font-size:12px;color:var(--ink-3)}
+.status .row{display:flex;align-items:center;gap:10px}
+@media (max-width:900px){.hero-grid{grid-template-columns:minmax(0,1fr);align-items:start}}
+
+/* STORY PANEL */
+.story{position:relative;border-radius:6px;overflow:hidden;color:var(--dusk-ink);isolation:isolate;
+  background:linear-gradient(172deg,var(--dusk-1) 0%,var(--dusk-2) 55%,var(--dusk-3) 100%);min-height:620px}
+.story canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
+.story-inner{position:relative;padding:clamp(22px,3.4vw,44px);display:grid;gap:clamp(36px,5vw,64px)}
+.story-top{display:flex;justify-content:space-between;gap:16px;font-size:11px;letter-spacing:.03em;color:var(--dusk-ink-2)}
+.story-head{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:40px;align-items:end}
+.story .kicker{font-size:12px;color:var(--dusk-ink-3);margin-bottom:18px}
+.story h2{font-size:clamp(40px,5.4vw,78px);line-height:1;letter-spacing:-.05em;color:var(--dusk-ink)}
+.story h2 em{font-style:normal;color:#F3C9B4}
+.story-lede{margin:0;font-size:16.5px;line-height:1.7;color:var(--dusk-ink-2);max-width:460px}
+.story-lede b{color:var(--dusk-ink);font-weight:500}
+.run{appearance:none;cursor:pointer;display:inline-flex;align-items:center;gap:14px;padding:12px 18px 12px 14px;border-radius:6px;
+  background:rgba(255,240,230,.10);border:1px solid rgba(255,240,230,.22);color:var(--dusk-ink);font:inherit;font-size:13px;backdrop-filter:blur(6px);transition:background .2s}
+.run:hover{background:rgba(255,240,230,.18)}
+.run .tri{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:rgba(255,240,230,.16)}
+.run small{display:block;font-size:10.5px;color:var(--dusk-ink-3)}
+.cycle{display:grid;grid-template-columns:auto 1fr;gap:clamp(24px,4vw,56px);align-items:stretch;border-top:1px solid rgba(255,240,230,.18);padding-top:28px}
+.weeks{display:flex;align-items:center;gap:22px}
+.weeks .n{font-size:clamp(40px,4.4vw,60px);letter-spacing:-.05em;line-height:1;font-variant-numeric:tabular-nums}
+.weeks .n.before{color:var(--dusk-ink-3);text-decoration:line-through;text-decoration-thickness:1px}
+.weeks .cap{font-size:10.5px;color:var(--dusk-ink-3);margin-top:6px;letter-spacing:.03em}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;list-style:none;margin:0;padding:0}
+.steps li{border:1px solid rgba(255,240,230,.18);border-radius:6px;padding:14px;display:grid;gap:18px;transition:background .4s,border-color .4s,transform .4s}
+.steps li .i{font-family:var(--mono);font-size:10.5px;color:var(--dusk-ink-3)}
+.steps li .t{font-size:15px;line-height:1.3;letter-spacing:-.01em}
+.steps li .t span{color:var(--dusk-ink-3)}
+.steps li.on{background:rgba(255,240,230,.14);border-color:rgba(243,201,180,.7);transform:translateY(-3px)}
+.team{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:6px 12px 6px 6px;border-radius:999px;background:rgba(255,240,230,.08);border:1px solid rgba(255,240,230,.16);font-size:12px;color:var(--dusk-ink-2)}
+.chip b{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:9.5px;font-weight:600;background:rgba(255,240,230,.18);color:var(--dusk-ink)}
+.chip.me b{background:#F3C9B4;color:#2A2338}
+.story-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 48px;font-size:14.5px;line-height:1.7;color:var(--dusk-ink-2)}
+.story-cols p{margin:0}
+.story-cols b{color:var(--dusk-ink);font-weight:500}
+.story-foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:center}
+.stack{display:flex;gap:18px;font-size:12px;color:var(--dusk-ink-3)}
+.stack span:first-child{color:var(--dusk-ink-2)}
+@media (max-width:900px){.story-head,.cycle,.story-cols{grid-template-columns:minmax(0,1fr)}.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* CLIENTS */
+.section{padding-block:clamp(72px,9vw,128px)}
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:22px}
+.clients{--line-soft:color-mix(in srgb,var(--line) 45%,transparent);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line-soft);border-left:1px solid var(--line-soft)}
+.clients div{border-right:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);min-height:96px;display:grid;place-items:center;padding:16px;text-align:center;color:var(--ink-2)}
+.w1{font-size:21px;font-weight:600;letter-spacing:-.04em}
+.w2{font-size:15px;font-weight:500;letter-spacing:.14em;text-transform:uppercase}
+.w3{font-size:20px;letter-spacing:-.02em}
+.w4{font-size:13px;font-weight:600;letter-spacing:.22em;text-transform:uppercase}
+.stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;margin-top:48px;border-top:1px solid var(--line)}
+.stats div{padding:20px 20px 0 0}
+.stats .v{font-size:clamp(30px,3.2vw,44px);letter-spacing:-.05em;line-height:1;font-variant-numeric:tabular-nums}
+.stats .k{font-size:12.5px;color:var(--ink-3);margin-top:10px;line-height:1.45}
+@media (max-width:760px){.clients{grid-template-columns:repeat(2,minmax(0,1fr))}.stats{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:24px}}
+
+/* WORK */
+.work-title{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:40px;align-items:end;margin-bottom:clamp(36px,5vw,64px)}
+.h2{font-size:clamp(38px,4.6vw,64px);line-height:1.02;letter-spacing:-.05em}
+.h2 em{font-style:normal;color:var(--accent)}
+.intro{margin:0;color:var(--ink-2);font-size:16.5px;line-height:1.65;max-width:440px}
+@media (max-width:900px){.work-title{grid-template-columns:minmax(0,1fr)}}
+
+.recon{background:var(--card);border:1px solid var(--line);border-radius:6px;box-shadow:var(--shadow);display:grid;grid-template-columns:230px minmax(0,1fr);overflow:hidden;min-height:470px}
+.rside{border-right:1px solid var(--line);padding:18px;display:grid;align-content:start;gap:4px;background:var(--bg)}
+.rbrand{display:flex;align-items:center;gap:10px;font-size:12.5px;font-weight:600;margin-bottom:18px;letter-spacing:-.01em}
+.rbrand i{width:26px;height:26px;border-radius:6px;background:var(--ink);display:grid;place-items:center;color:var(--bg);font-style:normal;font-size:11px}
+.rstep{appearance:none;border:0;background:none;font:inherit;text-align:left;cursor:pointer;display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:center;padding:9px 10px;border-radius:6px;font-size:13px;color:var(--ink-2)}
+.rstep .n{width:22px;height:22px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;font-family:var(--mono);font-size:10px}
+.rstep:hover{background:var(--bg-2)}
+.rstep[aria-selected="true"]{background:var(--accent-soft);color:var(--ink)}
+.rstep[aria-selected="true"] .n{background:var(--accent);border-color:var(--accent);color:var(--card)}
+.rstep.done .n{border-color:var(--accent);color:var(--accent)}
+.rmain{padding:clamp(18px,2.6vw,32px);display:grid;gap:22px;align-content:start}
+.rtop{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.rtop h3{font-size:22px;letter-spacing:-.03em}
+.rail{display:flex;gap:6px}
+.rail span{height:4px;flex:1;border-radius:2px;background:var(--line)}
+.rail span.on{background:var(--accent)}
+.rbody{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:18px}
+.panel{border:1px solid var(--line);border-radius:6px;padding:18px;display:grid;gap:12px;align-content:start;background:var(--card)}
+.panel .ttl{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.field{display:grid;gap:6px}
+.field .l{font-size:12px;color:var(--ink-2)}
+.field .b{height:36px;border:1px solid var(--line-2);border-radius:5px;background:var(--bg);display:flex;align-items:center;padding-inline:12px;font-size:13px;color:var(--ink-2)}
+.field .h{font-size:11.5px;color:var(--accent)}
+.checkrow{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink-2);padding-block:6px;border-bottom:1px dashed var(--line)}
+.checkrow:last-child{border-bottom:0}
+.checkrow i{width:16px;height:16px;border-radius:4px;border:1px solid var(--line-2);flex:none;display:grid;place-items:center;font-style:normal;font-size:10px;color:var(--card)}
+.checkrow i.y{background:var(--accent);border-color:var(--accent)}
+.move{background:var(--accent-soft);border-radius:6px;padding:18px;display:grid;gap:8px;align-content:start}
+.move .ttl{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.move p{margin:0;font-size:15px;line-height:1.55;color:var(--ink)}
+.save{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink-3)}
+.recon-foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:12px}
+@media (max-width:820px){.recon{grid-template-columns:minmax(0,1fr)}.rside{border-right:0;border-bottom:1px solid var(--line);grid-auto-flow:column;grid-auto-columns:max-content;overflow-x:auto;align-items:center}.rbrand{margin:0 8px 0 0}.rbody{grid-template-columns:minmax(0,1fr)}}
+
+.shot{margin:0;background:var(--card);border:1px solid var(--line);border-radius:6px;box-shadow:var(--shadow);overflow:hidden}
+.shot-bar{display:flex;align-items:center;gap:6px;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--bg)}
+.shot-bar i{width:9px;height:9px;border-radius:50%;background:var(--line-2);display:inline-block}
+.shot-bar span{margin-left:10px;font-size:11.5px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.shot img{display:block;width:100%;height:auto;max-width:100%;background:#fff}
+.closing-note{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:40px;margin-top:clamp(64px,8vw,112px);padding-top:32px;border-top:1px solid var(--line);align-items:start}
+.closing-note p:not(.note){margin:0;color:var(--ink-2);font-size:15.5px;line-height:1.65}
+@media (max-width:900px){.closing-note{grid-template-columns:minmax(0,1fr)}}
+.feature-2{margin-top:clamp(72px,9vw,128px)}
+.feat-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:6px 0 18px;padding-top:16px;border-top:1px solid var(--line)}
+.feat-stats .v{font-size:clamp(30px,3vw,40px);letter-spacing:-.05em;line-height:1;font-variant-numeric:tabular-nums;color:var(--ink)}
+.feat-stats .k{font-size:12.5px;color:var(--ink-3);margin-top:8px;line-height:1.45}
+.feat-cap{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:40px;margin-top:28px;align-items:start}
+.feat-cap h3{font-size:clamp(28px,3vw,40px);letter-spacing:-.045em;line-height:1.05;margin-top:8px}
+.feat-cap p{margin:0 0 14px;color:var(--ink-2);font-size:15.5px;line-height:1.65}
+.read{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;color:var(--accent);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px}
+.read:hover{color:var(--ink)}
+.meta-line{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--ink-3)}
+@media (max-width:900px){.feat-cap{grid-template-columns:minmax(0,1fr);gap:12px}}
+
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(28px,4vw,64px) clamp(24px,3vw,48px);margin-top:clamp(64px,8vw,112px)}
+.card{display:grid;gap:18px;align-content:start}
+.card .read{justify-self:start}
+.cover{text-decoration:none;color:inherit;position:relative;aspect-ratio:4/3;max-width:100%;border-radius:6px;overflow:hidden;background:var(--bg-2);border:1px solid var(--line);display:grid;place-items:center;transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s}
+.card:hover .cover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.cover .big{position:absolute;left:18px;bottom:12px;font-size:clamp(40px,5vw,72px);letter-spacing:-.06em;line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
+.cover .tagline{position:absolute;right:18px;bottom:18px;font-size:11px;color:var(--ink-3)}
+.card h3{font-size:clamp(24px,2.4vw,32px);letter-spacing:-.04em;line-height:1.1}
+.card p{margin:0;color:var(--ink-2);font-size:15px;line-height:1.65;max-width:560px}
+@media (max-width:760px){.cards{grid-template-columns:minmax(0,1fr)}}
+
+/* covers */
+.link-art{position:relative;width:62%;height:56%}
+.link-art .c{position:absolute;top:0;width:58%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;font-size:11px;letter-spacing:.02em}
+.link-art .c1{left:0;justify-items:start;padding-left:12%;border:1px solid var(--ink-3);color:var(--ink-2)}
+.link-art .c2{right:0;justify-items:end;padding-right:9%;background:color-mix(in srgb,var(--accent) 16%,transparent);border:1px solid var(--accent);color:var(--ink)}
+.link-art .pill{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--ink);color:var(--bg);font-size:11px;padding:6px 12px;border-radius:999px;white-space:nowrap}
+.split-art{width:72%;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:40px}
+.split-art .col{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:12px;display:grid;gap:8px;align-content:start}
+.split-art .col .h{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.split-art .r{height:22px;border-radius:4px;background:var(--bg-2);display:flex;align-items:center;padding-inline:8px;font-size:11px;color:var(--ink-2)}
+.split-art .col.hi{border-color:var(--accent)}
+.split-art .col.hi .r{background:var(--accent-soft)}
+.ring-art{display:flex;align-items:center;gap:22px;margin-bottom:34px}
+.ring-art svg{width:clamp(110px,14vw,160px);height:auto}
+.ring-art .legend{display:grid;gap:8px;font-size:12px;color:var(--ink-2)}
+.ring-art .legend span{display:flex;align-items:center;gap:8px}
+.ring-art .legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+/* PARTICLE BAND */
+.band{position:relative;height:220px;border-bottom:1px solid var(--line)}
+.band canvas{position:absolute;inset:0;width:100%;height:100%}
+.band-cap{position:absolute;left:0;right:0;bottom:12px;display:flex;justify-content:space-between;gap:12px;font-size:12px;color:var(--ink-3)}
+
+/* APPROACH */
+.approach{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(32px,6vw,96px)}
+.note{margin:0;font-size:clamp(19px,1.8vw,24px);line-height:1.5;letter-spacing:-.02em;color:var(--ink)}
+.note-sig{font-size:12px;color:var(--ink-3);margin-top:14px}
+.tabs{display:flex;gap:26px;border-bottom:1px solid var(--line);margin-top:40px;overflow-x:auto}
+.tab{appearance:none;background:none;border:0;border-bottom:1px solid transparent;margin-bottom:-1px;padding:0 0 12px;font:inherit;font-size:13px;color:var(--ink-3);cursor:pointer;white-space:nowrap}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+.tabpanel{padding-top:28px;display:grid;gap:14px}
+.tabpanel h3{font-size:clamp(24px,2.4vw,32px);letter-spacing:-.04em;line-height:1.12}
+.tabpanel h3 em{font-style:normal;color:var(--accent)}
+.tabpanel p{margin:0;color:var(--ink-2);font-size:15.5px;line-height:1.7;max-width:600px}
+.tabpanel .tags{font-size:12px;color:var(--ink-3)}
+@media (max-width:900px){.approach{grid-template-columns:minmax(0,1fr)}}
+
+/* RECS */
+.recs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(24px,4vw,64px)}
+.rec{border-top:1px solid var(--line);padding-block:28px 36px;display:grid;grid-template-columns:120px minmax(0,1fr);gap:20px}
+.rec .role{font-size:12px;color:var(--ink-3);padding-top:6px}
+.rec blockquote{margin:0;font-size:clamp(18px,1.6vw,21px);line-height:1.5;letter-spacing:-.02em}
+.rec blockquote em{font-style:normal;color:var(--accent)}
+.rec .who{margin-top:16px;font-size:13px;color:var(--ink-2)}
+.rec .who span{color:var(--ink-3)}
+@media (max-width:900px){.recs{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:520px){.rec{grid-template-columns:minmax(0,1fr);gap:8px}}
+
+/* CONTACT */
+.contact{border-top:1px solid var(--line)}
+.contact-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(32px,6vw,96px);align-items:start}
+.contact h2{font-size:clamp(46px,6.4vw,92px);line-height:.98;letter-spacing:-.058em}
+.contact h2 em{font-style:normal;color:var(--accent)}
+.contact p{margin:0;color:var(--ink-2);font-size:16.5px;line-height:1.7;max-width:520px}
+.contact p b{color:var(--ink);font-weight:500}
+.links{list-style:none;margin:32px 0 0;padding:0;border-top:1px solid var(--line)}
+.links li{display:grid;grid-template-columns:100px minmax(0,1fr) auto;gap:16px;align-items:center;padding-block:18px;border-bottom:1px solid var(--line)}
+.links .k{font-size:12px;color:var(--ink-3)}
+.links a{text-decoration:none;font-size:clamp(17px,1.6vw,21px);letter-spacing:-.02em;overflow-wrap:anywhere}
+.links a:hover{color:var(--accent)}
+.copy{appearance:none;cursor:pointer;background:none;border:1px solid var(--line-2);border-radius:999px;padding:5px 12px;font:inherit;font-size:12px;color:var(--ink-2)}
+.copy:hover{border-color:var(--ink);color:var(--ink)}
+.arrow{font-size:14px;color:var(--ink-3)}
+footer{padding-block:28px 40px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--ink-3)}
+@media (max-width:900px){.contact-grid{grid-template-columns:minmax(0,1fr)}}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}html{scroll-behavior:auto}}
+
+/* ===== Case study ===== */
+.back{display:inline-block;font-size:13px;color:var(--ink-3);text-decoration:none;margin-bottom:28px}
+.back:hover{color:var(--ink)}
+.cs-hero{position:relative;overflow:hidden;padding-block:clamp(40px,6vw,80px) 0}
+.cs-hero::before{content:"";position:absolute;inset:-40% -10% auto -10%;height:90%;z-index:-1;background:radial-gradient(40% 55% at 12% 20%,var(--wash-a),transparent 70%),radial-gradient(35% 50% at 60% 8%,var(--wash-b),transparent 70%),radial-gradient(40% 55% at 92% 18%,var(--wash-c),transparent 70%);filter:blur(10px)}
+.cs-eyebrow{display:flex;flex-wrap:wrap;gap:10px;font-size:12.5px;color:var(--ink-3);margin-bottom:18px}
+.cs-hero h1{font-size:clamp(40px,5.6vw,80px);line-height:1;letter-spacing:-.055em;max-width:1050px}
+.cs-hero h1 em{font-style:normal;color:var(--accent)}
+.tldr{margin:28px 0 0;font-size:clamp(17px,1.5vw,19.5px);line-height:1.62;color:var(--ink-2);max-width:760px;letter-spacing:-.01em}
+.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;margin:44px 0 48px;padding:0}
+.meta-grid div{border-top:1px solid var(--line);padding-top:16px}
+.meta-grid dt{font-size:11.5px;color:var(--ink-3);letter-spacing:.02em;margin-bottom:8px}
+.meta-grid dd{margin:0;font-size:14.5px;line-height:1.55;color:var(--ink)}
+.cs-lead{margin-bottom:0}
+.shot img[data-zoom]{cursor:zoom-in}
+.cs-sec{padding-block:clamp(72px,9vw,128px)}
+.cs-tint{background:var(--bg-2)}
+.cs-sec .label{margin-bottom:18px}
+.cs-sec .h2{margin-bottom:clamp(28px,4vw,48px)}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(28px,6vw,96px);align-items:start}
+.brief{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.brief li{padding:18px 0 18px 34px;border-bottom:1px solid var(--line);position:relative;font-size:16.5px;line-height:1.55;color:var(--ink)}
+.brief li::before{content:"";position:absolute;left:4px;top:27px;width:12px;height:1px;background:var(--accent)}
+.cs-statement{padding-block:clamp(72px,10vw,150px);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.cs-statement .big{margin:0 0 clamp(28px,4vw,48px);font-size:clamp(44px,6.4vw,96px);line-height:.98;letter-spacing:-.058em;text-wrap:balance}
+.cs-statement .big em{font-style:normal;color:var(--accent)}
+.cs-statement .body{margin:0;font-size:17px;line-height:1.7;color:var(--ink-2);max-width:620px}
+.intro.wide{max-width:720px;margin-top:28px}
+.roles{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.roles div{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 18px;display:grid;gap:6px;min-height:120px;align-content:end}
+.roles b{font-weight:500;font-size:18px;letter-spacing:-.02em}
+.roles span{font-size:13px;color:var(--ink-3);line-height:1.45}
+.pair{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(28px,5vw,72px);align-items:start;padding-block:clamp(40px,5vw,64px);border-top:1px solid var(--line)}
+.pair:first-of-type{border-top:0;padding-top:0}
+.pair-text{display:grid;gap:22px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 96px)}
+.pair .n{font-family:var(--mono);font-size:12px;color:var(--ink-3)}
+.truth span,.action span{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.truth span{color:var(--ink-3)}
+.action span{color:var(--accent)}
+.truth p{margin:0;font-size:clamp(22px,2.2vw,28px);line-height:1.25;letter-spacing:-.035em;color:var(--ink)}
+.action p{margin:0;font-size:15.5px;line-height:1.7;color:var(--ink-2)}
+.stack2{display:grid;gap:20px}
+.decision{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(28px,5vw,72px);margin-bottom:clamp(36px,5vw,56px)}
+.tension{display:grid;gap:0;border-top:1px solid var(--line)}
+.tension div{padding:20px 0;border-bottom:1px solid var(--line)}
+.tension span,.resolution span{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px}
+.tension p{margin:0;font-size:16px;line-height:1.6}
+.resolution{background:var(--accent-soft);border-radius:6px;padding:clamp(22px,3vw,36px)}
+.resolution span{color:var(--accent)}
+.resolution p{margin:0;font-size:16.5px;line-height:1.7;color:var(--ink)}
+.cs-wide{max-width:980px;margin-inline:auto}
+.two-col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(24px,4vw,56px);align-items:start}
+.col-card{display:grid;gap:16px}
+.col-card h3{font-size:clamp(22px,2vw,26px);letter-spacing:-.035em;margin-top:8px}
+.col-card p{margin:0;font-size:15.5px;line-height:1.7;color:var(--ink-2)}
+.edge{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:40px;align-items:start}
+.edge figure{margin:0}
+.edge figcaption{padding:12px 14px;font-size:12.5px;color:var(--ink-3);border-top:1px solid var(--line);background:var(--bg)}
+.edge .shot img{max-height:560px;object-fit:cover;object-position:top}
+.approvals{list-style:none;margin:40px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));counter-reset:ap}
+.approvals li{counter-increment:ap;border-top:2px solid var(--accent);padding:18px 18px 0 0;display:grid;gap:8px}
+.approvals li::before{content:"0" counter(ap);font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+.approvals b{font-weight:500;font-size:17px;letter-spacing:-.02em}
+.approvals span{font-size:13px;color:var(--ink-3);line-height:1.5}
+.outcome{margin-top:clamp(48px,6vw,80px)}
+.note-small{margin:22px 0 0;font-size:14.5px;line-height:1.65;color:var(--ink-3)}
+.reflect{display:grid;gap:20px}
+.reflect p{margin:0;font-size:16.5px;line-height:1.7;color:var(--ink-2)}
+.reflect b{color:var(--ink);font-weight:500}
+.next-card{display:grid;gap:12px;justify-items:start;text-decoration:none;border-top:1px solid var(--line);padding-top:32px}
+.next-title{font-size:clamp(36px,5vw,64px);letter-spacing:-.05em;line-height:1}
+.next-card:hover .next-title{color:var(--accent)}
+.zoom{border:0;padding:0;background:transparent;max-width:min(1200px,94vw);max-height:92vh;overflow:auto}
+.zoom::backdrop{background:rgba(20,22,17,.82)}
+.zoom img{display:block;width:100%;height:auto;border-radius:6px}
+.zoom-close{position:sticky;top:8px;float:right;margin:8px;appearance:none;border:0;border-radius:999px;padding:8px 14px;background:var(--bg);color:var(--ink);font:inherit;font-size:13px;cursor:pointer}
+@media (max-width:900px){.meta-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.split,.pair,.decision,.two-col{grid-template-columns:minmax(0,1fr)}.pair-text{position:static}.roles{grid-template-columns:repeat(2,minmax(0,1fr))}.approvals{grid-template-columns:minmax(0,1fr);gap:22px}.edge{grid-template-columns:minmax(0,1fr)}}
+
+.cs-results{display:grid;grid-template-columns:repeat(2,minmax(0,220px));gap:32px;margin-top:36px}
+.cs-results .v{font-size:clamp(40px,4.4vw,60px);letter-spacing:-.055em;line-height:1;color:var(--accent);font-variant-numeric:tabular-nums}
+.cs-results .k{font-size:13px;color:var(--ink-3);margin-top:10px;line-height:1.45}
+.big-p{margin:0 0 24px;font-size:clamp(19px,1.8vw,23px);line-height:1.45;letter-spacing:-.02em;color:var(--ink)}
+@media (max-width:520px){.cs-results{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}}
+.sources{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.sources div{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:24px 20px;display:grid;gap:8px;min-height:130px;align-content:end}
+.sources b{font-weight:500;font-size:20px;letter-spacing:-.025em}
+.sources span{font-size:13.5px;color:var(--ink-3);line-height:1.5}
+.misstep{margin:6px 0 0!important;padding:14px 16px;border-left:2px solid var(--line-2);font-size:14.5px!important;color:var(--ink-2)}
+.misstep b{color:var(--ink);font-weight:500}
+@media (max-width:900px){.sources{grid-template-columns:minmax(0,1fr)}}
+/* Titles first, description below, at every width */
+.hero-grid,.story-head,.work-title,.closing-note,.feat-cap,.approach,.contact-grid,.split{grid-template-columns:minmax(0,1fr)!important;align-items:start}
+.hero-grid{gap:clamp(24px,3vw,40px)}
+.hero-side{max-width:680px}
+.story-head{gap:24px}
+.work-title,.closing-note,.split{gap:20px}
+.feat-cap{gap:14px}
+.approach,.contact-grid{gap:clamp(28px,4vw,48px)}
+.split>div:empty{display:none}
+.intro,.story-lede,.contact p{max-width:680px}
+.feat-cap>div:last-child,.closing-note>div,.split .brief{max-width:760px}
+</style>
+</head>
+<body>
+<script>
+(function(){
+  try { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; } catch(e){}
+  function toTop(){ if (!location.hash || location.hash === '#top') { window.scrollTo({top:0,left:0,behavior:'instant'}); } }
+  toTop(); window.addEventListener('load', toTop); window.addEventListener('pageshow', toTop);
+})();
+</script>
+<a class="skip" href="#main">Skip to content</a>
+
+<div id="top"></div>
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">Jose Togbe</a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="index.html#work">Work</a>
+      <a href="index.html#approach">Approach</a>
+      <a href="index.html#recommendations">Recommendations</a>
+      <a href="Jose-Togbe-Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+      <a class="contact" href="index.html#contact">Contact ↗</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="cs-hero">
+    <div class="wrap">
+      <a class="back" href="index.html#work">← All work</a>
+      <div class="cs-eyebrow"><span>Hanger Clinic</span><span>/</span><span>Orthotics and prosthetics</span><span>/</span><span>Clinical ordering tool</span></div>
+      <h1>Ordering a custom brace, guided by what the patient <em>needs to do.</em></h1>
+      <p class="tldr">I led the design of the Guided Configurator, the tool Hanger Clinic clinicians use to specify and order custom ankle-foot orthoses (AFOs), replacing orders placed by phone or through a generic web form. It starts from the patient's own mobility goals, then walks the clinician through every measurement, material, and alignment decision in one place, with a live picture of the device they're building.</p>
+      <div class="cs-results">
+        <div><div class="v">$3M</div><div class="k">Revenue growth over the previous year that the configurator contributed to</div></div>
+        <div><div class="v">30%</div><div class="k">Adoption so far, so the impact is still growing</div></div>
+      </div>
+      <dl class="meta-grid">
+        <div><dt>Role</dt><dd>Lead UX designer, engaged through my independent design consultancy. Research, workflow, information architecture, interaction design, measurement diagrams, and the live device preview</dd></div>
+        <div><dt>Users</dt><dd>Orthotists and clinicians ordering custom devices for fabrication</dd></div>
+        <div><dt>Scope</dt><dd>Patient context, device selection, measurements, materials, alignment, mods, logistics, and review</dd></div>
+        <div><dt>Platform</dt><dd>Desktop web app used in the clinic, alongside the patient record</dd></div>
+      </dl>
+    </div>
+    <div class="wrap">
+      <figure class="shot cs-lead">
+        <div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>Guided Configurator · Materials and design</span></div>
+        <img src="assets/configurator/05-materials.png" width="1440" height="1352" alt="Materials and design step: a live illustration of the AFO with its chosen pattern next to ankle joint, plastic, and padding options, plus a summary of the customizations." data-zoom>
+      </figure>
+    </div>
+  </section>
+
+  <!-- BRIEF -->
+  <section class="cs-sec">
+    <div class="wrap split">
+      <div>
+        <div class="label">01 / The brief</div>
+        <h2 class="h2">One tool for <em>every custom order.</em></h2>
+      </div>
+      <ul class="brief">
+        <li>Help clinicians choose the right device for each patient, not just fill in an order.</li>
+        <li>Capture every specification the fabrication team needs: measurements, joints, plastic, padding, straps, alignment, mods, and trimlines.</li>
+        <li>Support adult and pediatric devices, single and bilateral orders, and several devices per patient.</li>
+        <li>Make the order easy to check before it's sent, so devices come back right the first time.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PROBLEM STATEMENT -->
+  <section class="cs-statement">
+    <div class="wrap">
+      <p class="big">The order was a phone call <em>and a web form.</em></p>
+      <div class="split">
+        <div></div>
+        <p class="body">Clinicians placed custom AFO orders by calling them in or filling out a generic JotForm. Neither one guided them through the dozens of choices a custom brace needs, from calf circumference and plastic thickness to heel wedge angle and strap placement, and neither showed what the finished device would look like. Specs got missed or misread along the way, which meant follow-up calls, remakes, and patients waiting longer to get moving.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEARCH -->
+  <section class="cs-sec">
+    <div class="wrap">
+      <div class="label">02 / Where the insights came from</div>
+      <h2 class="h2">Three views of <em>the same order.</em></h2>
+      <div class="sources">
+        <div><b>Watching clinicians</b><span>Sitting with clinicians as they placed real orders, by phone and by form</span></div>
+        <div><b>Fabrication interviews</b><span>Talking with the lab staff who build each device from the order</span></div>
+        <div><b>Remade orders</b><span>Reviewing orders that came back for remakes to find which specs went wrong</span></div>
+      </div>
+      <p class="intro wide">The clinicians knew what the patient needed. The lab knew what it needed to build it. The problems lived in between, in an order format that didn't guide either side.</p>
+    </div>
+  </section>
+
+  <!-- TRUTH / ACTION PAIRS -->
+  <section class="cs-sec cs-tint">
+    <div class="wrap">
+      <div class="label">03 / What we learned, and what we did about it</div>
+      <h2 class="h2">Four insights that <em>shaped the tool.</em></h2>
+
+      <article class="pair">
+        <div class="pair-text">
+          <div class="n">01</div>
+          <div class="truth"><span>Truth</span><p>The right device starts with what the patient wants to do again, not with the catalog.</p></div>
+          <div class="action"><span>Action</span><p>Open every order with the patient. "Let's get started" shows treatment side, device type, and insurance, then the four mobility tasks the patient struggled with most in their outcomes survey, like walking on uneven grass or stepping up a curb. Clinicians configure with those goals in front of them.</p></div>
+        </div>
+        <figure class="shot"><img src="assets/configurator/01-start.png" width="1440" height="1141" alt="Let's get started: patient details, measurements, and four mobility tasks from the outcomes survey marked unable to do or with much difficulty." loading="lazy" data-zoom></figure>
+      </article>
+
+      <article class="pair">
+        <div class="pair-text">
+          <div class="n">02</div>
+          <div class="truth"><span>Truth</span><p>Clinicians think about a device in parts, and not always in the same order.</p></div>
+          <div class="action"><span>Action</span><p>After choosing the AFO type, clinicians land on a hub with the device illustration and four sections they can add in any order: measurements, materials and design, alignment, and mods and trimlines. A second device, like the other side of a bilateral order, is one click away.</p>
+            <p class="misstep"><b>What didn't work first.</b> The first version was a linear wizard, one section after another. Clinicians don't work that way. They often know the alignment before the materials, so a fixed order made them skip ahead and come back. That's what led to the section hub.</p></div>
+        </div>
+        <div class="stack2">
+          <figure class="shot"><img src="assets/configurator/02-select-afo.png" width="1440" height="928" alt="Select an AFO: adult or pediatric, submission type, and six AFO types with their HCPCS codes." loading="lazy" data-zoom></figure>
+          <figure class="shot"><img src="assets/configurator/03-hub.png" width="1440" height="640" alt="Device hub: AFO Solid Left with add buttons for measurements, materials and design, alignment, and mods and trimlines." loading="lazy" data-zoom></figure>
+        </div>
+      </article>
+
+      <article class="pair">
+        <div class="pair-text">
+          <div class="n">03</div>
+          <div class="truth"><span>Truth</span><p>Measurements are spatial. A list of empty fields hides where each one is taken.</p></div>
+          <div class="action"><span>Action</span><p>Put the fields on the anatomy. Each measurement sits next to the exact point on the leg or foot it describes, with a choice to go by impressions or measurements and a quick switch between inches and centimeters.</p></div>
+        </div>
+        <figure class="shot"><img src="assets/configurator/04-measurements.png" width="1440" height="1435" alt="Measurements step with inputs placed on leg and foot diagrams for calf, ankle, metatarsal heads, foot plate, and malleolus height." loading="lazy" data-zoom></figure>
+      </article>
+
+      <article class="pair">
+        <div class="pair-text">
+          <div class="n">04</div>
+          <div class="truth"><span>Truth</span><p>Materials and colors are hard to picture from a dropdown, and patients, especially kids, care how their brace looks.</p></div>
+          <div class="action"><span>Action</span><p>Show the device as it's being built. The illustration updates with each choice, and a customization panel lets clinicians pick a transfer pattern, a backup pattern, padding, and strap color together with the patient.</p></div>
+        </div>
+        <figure class="shot"><img src="assets/configurator/06-customize.png" width="1437" height="1476" alt="Customize your device: a device preview with tabs for color transfer, padding color, and strap color, and a grid of stocked transfer patterns." loading="lazy" data-zoom></figure>
+      </article>
+    </div>
+  </section>
+
+  <!-- KEY DECISION -->
+  <section class="cs-sec">
+    <div class="wrap">
+      <div class="label">04 / The hardest call</div>
+      <h2 class="h2">Expert depth, <em>without the wall of fields.</em></h2>
+      <div class="decision">
+        <div class="tension">
+          <div><span>Fabrication needed</span><p>Every specification, in precise clinical terms, on every order. Nothing could be simplified away.</p></div>
+          <div><span>Clinicians needed</span><p>To move quickly through a long form without losing their place, and to get help on the less common fields without leaving the screen.</p></div>
+        </div>
+        <div class="resolution">
+          <span>What we did</span>
+          <p>We kept the full depth and changed how it's met. Fields are grouped the way a device is built. Follow-up fields appear only when an answer needs them, like alignment details once a device is marked for bench alignment. A small reference icon next to technical fields opens an example image. When a term changed, the old name stayed beside the new one, as in "Bench Alignment (formerly Tuning)," so experienced users weren't slowed down by new language.</p>
+        </div>
+      </div>
+      <div class="two-col">
+        <figure class="shot"><img src="assets/configurator/07-alignment.png" width="1440" height="1401" alt="Alignment step: bench alignment fields with reference icons, and forefoot and hindfoot alignment." loading="lazy" data-zoom></figure>
+        <figure class="shot"><img src="assets/configurator/08-mods.png" width="1440" height="1682" alt="Mods and trimlines step: tone reducing modifications, buildups and reductions, foot mod add-ons, and trimline options." loading="lazy" data-zoom></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEW + LOGISTICS -->
+  <section class="cs-sec cs-tint">
+    <div class="wrap">
+      <div class="label">05 / Getting it right the first time</div>
+      <h2 class="h2">Check the whole order <em>at a glance.</em></h2>
+      <p class="intro wide">Before an order goes out, every section collapses into a readable summary next to the finished device. Clinicians can open any section to scan its values, edit it, or remove it. Logistics comes last: shipping and billing addresses, fulfillment details, notes for the lab, and uploads for 3D scans and supporting images.</p>
+      <div class="two-col" style="margin-top:40px">
+        <figure class="shot"><img src="assets/configurator/10-summary.png" width="1440" height="1974" alt="Order summary with sections for submission details, measurements, materials and design, alignment, and mods and trimlines, each editable." loading="lazy" data-zoom></figure>
+        <figure class="shot"><img src="assets/configurator/09-logistics.png" width="1440" height="1298" alt="Logistics step: ship to and bill to addresses, order fulfillment options, notes, and scan and file uploads." loading="lazy" data-zoom></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUTCOME -->
+  <section class="cs-sec">
+    <div class="wrap">
+      <figure class="shot cs-wide"><img src="assets/guided-configurator.png" width="1440" height="1141" alt="Order summary with the alignment section expanded next to an illustration of the device." loading="lazy" data-zoom></figure>
+      <div class="split outcome">
+        <div>
+          <div class="label">06 / Impact</div>
+          <h2 class="h2">$3M in growth, <em>at 30% adoption.</em></h2>
+        </div>
+        <div>
+          <p class="big-p">The Guided Configurator contributed to $3 million in revenue growth over the previous year, while only about a third of clinicians had adopted it.</p>
+          <ul class="brief">
+            <li>Orders start from the patient's mobility goals, so device choices connect to outcomes</li>
+            <li>Structured orders in place of phone calls and a generic web form</li>
+            <li>Every specification is captured in one structured order the lab can build from</li>
+            <li>With most clinicians still to adopt it, the impact has room to grow</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REFLECTION -->
+  <section class="cs-sec cs-tint">
+    <div class="wrap split">
+      <div>
+        <div class="label">07 / Looking back</div>
+        <h2 class="h2">What I'd <em>carry forward.</em></h2>
+      </div>
+      <div class="reflect">
+        <p><b>Start from the patient, even in an ordering tool.</b> Putting the outcomes survey first turned a spec sheet into a clinical decision.</p>
+        <p><b>Experts want depth and help at the same time.</b> Conditional fields and in-place references kept the precision fabrication needed without slowing clinicians down.</p>
+        <p><b>Next up:</b> adoption. Getting the configurator into the hands of the other two thirds of clinicians is where the next gains are.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEXT -->
+  <section class="cs-sec">
+    <div class="wrap">
+      <a class="next-card" href="metlife.html#top">
+        <span class="label">Next case study</span>
+        <span class="next-title">Life beneficiary claims experience.</span>
+        <span class="read">Read the MetLife case study ↗</span>
+      </a>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>© 2026 Jose Togbe</span>
+    <span>English · Français</span>
+    <span>Designed and built with intent</span>
+  </footer>
+</div>
+
+<dialog class="zoom" id="zoom" aria-label="Enlarged screen">
+  <button class="zoom-close" type="button" id="zoomClose">Close</button>
+  <img id="zoomImg" alt="">
+</dialog>
+
+<script>
+(function(){
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 8);
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+  const dlg = document.getElementById('zoom'), zi = document.getElementById('zoomImg');
+  document.querySelectorAll('img[data-zoom]').forEach(img => {
+    img.tabIndex = 0; img.setAttribute('role','button');
+    const open = () => { zi.src = img.currentSrc || img.src; zi.alt = img.alt; if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open',''); };
+    img.addEventListener('click', open);
+    img.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+  });
+  const close = () => { if (dlg.close) dlg.close(); else dlg.removeAttribute('open'); };
+  document.getElementById('zoomClose').addEventListener('click', close);
+  dlg.addEventListener('click', e => { if (e.target === dlg) close(); });
+})();
+</script>
+</body>
+</html>
