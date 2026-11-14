@@ -128,6 +128,71 @@ a{color:inherit;text-decoration:none}
 .tl-axis span:first-child{transform:none}.tl-axis span:last-child{transform:translateX(-100%)}
 .tl-note{margin-top:22px;max-width:34em}
 @media (max-width:760px){.tl-track i{font-size:10px;padding:0 5px}.seq i:nth-child(2){color:transparent}.seq i:nth-child(5){padding:0 3px}}
+/* Room hero */
+.room{position:relative;padding:84px 0 0;background:radial-gradient(80% 60% at 50% 30%,#2a2218 0%,var(--ink) 70%)}
+.room-frame{position:relative;width:min(100%,calc((100svh - 150px)*1.7917));margin:0 auto;border-radius:22px;overflow:hidden;box-shadow:0 40px 120px rgba(0,0,0,.55);scrollbar-width:none}
+.room-frame::-webkit-scrollbar{display:none}
+.room-canvas{position:relative;width:100%;aspect-ratio:1376/768;background:#1a1712 url(assets/room-sm.webp) center/cover}
+.room-canvas>img{position:absolute;inset:0;width:100%;height:100%;display:block}
+.room-dim{position:absolute;inset:0;background:radial-gradient(60% 60% at 50% 45%,rgba(10,8,12,.62),rgba(6,5,8,.9));transition:opacity 1.6s ease;pointer-events:none;z-index:2}
+.glow{position:absolute;border-radius:50%;pointer-events:none;mix-blend-mode:screen;opacity:0;transition:opacity 1.4s ease .3s;z-index:3}
+.g-orange{left:28%;top:56%;width:22%;height:30%;background:radial-gradient(closest-side,rgba(255,150,70,.55),transparent)}
+.g-mush{left:34%;top:66%;width:16%;height:26%;background:radial-gradient(closest-side,rgba(255,236,200,.45),transparent)}
+.g-tv{left:34%;top:46%;width:32%;height:12%;background:radial-gradient(closest-side,rgba(255,190,120,.5),transparent)}
+.room.on .room-dim{opacity:0}
+.room.on .glow{opacity:1}
+/* TV */
+.tv{position:absolute;left:38.75%;top:29.7%;width:22.5%;height:23.15%;background:#000;overflow:hidden;z-index:4;border-radius:2px}
+.tv-ch{position:absolute;inset:0;opacity:0;transition:opacity .35s ease}
+.tv-ch.cur{opacity:1}
+.tv-ch video,.tv-ch>img{width:100%;height:100%;object-fit:cover;display:block}
+.tv-ch.fit>img{object-fit:contain;background:#0c0b10}
+.tv-card{display:flex;flex-direction:column;justify-content:center;padding:0 9%;background:radial-gradient(90% 120% at 100% 0%,rgba(164,147,255,.4),transparent 60%),radial-gradient(80% 100% at 0% 100%,rgba(255,111,181,.32),transparent 60%),#0c0b10}
+.tv-card b{font-size:clamp(11px,2.1vw,30px);font-weight:500;letter-spacing:-.03em;line-height:1.05}
+.tv-card span{font-size:clamp(7px,.85vw,13px);color:#cfc9d3;margin-top:.6em}
+.tv-phones{display:flex;align-items:center;justify-content:center;gap:4%;background:var(--bg)}
+.tv-phones img{height:88%;width:auto;border-radius:6%/3%;box-shadow:0 6px 20px rgba(0,0,0,.4)}
+.tv-tag{position:absolute;left:4%;bottom:6%;font-size:clamp(6px,.75vw,11px);font-weight:600;color:#fff;background:rgba(0,0,0,.55);padding:.25em .7em;border-radius:99px;z-index:2;white-space:nowrap}
+.tv-static{position:absolute;inset:0;z-index:3;background:repeating-linear-gradient(0deg,rgba(255,255,255,.08) 0 1px,transparent 1px 3px),#111;opacity:0;pointer-events:none}
+.tv.flick .tv-static{animation:flick .45s steps(3) 1}
+@keyframes flick{0%{opacity:1}60%{opacity:.6}100%{opacity:0}}
+.tv-off{position:absolute;inset:0;background:#000;z-index:2;transition:opacity .2s}
+.room.on .tv-off{opacity:0;transition:opacity .25s .5s}
+/* Hotspots */
+.hs{position:absolute;z-index:5;border:0;background:transparent;cursor:pointer;border-radius:14px;padding:0;font:inherit;color:inherit;pointer-events:none}
+.room.on .hs{pointer-events:auto}
+.hs::before{content:"";position:absolute;inset:-4px;border-radius:inherit;border:1.5px solid rgba(255,255,255,0);transition:border-color .25s,box-shadow .25s}
+.hs:hover::before,.hs:focus-visible::before{border-color:rgba(255,255,255,.85);box-shadow:0 0 0 4px rgba(255,111,181,.25),0 0 30px rgba(255,196,138,.35)}
+.hs .tip{position:absolute;left:50%;bottom:calc(100% + 10px);transform:translate(-50%,6px);white-space:nowrap;font-size:13px;font-weight:500;padding:6px 12px;border-radius:999px;background:var(--text);color:var(--ink);opacity:0;transition:opacity .2s,transform .25s;pointer-events:none;box-shadow:0 8px 20px rgba(0,0,0,.35)}
+.hs .tip small{font-weight:400;color:#6f6a75;margin-left:6px}
+.hs.below .tip{bottom:auto;top:calc(100% + 10px)}
+.hs:hover .tip,.hs:focus-visible .tip{opacity:1;transform:translate(-50%,0)}
+.hs .dot{position:absolute;left:50%;top:50%;width:12px;height:12px;margin:-6px;border-radius:50%;background:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.25);opacity:0}
+.room.on.intro .hs .dot{animation:ping 1.6s ease-out calc(var(--d,0)*.12s + .9s) 2}
+@keyframes ping{0%{opacity:0;transform:scale(.4)}25%{opacity:1}100%{opacity:0;transform:scale(2.2)}}
+/* Power button + caption */
+.power{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:6;display:flex;flex-direction:column;align-items:center;gap:14px;transition:opacity .5s,transform .5s}
+.power button{width:84px;height:84px;border-radius:50%;border:1.5px solid rgba(255,255,255,.35);background:rgba(20,19,23,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;cursor:pointer;display:grid;place-items:center;box-shadow:0 0 0 0 rgba(255,196,138,.5);animation:breathe 2.2s ease-in-out infinite}
+.power button svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.power span{font-size:15px;color:#f3efea;background:rgba(20,19,23,.55);padding:6px 14px;border-radius:999px;backdrop-filter:blur(8px)}
+@keyframes breathe{50%{box-shadow:0 0 0 14px rgba(255,196,138,0)}}
+.room.on .power{opacity:0;transform:translate(-50%,-50%) scale(.9);pointer-events:none}
+.room-help{display:flex;justify-content:space-between;align-items:center;gap:16px;width:min(100%,calc((100svh - 150px)*1.7917));margin:14px auto 0;font-size:14px;color:var(--dim);padding:0 4px}
+.room-help a{color:var(--muted);border-bottom:1px solid var(--line)}
+.room-help .chips{display:none}
+.hero{min-height:0;padding:80px 0 60px}
+@media (max-width:760px){
+  .room{padding-top:76px}
+  .room-frame{width:100%;border-radius:0;overflow-x:auto;scroll-snap-type:x proximity}
+  .room-canvas{width:250%}
+  .hs .tip{font-size:12px}
+  .room-help{flex-direction:column;align-items:flex-start;padding:0 20px}
+  .room-help .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .room-help .chips a{font-size:13px;color:var(--text);border:1px solid var(--line);border-bottom:1px solid var(--line);padding:6px 12px;border-radius:999px}
+}
+@media (hover:none){.hs:hover .tip,.hs:hover::before{opacity:0;border-color:transparent;box-shadow:none}}
+@media (prefers-reduced-motion:reduce){.power button{animation:none}.room-dim,.glow{transition:none}}
+
 /* Built with AI */
 .bx{position:relative;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);overflow:hidden;isolation:isolate}
 .bx::before{content:"";position:absolute;width:640px;height:640px;border-radius:50%;background:var(--brand);filter:blur(120px);opacity:.22;z-index:-1;pointer-events:none}
@@ -323,7 +388,45 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 </nav>
 
 <main id="main">
-<header class="hero" id="top">
+<section class="room" id="top" aria-label="Jose's living room. Each object opens part of the portfolio.">
+  <div class="room-frame" id="roomFrame">
+    <div class="room-canvas" id="roomCanvas">
+      <img src="assets/room.webp" alt="An illustrated living room: a black slatted TV wall, a walnut console with an orange lamp and record player, two artworks, shelves, poufs and a coffee table with books and a lamp." width="1376" height="768">
+      <div class="tv" id="tv">
+        <div class="tv-ch cur tv-card" data-name="Jose Togbe"><b>Jose Togbe</b><span>Lead UX designer. Grab the remote.</span></div>
+        <div class="tv-ch" data-name="Dreamwall"><video src="assets/built/dreamwall.mp4" muted loop playsinline preload="none" poster="assets/built/dreamwall-poster.jpg"></video></div>
+        <div class="tv-ch tv-phones" data-name="Pactara" style="--bg:radial-gradient(80% 120% at 50% 0%,#5a3fd6,#1c1530)"><img src="assets/built/pactara-1.webp" alt="" loading="lazy"><img src="assets/built/pactara-3.webp" alt="" loading="lazy"><img src="assets/built/pactara-6.webp" alt="" loading="lazy"></div>
+        <div class="tv-ch tv-phones" data-name="Slip" style="--bg:radial-gradient(80% 120% at 50% 0%,#ff6a3d,#2a1410)"><img src="assets/built/slip-1.webp" alt="" loading="lazy"><img src="assets/built/slip-2.webp" alt="" loading="lazy"><img src="assets/built/slip-5.webp" alt="" loading="lazy"></div>
+        <div class="tv-ch fit" data-name="MetLife claims"><img src="assets/metlife-landing.png" alt="" loading="lazy"></div>
+        <div class="tv-ch fit" data-name="Hanger configurator"><img src="assets/guided-configurator.png" alt="" loading="lazy"></div>
+        <span class="tv-tag" id="tvTag">CH 1 · Jose Togbe</span>
+        <div class="tv-static"></div>
+        <div class="tv-off"></div>
+      </div>
+      <div class="glow g-tv"></div><div class="glow g-orange"></div><div class="glow g-mush"></div>
+      <div class="room-dim"></div>
+
+      <button class="hs below" style="left:38.7%;top:29.6%;width:22.6%;height:23.4%;--d:0" data-go="#work"><span class="tip">Selected work<small>on TV now</small></span><i class="dot"></i></button>
+      <button class="hs" style="left:64.4%;top:90.2%;width:4%;height:5.2%;--d:1" data-act="channel"><span class="tip">Change the channel</span><i class="dot"></i></button>
+      <button class="hs" style="left:45.6%;top:59%;width:8.5%;height:11%;--d:2" data-go="#recommendations"><span class="tip">Kind words<small>from collaborators</small></span><i class="dot"></i></button>
+      <button class="hs" style="left:33%;top:62.5%;width:6.8%;height:7.4%;--d:3" data-go="#contact"><span class="tip">Get in touch</span><i class="dot"></i></button>
+      <button class="hs" style="left:13.6%;top:38.4%;width:11.4%;height:20.4%;--d:4" data-go="#how"><span class="tip">How I work</span><i class="dot"></i></button>
+      <button class="hs" style="left:75.5%;top:38.4%;width:11.2%;height:20.2%;--d:5" data-go="#approach"><span class="tip">My approach</span><i class="dot"></i></button>
+      <button class="hs" style="left:82.6%;top:55%;width:5.4%;height:10%;--d:6" data-go="#intro"><span class="tip">Open to roles in 2026</span><i class="dot"></i></button>
+      <button class="hs" style="left:12.4%;top:56.5%;width:6%;height:8.4%;--d:7" data-go="#intro"><span class="tip">About me</span><i class="dot"></i></button>
+      <button class="hs below" style="left:53.1%;top:87.2%;width:9.6%;height:6.8%;--d:8" data-go="#work"><span class="tip">Case studies</span><i class="dot"></i></button>
+      <button class="hs below" style="left:37.2%;top:73.6%;width:9.6%;height:19.6%;--d:9" data-go="#built"><span class="tip">Built with AI<small>my own apps</small></span><i class="dot"></i></button>
+
+      <div class="power" id="power"><button id="powerBtn" aria-label="Turn on the lights"><svg viewBox="0 0 24 24"><path d="M12 3v8M6.4 6.6a8 8 0 1 0 11.2 0"/></svg></button><span>Turn on the lights</span></div>
+    </div>
+  </div>
+  <div class="room-help">
+    <span>Click anything in the room, or <a href="#intro">scroll for the full portfolio</a>.</span>
+    <span class="chips"><a href="#work">Work</a><a href="#built">Built with AI</a><a href="#how">How I work</a><a href="#contact">Contact</a></span>
+  </div>
+</section>
+
+<header class="hero" id="intro">
   <canvas id="aurora" aria-hidden="true"></canvas>
   <div class="wrap hero-grid">
     <div class="focus-in">
@@ -669,6 +772,40 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   var v=document.getElementById('dwv'); if(!v) return;
   if(matchMedia('(prefers-reduced-motion: reduce)').matches){ v.controls=true; return; }
   new IntersectionObserver(function(es){ es[0].isIntersecting ? v.play().catch(function(){ v.controls=true; }) : v.pause(); },{threshold:.25}).observe(v);
+})();
+</script>
+<script>
+(function(){
+  var room=document.querySelector('.room'); if(!room) return;
+  var btn=document.getElementById('powerBtn'), tv=document.getElementById('tv'), tag=document.getElementById('tvTag'), frame=document.getElementById('roomFrame'), canvas=document.getElementById('roomCanvas');
+  var chs=[].slice.call(tv.querySelectorAll('.tv-ch')), cur=0, timer=null;
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function show(i){
+    chs[cur].classList.remove('cur'); var v=chs[cur].querySelector('video'); if(v) v.pause();
+    cur=(i+chs.length)%chs.length; chs[cur].classList.add('cur');
+    var nv=chs[cur].querySelector('video'); if(nv){ nv.preload='auto'; nv.play().catch(function(){}); }
+    tag.textContent='CH '+(cur+1)+' · '+chs[cur].dataset.name;
+    if(!reduce){ tv.classList.remove('flick'); void tv.offsetWidth; tv.classList.add('flick'); }
+  }
+  function auto(){ clearInterval(timer); if(!reduce) timer=setInterval(function(){ show(cur+1); }, 6500); }
+  function powerOn(){
+    if(room.classList.contains('on')) return;
+    room.classList.add('on','intro');
+    setTimeout(function(){ show(1); auto(); }, reduce?0:2600);
+    setTimeout(function(){ room.classList.remove('intro'); }, 6000);
+  }
+  btn.addEventListener('click', powerOn);
+  if(reduce) powerOn(); else setTimeout(powerOn, 4500);
+  room.querySelectorAll('.hs').forEach(function(h){
+    h.addEventListener('click', function(){
+      if(h.dataset.act==='channel'){ show(cur+1); auto(); return; }
+      var t=document.querySelector(h.dataset.go); if(t) t.scrollIntoView({behavior: reduce?'auto':'smooth'});
+    });
+  });
+  // phones: start the pannable room centered on the TV
+  function center(){ if(frame.scrollWidth>frame.clientWidth) frame.scrollLeft=(frame.scrollWidth-frame.clientWidth)/2; }
+  center(); addEventListener('load', center);
+  new IntersectionObserver(function(es){ var v=chs[cur].querySelector('video'); if(!v) return; es[0].isIntersecting ? v.play().catch(function(){}) : v.pause(); }).observe(tv);
 })();
 </script>
 </body>
