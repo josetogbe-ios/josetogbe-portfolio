@@ -205,6 +205,20 @@ a{color:inherit;text-decoration:none}
 @media (hover:none){.hs:hover .tip,.hs:hover::before{opacity:0;border-color:transparent;box-shadow:none}}
 @media (prefers-reduced-motion:reduce){.power button{animation:none}.room-dim,.glow{transition:none}}
 
+
+/* full-bleed room */
+.room{padding:0;background:#1a1712}
+.room-frame{width:100%;height:min(100svh,calc(100vw/1.45));border-radius:0;box-shadow:none;overflow:hidden}
+.room-canvas{position:absolute;left:50%;top:50%;width:max(100%,calc(min(100svh,100vw/1.45)*1.7917));transform:translate(-50%,-50%)}
+.room-help{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);width:auto;margin:0;z-index:7;background:rgba(20,19,23,.62);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.1);border-radius:999px;padding:8px 16px;color:#cfc9d3;white-space:nowrap}
+.room-help a{color:#f3efea}
+.tv-ch.fit>img{object-fit:cover;object-position:top center}
+@media (max-width:760px){
+  .room{padding-top:0}
+  .room-frame{height:auto;overflow-x:auto}
+  .room-canvas{position:relative;left:0;top:0;transform:none;width:250%}
+  .room-help{position:static;transform:none;white-space:normal;border-radius:0;border:0;background:var(--ink);padding:16px 20px;backdrop-filter:none}
+}
 /* Built with AI */
 .bx{position:relative;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);overflow:hidden;isolation:isolate}
 .bx::before{content:"";position:absolute;width:640px;height:640px;border-radius:50%;background:var(--brand);filter:blur(120px);opacity:.22;z-index:-1;pointer-events:none}
