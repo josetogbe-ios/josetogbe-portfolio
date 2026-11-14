@@ -128,6 +128,18 @@ a{color:inherit;text-decoration:none}
 .tl-axis span:first-child{transform:none}.tl-axis span:last-child{transform:translateX(-100%)}
 .tl-note{margin-top:22px;max-width:34em}
 @media (max-width:760px){.tl-track i{font-size:10px;padding:0 5px}.seq i:nth-child(2){color:transparent}.seq i:nth-child(5){padding:0 3px}}
+.about{margin-top:130px;scroll-margin-top:90px}
+.about-me{display:grid;grid-template-columns:200px 1fr;gap:48px;align-items:start}
+.about-me img{width:200px;height:200px;border-radius:28px;object-fit:cover;box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.about-me h2{margin-bottom:22px}
+.about-me p{color:var(--muted);font-size:17px;max-width:38em}
+.about-me p+p{margin-top:14px}
+.facts{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:44px}
+.facts li{border:1px solid var(--line);border-radius:var(--r-md);padding:18px 20px;background:var(--surface)}
+.facts b{display:block;font-weight:500;font-size:17px;letter-spacing:-.01em}
+.facts span{display:block;color:var(--muted);font-size:14px;margin-top:4px}
+@media (max-width:980px){.facts{grid-template-columns:1fr 1fr}}
+@media (max-width:760px){.about-me{grid-template-columns:1fr;gap:24px}.about-me img{width:120px;height:120px;border-radius:20px}.facts{grid-template-columns:1fr}.about{margin-top:96px}}
 /* Room hero */
 .room{position:relative;padding:84px 0 0;background:radial-gradient(80% 60% at 50% 30%,#2a2218 0%,var(--ink) 70%)}
 .room-frame{position:relative;width:min(100%,calc((100svh - 150px)*1.7917));margin:0 auto;border-radius:22px;overflow:hidden;box-shadow:0 40px 120px rgba(0,0,0,.55);scrollbar-width:none}
@@ -305,7 +317,7 @@ h2{font-size:clamp(38px,5.4vw,68px);line-height:1.02;letter-spacing:-.04em;font-
 .t1{--orb:var(--peach)}.t2{--orb:var(--lilac)}.t3{--orb:var(--pink)}.t4{--orb:#7be3a4}
 
 /* Operating model */
-.model{margin-top:130px;border-radius:var(--r-lg);border:1px solid var(--line);background:radial-gradient(70% 90% at 100% 0%,rgba(164,147,255,.18),transparent 60%),radial-gradient(60% 80% at 0% 100%,rgba(255,196,138,.12),transparent 60%),var(--surface);padding:72px 64px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.model{margin-top:40px;border-radius:var(--r-lg);border:1px solid var(--line);background:radial-gradient(70% 90% at 100% 0%,rgba(164,147,255,.18),transparent 60%),radial-gradient(60% 80% at 0% 100%,rgba(255,196,138,.12),transparent 60%),var(--surface);padding:72px 64px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
 .model h2{max-width:11ch}
 .model .intro{color:var(--muted);margin-top:24px;max-width:30em}
 .before .after .steps{list-style:none;counter-reset:s;display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:34px}
@@ -381,7 +393,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 <nav class="nav" aria-label="Primary">
   <a class="mark" href="#top">Jose Togbe</a>
   <a class="l" href="#work">Work</a>
-  <a class="l" href="#how">How I work</a>
+  <a class="l" href="#how">About</a>
   <a class="l" href="#built">Built with AI</a>
   <a class="l" href="#recommendations">Kind words</a>
   <a class="btn solid" href="#contact">Get in touch</a>
@@ -410,10 +422,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
       <button class="hs" style="left:64.4%;top:90.2%;width:4%;height:5.2%;--d:1" data-act="channel"><span class="tip">Change the channel</span><i class="dot"></i></button>
       <button class="hs" style="left:45.6%;top:59%;width:8.5%;height:11%;--d:2" data-go="#recommendations"><span class="tip">Kind words<small>from collaborators</small></span><i class="dot"></i></button>
       <button class="hs" style="left:33%;top:62.5%;width:6.8%;height:7.4%;--d:3" data-go="#contact"><span class="tip">Get in touch</span><i class="dot"></i></button>
-      <button class="hs" style="left:13.6%;top:38.4%;width:11.4%;height:20.4%;--d:4" data-go="#how"><span class="tip">How I work<small>that's me</small></span><i class="dot"></i></button>
+      <button class="hs" style="left:13.6%;top:38.4%;width:11.4%;height:20.4%;--d:4" data-go="#how"><span class="tip">About me<small>and how I work</small></span><i class="dot"></i></button>
       <button class="hs" style="left:75.5%;top:38.4%;width:11.2%;height:20.2%;--d:5" data-go="#approach"><span class="tip">My approach</span><i class="dot"></i></button>
       <button class="hs" style="left:82.6%;top:55%;width:5.4%;height:10%;--d:6" data-go="#intro"><span class="tip">Open to roles in 2026</span><i class="dot"></i></button>
-      <button class="hs" style="left:12.4%;top:56.5%;width:6%;height:8.4%;--d:7" data-go="#intro"><span class="tip">About me</span><i class="dot"></i></button>
+      <button class="hs" style="left:12.4%;top:56.5%;width:6%;height:8.4%;--d:7" data-go="#how"><span class="tip">About me</span><i class="dot"></i></button>
       <button class="hs below" style="left:53.1%;top:87.2%;width:9.6%;height:6.8%;--d:8" data-go="#work"><span class="tip">Case studies</span><i class="dot"></i></button>
       <button class="hs below" style="left:37.2%;top:73.6%;width:9.6%;height:19.6%;--d:9" data-go="#built"><span class="tip">Built with AI<small>my own apps</small></span><i class="dot"></i></button>
 
@@ -422,7 +434,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   </div>
   <div class="room-help">
     <span>Click anything in the room, or <a href="#intro">scroll for the full portfolio</a>.</span>
-    <span class="chips"><a href="#work">Work</a><a href="#built">Built with AI</a><a href="#how">How I work</a><a href="#contact">Contact</a></span>
+    <span class="chips"><a href="#work">Work</a><a href="#built">Built with AI</a><a href="#how">About</a><a href="#contact">Contact</a></span>
   </div>
 </section>
 
@@ -549,7 +561,24 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
       </article>
     </div>
 
-    <div class="model" id="how">
+    <div class="about" id="how">
+      <div class="about-me">
+        <img src="assets/jose.jpg" alt="Jose Togbe" width="200" height="200" loading="lazy">
+        <div>
+          <h2>Hi, I'm Jose.</h2>
+          <p>I'm a lead UX designer based in Houston. For over ten years I've worked on products where getting it wrong costs people money, time, or peace of mind: mortgages at Navy Federal, wealth platforms at Morgan Stanley and E*TRADE, banking at Citi, insurance claims at MetLife, and clinical ordering tools at Hanger Clinic.</p>
+          <p>Today I run my own consultancy, Aberdeen, where I lead client work from research all the way to a shipped product. I also build my own apps, because designing and shipping something end to end keeps me honest about what's actually hard.</p>
+        </div>
+      </div>
+      <ul class="facts">
+        <li><b>Houston, TX</b><span>Open to remote, hybrid, or relocating</span></li>
+        <li><b>10+ years</b><span>Designing complex, regulated products</span></li>
+        <li><b>English and Français</b><span>Bilingual</span></li>
+        <li><b>Mentor</b><span>Coached junior designers at Schwab, Morgan Stanley, and Freedom Mortgage</span></li>
+      </ul>
+    </div>
+
+    <div class="model" id="how-model">
       <div>
         <h2>From twelve weeks to four.</h2>
         <p class="intro">I work in a model where product, UX, front-end, back-end, and QA shape, build, and validate features in the same sessions, without traditional handoffs. My role stays anchored in research, IA, and design thinking. The model simply gets that work to users faster.</p>
