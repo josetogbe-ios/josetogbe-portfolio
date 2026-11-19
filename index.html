@@ -247,6 +247,110 @@ a{color:inherit;text-decoration:none}
   .room-help{top:calc(100svh - 66px);bottom:auto}
 }
 .zoomfade{position:absolute;inset:0;z-index:8;background:var(--ink);opacity:0;pointer-events:none}
+/* Timeline hero */
+.tlh{position:relative;min-height:100svh;padding:104px 0 40px;overflow:hidden;isolation:isolate;--accent:#a493ff;display:flex;flex-direction:column}
+.tlh::before{content:"";position:absolute;inset:-20%;z-index:-1;background:radial-gradient(45% 50% at 72% 58%,color-mix(in srgb,var(--accent) 34%,transparent),transparent 70%),radial-gradient(40% 40% at 10% 0%,rgba(255,111,181,.12),transparent 70%);transition:background .8s ease}
+.tlh-top{display:grid;grid-template-columns:1.25fr .75fr;gap:40px;align-items:end}
+.tlh-name{font-size:15px;color:var(--muted);margin-bottom:14px}
+.tlh-name b{color:var(--text);font-weight:500}
+.tlh h1{font-size:clamp(52px,8.6vw,150px);line-height:.86;letter-spacing:-.055em;font-weight:600;margin:0;max-width:none;color:#e9e1d8}
+.tlh h1 span{display:block;background:var(--glow);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tlh-side p{color:var(--muted);font-size:16px;max-width:30em}
+.tlh-side p b{color:var(--text);font-weight:500}
+.tlh-side .cta-row{justify-content:flex-start;margin-top:22px}
+.stage{position:relative;flex:1;min-height:380px;margin-top:28px}
+.cards{position:absolute;inset:0}
+.tcard{position:absolute;left:50%;bottom:0;width:var(--cw);aspect-ratio:16/10;margin-left:calc(var(--cw)/-2);border-radius:22px;overflow:hidden;background:#1c1a20;border:1px solid rgba(255,255,255,.1);box-shadow:0 30px 80px rgba(0,0,0,.55);transform-origin:50% 100%;transition:transform .7s cubic-bezier(.2,.8,.2,1),opacity .6s ease,filter .6s ease;cursor:pointer;color:var(--text);text-align:left;padding:0;font:inherit}
+.tcard.active{cursor:pointer}
+.tcard img,.tcard video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center}
+.tcard .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,13,17,0) 30%,rgba(14,13,17,.55) 58%,rgba(14,13,17,.96) 100%)}
+.tcard .meta{position:absolute;left:0;right:0;bottom:0;padding:26px 30px;display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
+.tcard .co{font-size:14px;color:#cfc9d3}
+.tcard h3{font-size:clamp(20px,2vw,30px);font-weight:500;letter-spacing:-.03em;line-height:1.08;margin:6px 0 0;max-width:20ch}
+.tcard .num{text-align:right;flex:0 0 auto}
+.tcard .num b{display:block;font-size:clamp(38px,4.4vw,68px);font-weight:500;letter-spacing:-.05em;line-height:.9;background:var(--glow);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tcard .num span{display:block;font-size:13px;color:#cfc9d3;margin-top:6px;max-width:17em}
+.tcard .open{position:absolute;right:20px;top:18px;font-size:13px;font-weight:500;padding:7px 13px;border-radius:999px;background:rgba(243,239,234,.92);color:#141317;opacity:0;transform:translateY(-4px);transition:opacity .3s,transform .3s}
+.tcard.active:hover .open,.tcard.active:focus-visible .open{opacity:1;transform:none}
+.type{background:radial-gradient(70% 90% at 85% 10%,color-mix(in srgb,var(--c) 30%,transparent),transparent 65%),repeating-linear-gradient(90deg,rgba(255,255,255,.035) 0 1px,transparent 1px 64px),#17151b}
+.type .big{position:absolute;left:30px;top:24px;font-size:clamp(84px,11vw,190px);font-weight:600;letter-spacing:-.06em;line-height:.85;color:color-mix(in srgb,var(--c) 85%,#fff)}
+.type .big small{display:block;font-size:clamp(14px,1.2vw,17px);letter-spacing:0;font-weight:400;color:#cfc9d3;margin-top:14px;max-width:24em;line-height:1.4}
+.tcard.today{background:#0c0b10}
+.today video{width:62%;left:0;right:auto;opacity:.95}
+.today .ph{position:absolute;top:8%;height:72%;width:auto;border-radius:16px;box-shadow:0 18px 40px rgba(0,0,0,.6)}
+.tcard.next{background:radial-gradient(80% 90% at 80% 0%,rgba(255,111,181,.35),transparent 60%),radial-gradient(70% 80% at 0% 100%,rgba(255,196,138,.25),transparent 60%),#17151b}
+.next .me{position:absolute;left:30px;top:28px;width:88px;height:88px;border-radius:22px;object-fit:cover}
+.next .q{position:absolute;left:30px;top:140px;font-size:clamp(28px,3vw,46px);letter-spacing:-.035em;line-height:1.05;max-width:13ch}
+.axis{position:relative;margin-top:30px;padding-top:4px}
+.axis .line{position:absolute;left:0;right:0;top:19px;border-top:2px dashed rgba(243,239,234,.22)}
+.axis .fill{position:absolute;left:0;top:18px;height:3px;background:var(--glow);border-radius:3px;transition:width .7s cubic-bezier(.2,.8,.2,1)}
+.stops{position:relative;display:flex;justify-content:space-between;list-style:none}
+.stops button{background:none;border:0;color:var(--dim);font:inherit;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;padding:0 4px;min-width:44px;transition:color .3s}
+.stops i{width:12px;height:12px;border-radius:50%;background:#141317;border:2px solid rgba(243,239,234,.35);margin-top:8px;transition:all .3s}
+.stops b{font-size:15px;font-weight:500;letter-spacing:-.01em;transition:font-size .3s,color .3s}
+.stops span{font-size:12px;white-space:nowrap}
+.stops button:hover{color:var(--muted)}
+.stops button.done i{background:#f3efea;border-color:#f3efea}
+.stops button.on{color:var(--text)}
+.stops button.on i{width:18px;height:18px;margin-top:5px;background:#ff6fb5;border-color:#fff;box-shadow:0 0 0 6px rgba(255,111,181,.22)}
+.stops button.on b{font-size:24px}
+.nav-arrows{position:absolute;right:0;top:-6px;display:flex;gap:8px}
+.tlh .arw{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:rgba(20,19,23,.6);color:var(--text);cursor:pointer;font-size:18px;display:grid;place-items:center;backdrop-filter:blur(8px)}
+.tlh .arw:hover{border-color:#6f6a75}
+.axis-wrap{position:relative;padding-right:110px}
+@media (max-width:980px){.tlh-top{grid-template-columns:1fr;gap:18px}.stops span{display:none}}
+@media (max-width:760px){
+  .tlh{padding-top:90px}
+  .stage{min-height:0;height:62vw;margin-top:22px}
+  .tcard .meta{padding:16px 18px}
+  .tcard .num span,.tcard .co{font-size:11.5px}
+  .type .big{left:18px;top:16px}
+  .axis-wrap{padding-right:0;overflow-x:auto;scrollbar-width:none}
+  .axis-wrap::-webkit-scrollbar{display:none}
+  .stops{width:900px;gap:0}
+  .nav-arrows{display:none}
+  .next .me{width:56px;height:56px;left:18px;top:18px;border-radius:14px}.next .q{left:18px;top:86px}
+}
+@media (prefers-reduced-motion:reduce){.tcard,.axis .fill,.tlh::before{transition:none}}
+.tlh-bg{position:absolute;left:0;right:0;bottom:0;height:78%;z-index:-1;background:url(assets/tl/ribbon.webp) center 70%/cover no-repeat;opacity:.55;-webkit-mask-image:linear-gradient(180deg,transparent,#000 35%,#000 75%,transparent);mask-image:linear-gradient(180deg,transparent,#000 35%,#000 75%,transparent)}
+/* Timeline hero v2 */
+.tlh{position:relative;min-height:100svh;padding:110px 0 36px;overflow:hidden;background:#3c1232;display:flex;flex-direction:column}
+.tlh::before{display:none}
+.tlh-top{display:block;padding:0 48px;max-width:none;width:100%;margin:0}
+.tlh-name{font-size:15px;color:rgba(243,239,234,.7);margin:0 0 10px 6px}
+.tlh-name b{color:#f3efea;font-weight:500}
+.tlh h1{font-size:clamp(56px,9.6vw,168px);line-height:.84;letter-spacing:-.035em;font-weight:800;text-transform:uppercase;color:#d9cbbf;margin:0;max-width:none;text-shadow:0 2px 0 rgba(0,0,0,.12)}
+.tlh h1 span{display:block;background:none;color:#d9cbbf;-webkit-background-clip:initial;background-clip:initial}
+.stage{position:relative;flex:1;min-height:340px;margin:26px 0 0}
+.tcard{position:absolute;left:0;bottom:0;width:var(--cw);height:var(--ch);margin:0;aspect-ratio:auto;border-radius:12px;border:1px solid rgba(255,255,255,.14);box-shadow:0 24px 60px rgba(0,0,0,.45);transform-origin:0 100%;overflow:hidden;background:#141317}
+.tcard .shade,.tcard .meta{display:none}
+.tcard .open{opacity:1;transform:none;top:auto;bottom:14px;right:14px;opacity:0;transition:opacity .3s}
+.tcard.active:hover .open{opacity:1}
+.tcard img{object-position:top center}
+.tcard.next .q,.tcard.next .me{display:block}
+.axis{position:relative;height:96px;margin-top:22px}
+.axis .line{left:0;right:0;top:34px;border-top:3px dashed rgba(243,239,234,.55)}
+.axis .fill{display:none}
+.lbl{position:absolute;top:0;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;background:none;border:0;font:inherit;color:rgba(243,239,234,.55);cursor:pointer;padding:0 22px;transition:left .7s cubic-bezier(.2,.8,.2,1),opacity .5s,color .3s}
+.lbl b{font-size:clamp(28px,3vw,46px);font-weight:700;letter-spacing:-.02em;line-height:1;background:#3c1232;padding:0 18px;text-transform:uppercase}
+.lbl span{font-size:14px;margin-top:12px;white-space:nowrap;opacity:0;transition:opacity .4s}
+.lbl.on{color:#f3efea}
+.lbl.on span{opacity:1}
+.lbl:hover{color:#f3efea}
+.tlh .nav-arrows{position:absolute;right:40px;top:110px;display:flex;gap:10px;z-index:60}
+.tlh .arw{background:rgba(20,10,18,.35);border-color:rgba(243,239,234,.3)}
+.axis-wrap{padding:0;position:relative}
+@media (max-width:760px){
+  .tlh{padding-top:92px}
+  .tlh-top{padding:0 20px}
+  .tlh{min-height:0;padding-bottom:28px}
+  .stage{min-height:0;height:62vw;flex:none;margin-top:36px}
+  .axis{height:80px}
+  .axis .line{top:13px}
+  .lbl b{font-size:24px;padding:0 10px}
+  .lbl span{font-size:12px}
+  .tlh .nav-arrows{display:none}
+}
 /* Built with AI */
 .bx{position:relative;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);overflow:hidden;isolation:isolate}
 .bx::before{content:"";position:absolute;width:640px;height:640px;border-radius:50%;background:var(--brand);filter:blur(120px);opacity:.22;z-index:-1;pointer-events:none}
@@ -442,44 +546,28 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 </nav>
 
 <main id="main">
-<section class="room" id="top" aria-label="José's living room. Each object opens part of the portfolio.">
-  <div class="room-frame" id="roomFrame">
-    <div class="room-canvas" id="roomCanvas">
-      <img src="assets/room.webp" alt="An illustrated living room: a black slatted TV wall, a walnut console with an orange lamp and record player, two artworks, shelves, poufs and a coffee table with books and a lamp." width="1376" height="768">
-      <div class="tv" id="tv">
-        <div class="tv-ch cur tv-card" data-name="José Togbe"><b>José Togbe</b><span>Lead UX designer. Grab the remote.</span></div>
-        <div class="tv-ch" data-name="Dreamwall"><video src="assets/built/dreamwall.mp4" muted loop playsinline preload="none" poster="assets/built/dreamwall-poster.jpg"></video></div>
-        <div class="tv-ch tv-phones" data-name="Pactara" style="--bg:radial-gradient(80% 120% at 50% 0%,#5a3fd6,#1c1530)"><img src="assets/built/pactara-1.webp" alt="" loading="lazy"><img src="assets/built/pactara-3.webp" alt="" loading="lazy"><img src="assets/built/pactara-6.webp" alt="" loading="lazy"></div>
-        <div class="tv-ch tv-phones" data-name="Slip" style="--bg:radial-gradient(80% 120% at 50% 0%,#ff6a3d,#2a1410)"><img src="assets/built/slip-1.webp" alt="" loading="lazy"><img src="assets/built/slip-2.webp" alt="" loading="lazy"><img src="assets/built/slip-5.webp" alt="" loading="lazy"></div>
-        <div class="tv-ch fit" data-name="MetLife claims"><img src="assets/metlife-landing.png" alt="" loading="lazy"></div>
-        <div class="tv-ch fit" data-name="Hanger configurator"><img src="assets/guided-configurator.png" alt="" loading="lazy"></div>
-        <span class="tv-tag" id="tvTag">CH 1 · José Togbe</span>
-        <div class="tv-static"></div>
-        <div class="tv-off"></div>
-      </div>
-      <div class="glow g-tv"></div><div class="glow g-orange"></div><div class="glow g-mush"></div>
-      <div class="motes" aria-hidden="true"><i style="left:23.2%;top:55.2%;--z:5px;--t:12.2s;--d:-12.0s;--dx:-15px"></i><i style="left:28.9%;top:51.4%;--z:3px;--t:9.7s;--d:-4.2s;--dx:-27px"></i><i style="left:29.0%;top:61.2%;--z:3px;--t:13.2s;--d:-5.5s;--dx:30px"></i><i style="left:27.8%;top:59.3%;--z:3px;--t:14.8s;--d:-0.9s;--dx:-16px"></i><i style="left:30.1%;top:57.0%;--z:5px;--t:11.3s;--d:-8.3s;--dx:-26px"></i><i style="left:19.7%;top:43.2%;--z:3px;--t:13.6s;--d:-6.4s;--dx:23px"></i><i style="left:86.0%;top:74.8%;--z:3px;--t:14.0s;--d:-4.4s;--dx:-26px"></i><i style="left:74.6%;top:33.2%;--z:3px;--t:11.8s;--d:-11.9s;--dx:12px"></i><i style="left:85.3%;top:68.1%;--z:3px;--t:10.5s;--d:-13.0s;--dx:-25px"></i><i style="left:76.0%;top:61.9%;--z:5px;--t:9.5s;--d:-8.8s;--dx:20px"></i><i style="left:71.4%;top:45.0%;--z:5px;--t:14.3s;--d:-1.7s;--dx:-13px"></i><i style="left:70.2%;top:50.9%;--z:5px;--t:10.2s;--d:-7.8s;--dx:26px"></i><i style="left:38.9%;top:47.1%;--z:3px;--t:11.9s;--d:-5.4s;--dx:23px"></i><i style="left:67.6%;top:12.0%;--z:4px;--t:16.0s;--d:-0.3s;--dx:-22px"></i><i style="left:67.9%;top:40.9%;--z:3px;--t:9.3s;--d:-2.0s;--dx:18px"></i><i style="left:32.3%;top:41.3%;--z:4px;--t:11.7s;--d:-1.0s;--dx:-28px"></i><i style="left:54.9%;top:12.7%;--z:4px;--t:11.6s;--d:-6.3s;--dx:28px"></i><i style="left:36.9%;top:30.5%;--z:3px;--t:11.2s;--d:-3.2s;--dx:-16px"></i><i style="left:37.7%;top:42.2%;--z:3px;--t:13.8s;--d:-5.4s;--dx:29px"></i><i style="left:34.8%;top:14.3%;--z:3px;--t:9.3s;--d:-13.5s;--dx:-22px"></i><i style="left:41.3%;top:51.5%;--z:5px;--t:11.1s;--d:-2.5s;--dx:-14px"></i><i style="left:40.2%;top:38.8%;--z:3px;--t:11.0s;--d:-12.8s;--dx:-10px"></i><i style="left:34.5%;top:31.7%;--z:3px;--t:9.4s;--d:-2.5s;--dx:26px"></i><i style="left:52.6%;top:18.3%;--z:4px;--t:10.0s;--d:-6.3s;--dx:26px"></i></div><div class="spot" id="spot"></div>
-      <div class="room-dim"></div>
-
-      <button class="hs below" style="left:38.7%;top:29.6%;width:22.6%;height:23.4%;--d:0" data-go="#work"><span class="tip">Selected work<small>on TV now</small></span><i class="dot"></i></button>
-      <button class="hs" style="left:64.4%;top:90.2%;width:4%;height:5.2%;--d:1" data-act="channel"><span class="tip">Change the channel</span><i class="dot"></i></button>
-      <button class="hs" style="left:45.6%;top:59%;width:8.5%;height:11%;--d:2" data-go="#recommendations"><span class="tip">Kind words<small>from collaborators</small></span><i class="dot"></i></button>
-      <button class="hs" style="left:33%;top:62.5%;width:6.8%;height:7.4%;--d:3" data-go="#contact"><span class="tip">Get in touch</span><i class="dot"></i></button>
-      <button class="hs" style="left:13.6%;top:38.4%;width:11.4%;height:20.4%;--d:4" data-go="#how"><span class="tip">About me<small>and how I work</small></span><i class="dot"></i></button>
-      <button class="hs" style="left:75.5%;top:38.4%;width:11.2%;height:20.2%;--d:5" data-go="#approach"><span class="tip">My approach</span><i class="dot"></i></button>
-      <button class="hs" style="left:82.6%;top:55%;width:5.4%;height:10%;--d:6" data-go="#intro"><span class="tip">Open to roles in 2026</span><i class="dot"></i></button>
-      <button class="hs" style="left:12.4%;top:56.5%;width:6%;height:8.4%;--d:7" data-go="#how"><span class="tip">About me</span><i class="dot"></i></button>
-      <button class="hs below" style="left:53.1%;top:87.2%;width:9.6%;height:6.8%;--d:8" data-go="#work"><span class="tip">Case studies</span><i class="dot"></i></button>
-      <button class="hs below" style="left:37.2%;top:73.6%;width:9.6%;height:19.6%;--d:9" data-go="#built"><span class="tip">Built with AI<small>my own apps</small></span><i class="dot"></i></button>
-
-      <div class="zoomfade" id="zoomfade"></div>
-      <div class="power" id="power"><button id="powerBtn" aria-label="Turn on the lights"><svg viewBox="0 0 24 24"><path d="M12 3v8M6.4 6.6a8 8 0 1 0 11.2 0"/></svg></button><span>Turn on the lights</span></div>
+<section class="tlh" id="top" aria-label="José's career, year by year">
+    <div class="wrap tlh-top">
+    <div>
+      <p class="tlh-name"><b>José Togbe</b> · Lead UX designer, Houston</p>
+      <h1>Through<span>the years</span></h1>
     </div>
-  </div>
-  <div class="room-help">
-    <span>Click anything in the room, or <a href="#intro">scroll for the full portfolio</a>.</span>
-    <span class="chips"><a href="#work">Work</a><a href="#built">Built with AI</a><a href="#how">About</a><a href="#contact">Contact</a></span>
-  </div>
+      </div>
+  <div class="stage" id="stage"><div class="cards" id="cards">
+        <button class="tcard" data-i="0" data-year="2015" data-cap="AT&amp;T · where it started" style="--c:#ffc48a" data-accent="#ffc48a" aria-label="AT&T, UX designer, 2015 to 2016"><img src="assets/tl/att.webp" alt="" loading="lazy"><div class="shade"></div><div class="meta"><div><p class="co">AT&amp;T · UX Designer · 2015 to 2016</p><h3>Where it started.</h3></div></div></button>
+    <button class="tcard" data-i="1" data-year="2017" data-cap="Citi · 40% less time on common tasks" style="--c:#a493ff" data-accent="#a493ff" data-href="Citi.png" aria-label="Citi, UX designer, 2017. Profile management redesign, 40 percent less time on common tasks"><img src="assets/tl/citi.webp" alt="" loading="lazy"><div class="shade"></div><div class="meta"><div><p class="co">Citi · UX Designer · 2017</p><h3>Profile management redesign.</h3></div><div class="num"><b>40%</b><span>less time on common tasks</span></div></div><span class="open">View overview ↗</span></button>
+    <button class="tcard" data-i="2" data-year="2017" data-cap="Navy Federal · 37% lower abandonment" style="--c:#ff6fb5" data-accent="#ff6fb5" data-href="Navy-Federal.pdf" aria-label="Navy Federal, 2017 to 2019. Mortgage application redesign, 37 percent lower abandonment"><img src="assets/tl/navy.webp" alt="" loading="lazy"><div class="shade"></div><div class="meta"><div><p class="co">Navy Federal · Senior UX/UI Designer · 2017 to 2019</p><h3>Mortgage application redesign.</h3></div><div class="num"><b>37%</b><span>lower application abandonment</span></div></div><span class="open">Read the case study ↗</span></button>
+    <button class="tcard" data-i="3" data-year="2019" data-cap="Morgan Stanley × E*TRADE · 30% adoption" style="--c:#a493ff" data-accent="#a493ff" data-href="Etrade.pdf" aria-label="Morgan Stanley and E*TRADE, 2019 to 2021. Platform integration, 30 percent account-linking adoption"><img src="assets/tl/etrade.webp" alt="" loading="lazy"><div class="shade"></div><div class="meta"><div><p class="co">Morgan Stanley × E*TRADE · Lead UX/UI Designer · 2019 to 2021</p><h3>Bringing two platforms together.</h3></div><div class="num"><b>30%</b><span>account-linking adoption at launch</span></div></div><span class="open">Read the case study ↗</span></button>
+    <button class="tcard" data-i="4" data-year="2021" data-cap="Schwab Charitable · 20% fewer support calls" style="--c:#ff6fb5" data-accent="#ff6fb5" aria-label="Charles Schwab, 2021 to 2023. Schwab Charitable contributions, 20 percent fewer support calls"><img src="assets/tl/schwab.webp" alt="" loading="lazy"><div class="shade"></div><div class="meta"><div><p class="co">Charles Schwab · Senior UX/UI Designer · 2021 to 2023</p><h3>Schwab Charitable contributions.</h3></div><div class="num"><b>20%</b><span>fewer support calls</span></div></div></button>
+    <button class="tcard" data-i="5" data-year="2022" data-cap="Allstate · 18% quote completion lift" style="--c:#a493ff" data-accent="#a493ff" aria-label="Allstate, 2022 to 2024. What-If quote tool, 18 percent lift in quote completion"><img src="assets/tl/allstate.webp" alt="" loading="lazy"><div class="shade"></div><div class="meta"><div><p class="co">Allstate · Lead Product Designer · 2022 to 2024</p><h3>What-If quote tool.</h3></div><div class="num"><b>18%</b><span>lift in quote completion</span></div></div></button>
+    <button class="tcard" data-i="6" data-year="2025" data-cap="Freedom Mortgage · 3–4x faster delivery" style="--c:#ffc48a" data-accent="#ffc48a" data-href="#how" aria-label="Freedom Mortgage, 2025 to 2026. Mobile app redesign, 3 to 4 times faster delivery"><img src="assets/tl/freedom.webp" alt="" loading="lazy"><div class="shade"></div><div class="meta"><div><p class="co">Freedom Mortgage · Senior UX Designer · 2025 to 2026</p><h3>Mobile app redesign, shipped with AI.</h3></div><div class="num"><b>3–4x</b><span>faster feature delivery</span></div></div><span class="open">How I work ↓</span></button>
+    <button class="tcard" data-i="7" data-year="Recent" data-cap="Hanger Clinic · $3M revenue growth" style="--c:#ffc48a" data-accent="#ffc48a" data-href="configurator.html" aria-label="Hanger Clinic. Guided device configurator, 3 million dollars revenue growth"><img src="assets/tl/hanger.webp" alt="" loading="lazy"><div class="shade"></div><div class="meta"><div><p class="co">Hanger Clinic · Lead designer</p><h3>Guided device configurator.</h3></div><div class="num"><b>$3M</b><span>revenue growth at 30% adoption</span></div></div><span class="open">Read the case study →</span></button>
+    <button class="tcard" data-i="8" data-year="Recent" data-cap="MetLife · beneficiary claims" style="--c:#ff6fb5" data-accent="#ff6fb5" data-href="metlife.html" aria-label="MetLife. Life beneficiary claims experience"><img src="assets/tl/metlife.webp" alt="" loading="lazy"><div class="shade"></div><div class="meta"><div><p class="co">MetLife · Lead UX designer</p><h3>Life beneficiary claims.</h3></div></div><span class="open">Read the case study →</span></button>
+    <button class="tcard today" data-i="9" data-year="Today" data-cap="Dreamwall, Pactara and Slip" style="--c:#7be3a4" data-accent="#7be3a4" data-href="#built" aria-label="Today. Dreamwall, Pactara and Slip, apps designed and built with AI"><video src="assets/built/dreamwall.mp4" poster="assets/built/dreamwall-poster.jpg" muted loop playsinline preload="none"></video><img class="ph" src="assets/built/pactara-1.webp" alt="" loading="lazy" style="left:64%"><img class="ph" src="assets/built/slip-1.webp" alt="" loading="lazy" style="left:81%"><div class="shade"></div><div class="meta"><div><p class="co">Dreamwall · Pactara · Slip</p><h3>Apps I designed and built with AI.</h3></div><div class="num"><b>3</b><span>live products</span></div></div><span class="open">See them ↓</span></button>
+    <button class="tcard next" data-i="10" data-year="Tomorrow" data-cap="Your team · open to roles" style="--c:#ff6fb5" data-accent="#ff6fb5" data-href="#contact" aria-label="Tomorrow. Open to senior, lead and principal roles"><img class="me" src="assets/jose.jpg" alt="" loading="lazy"><p class="q">What should we build next?</p><div class="meta"><div><p class="co">Open to senior, lead and principal roles</p><h3>Your team, 2026.</h3></div></div><span class="open">Get in touch ↓</span></button>
+  </div></div>
+  <div class="axis-wrap"><div class="axis" id="axis"><div class="line"></div></div></div>
+  <div class="nav-arrows"><button class="arw" id="tlPrev" aria-label="Earlier">←</button><button class="arw" id="tlNext" aria-label="Later">→</button></div>
 </section>
 
 <header class="hero" id="intro">
@@ -920,6 +1008,52 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
     requestAnimationFrame(loop);
   }
   requestAnimationFrame(loop);
+})();
+</script>
+<script>
+(function(){
+  var sec=document.querySelector('.tlh'); if(!sec) return;
+  var cards=[].slice.call(sec.querySelectorAll('.tcard')), stage=document.getElementById('stage'), axis=document.getElementById('axis');
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches, N=cards.length, cur=0, user=false, lbls=[];
+  cards.forEach(function(c,i){ var b=document.createElement('button'); b.className='lbl'; b.innerHTML='<b>'+c.dataset.year+'</b><span>'+c.dataset.cap+'</span>'; b.addEventListener('click',function(){ go(i,true); }); axis.appendChild(b); lbls.push(b); });
+  function layout(){
+    var W=stage.clientWidth, H=stage.clientHeight, mob=innerWidth<=760;
+    var ch=mob?Math.min(H,W*0.86/1.6):H, cw=ch*1.6;
+    stage.style.setProperty('--cw',cw+'px'); stage.style.setProperty('--ch',ch+'px');
+    // scales for active and the cards before it (oldest smallest)
+    var S=mob?[1,.7]:[1,.74,.56,.42], pos={};
+    var right=mob?(W+cw)/2:W-40, pad=mob?20:48;
+    var x=right-cw; pos[cur]={x:x,s:1};
+    for(var k=1;k<S.length;k++){ var i=cur-k; if(i<0) break; var w=cw*S[k], prev=pos[i+1]; var nx=prev.x+cw*prev.s*0.16-w; if(nx<pad-w*0.35&&!mob) break; pos[i]={x:nx,s:S[k]}; }
+    // next card peeks in from the right edge
+    if(cur+1<N) pos[cur+1]={x:W-(mob?24:70),s:mob?1:.9,peek:true};
+    cards.forEach(function(c,i){
+      var p=pos[i];
+      if(!p){ var off=i<cur?-cw*1.2:W+40; c.style.transform='translate('+off+'px,0) scale(.4)'; c.style.opacity=0; c.style.pointerEvents='none'; c.style.zIndex=1; }
+      else { c.style.transform='translate('+p.x+'px,0) scale('+p.s+')'; c.style.opacity=p.peek?.75:1; c.style.pointerEvents='auto'; c.style.zIndex=p.peek?5:20-(cur-i); c.style.filter=p.peek?'brightness(.55)':(i===cur?'none':'brightness(.92)'); }
+      c.classList.toggle('active',i===cur); c.tabIndex=i===cur?0:-1;
+      var v=c.querySelector('video'); if(v){ if(i===cur){ v.preload='auto'; v.play().catch(function(){}); } else v.pause(); }
+      var L=lbls[i];
+      if(p){ L.style.left=(p.peek?p.x+cw*0.45:p.x+cw*p.s/2)+'px'; L.style.opacity=1; L.style.pointerEvents='auto'; }
+      else { L.style.left=(i<cur?-200:W+200)+'px'; L.style.opacity=0; L.style.pointerEvents='none'; }
+      L.classList.toggle('on',i===cur);
+    });
+  }
+  function go(i,u){ cur=Math.max(0,Math.min(N-1,i)); if(u) user=true; layout(); }
+  cards.forEach(function(c,i){ c.addEventListener('click',function(){ if(dragged) return; if(i!==cur){ go(i,true); return; } var h=c.dataset.href; if(!h) return; if(h[0]==='#'){ var t=document.querySelector(h); if(t) t.scrollIntoView({behavior:reduce?'auto':'smooth'}); } else if(/\.(pdf|png)$/.test(h)) open(h,'_blank','noopener'); else location.href=h; }); });
+  document.getElementById('tlPrev').addEventListener('click',function(){ go(cur-1,true); });
+  document.getElementById('tlNext').addEventListener('click',function(){ go(cur+1,true); });
+  addEventListener('keydown',function(e){ var r=sec.getBoundingClientRect(); if(r.bottom<0||r.top>innerHeight) return; if(e.key==='ArrowRight'){ go(cur+1,true); e.preventDefault(); } if(e.key==='ArrowLeft'){ go(cur-1,true); e.preventDefault(); } });
+  var sx=null, dragged=false;
+  stage.addEventListener('pointerdown',function(e){ sx=e.clientX; dragged=false; });
+  addEventListener('pointermove',function(e){ if(sx!==null&&Math.abs(e.clientX-sx)>12) dragged=true; });
+  addEventListener('pointerup',function(e){ if(sx===null) return; var dx=e.clientX-sx; sx=null; if(Math.abs(dx)>50) go(cur+(dx<0?1:-1),true); setTimeout(function(){ dragged=false; },0); });
+  var wl=0; stage.addEventListener('wheel',function(e){ if(Math.abs(e.deltaX)<=Math.abs(e.deltaY)) return; e.preventDefault(); var t=Date.now(); if(t-wl<450) return; if(Math.abs(e.deltaX)>12){ wl=t; go(cur+(e.deltaX>0?1:-1),true); } },{passive:false});
+  addEventListener('resize',layout);
+  var today=cards.findIndex(function(c){ return c.classList.contains('today'); });
+  if(reduce){ go(today); return; }
+  go(0);
+  var k=0; (function step(){ if(user) return; if(k<today){ k++; go(k); setTimeout(step, k===1?1100:520); } })();
 })();
 </script>
 </body>
