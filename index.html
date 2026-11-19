@@ -452,6 +452,8 @@ h1 .lit{background:var(--glow);-webkit-background-clip:text;background-clip:text
 .ready .focus-in>*:nth-child(4){transition-delay:.45s}
 .ready .focus-in>*:nth-child(5){transition-delay:.55s}
 .ready #aurora{opacity:1}
+/* blend the plum timeline into the intro below it */
+#intro::before{content:"";position:absolute;left:0;right:0;top:0;height:min(42vh,380px);z-index:-1;pointer-events:none;background:linear-gradient(180deg,#3c1232 0%,rgba(60,18,50,.85) 30%,rgba(60,18,50,.35) 70%,rgba(60,18,50,0) 100%)}
 
 /* Clients */
 .clients{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:26px 0}
