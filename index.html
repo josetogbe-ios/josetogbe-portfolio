@@ -311,6 +311,8 @@ a{color:inherit;text-decoration:none}
   .nav-arrows{display:none}
   .next .me{width:56px;height:56px;left:18px;top:18px;border-radius:14px}.next .q{left:18px;top:86px}
 }
+.tl-scroll{position:relative}
+.tl-scroll>.tlh{position:sticky;top:0}
 @media (prefers-reduced-motion:reduce){.tcard,.axis .fill,.tlh::before{transition:none}}
 .tlh-bg{position:absolute;left:0;right:0;bottom:0;height:78%;z-index:-1;background:url(assets/tl/ribbon.webp) center 70%/cover no-repeat;opacity:.55;-webkit-mask-image:linear-gradient(180deg,transparent,#000 35%,#000 75%,transparent);mask-image:linear-gradient(180deg,transparent,#000 35%,#000 75%,transparent)}
 /* Timeline hero v2 */
@@ -580,7 +582,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 </nav>
 
 <main id="main">
-<section class="tlh" id="top" aria-label="José's career, year by year">
+<div class="tl-scroll" id="tlScroll"><section class="tlh" id="top" aria-label="José's career, year by year">
     <div class="wrap tlh-top">
     <div>
       <p class="tlh-name"><b>José Togbe</b> · Lead UX designer, Houston</p>
@@ -604,7 +606,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   </div></div>
   <div class="axis-wrap"><div class="axis" id="axis"><div class="line"></div></div></div>
   <div class="nav-arrows"><button class="arw" id="tlPrev" aria-label="Earlier">←</button><button class="arw" id="tlNext" aria-label="Later">→</button></div>
-</section>
+</section></div>
 
 <header class="hero" id="intro">
   <canvas id="aurora" aria-hidden="true"></canvas>
@@ -1087,9 +1089,15 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   var wl=0; stage.addEventListener('wheel',function(e){ if(Math.abs(e.deltaX)<=Math.abs(e.deltaY)) return; e.preventDefault(); var t=Date.now(); if(t-wl<450) return; if(Math.abs(e.deltaX)>12){ wl=t; go(cur+(e.deltaX>0?1:-1),true); } },{passive:false});
   addEventListener('resize',layout);
   var today=cards.findIndex(function(c){ return c.classList.contains('today'); });
-  if(reduce){ go(today); return; }
-  go(0);
-  var k=0; (function step(){ if(user) return; if(k<today){ k++; go(k); setTimeout(step, k===1?1100:520); } })();
+  // Scrolling the page walks the timeline forward from the first card to Today,
+  // with the hero pinned in place, then the page carries on as normal.
+  var track=document.getElementById('tlScroll'), step=0;
+  function size(){ step=Math.round(innerHeight*(innerWidth<=760?0.32:0.42)); track.style.height=(sec.offsetHeight+today*step)+'px'; }
+  function onScroll(){ var y=-track.getBoundingClientRect().top; var i=Math.max(0,Math.min(today,Math.round(y/step))); if(i!==scrollIdx){ scrollIdx=i; go(i); } }
+  var scrollIdx=-1;
+  size(); go(0); onScroll();
+  addEventListener('scroll',onScroll,{passive:true});
+  addEventListener('resize',function(){ size(); onScroll(); });
 })();
 </script>
 </body>
