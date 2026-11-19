@@ -1093,9 +1093,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   var today=cards.findIndex(function(c){ return c.classList.contains('today'); });
   // Scrolling the page walks the timeline forward from the first card to Today,
   // with the hero pinned in place, then the page carries on as normal.
-  var track=document.getElementById('tlScroll'), step=0;
-  function size(){ step=Math.round(innerHeight*(innerWidth<=760?0.32:0.42)); track.style.height=(sec.offsetHeight+today*step)+'px'; }
-  function onScroll(){ var y=-track.getBoundingClientRect().top; var i=Math.max(0,Math.min(today,Math.round(y/step))); if(i!==scrollIdx){ scrollIdx=i; go(i); } }
+  var track=document.getElementById('tlScroll'), step=0, last=N-1;
+  function size(){ step=Math.round(innerHeight*(innerWidth<=760?0.32:0.42)); track.style.height=(sec.offsetHeight+last*step)+'px'; }
+  function onScroll(){ var y=-track.getBoundingClientRect().top; var i=Math.max(0,Math.min(last,Math.round(y/step))); if(i!==scrollIdx){ scrollIdx=i; go(i); } }
   var scrollIdx=-1;
   size(); go(0); onScroll();
   addEventListener('scroll',onScroll,{passive:true});
