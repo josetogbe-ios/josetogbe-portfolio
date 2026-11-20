@@ -600,6 +600,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 #intro .hero-grid{grid-template-columns:1fr}
 #intro .big-h{font-size:clamp(46px,7.4vw,122px);line-height:.98;letter-spacing:-.05em;font-weight:500;max-width:none}
 #intro .big-h .lit{display:inline-block}
+@media (min-width:600px){#intro .big-h .l1{white-space:nowrap}}
 #intro .big-h .w{display:inline-block;transition:transform .35s cubic-bezier(.2,.8,.2,1),color .35s}
 #intro .big-h .w:hover{transform:translateY(-.06em) rotate(-1.5deg)}
 #intro .pill{display:inline-flex;align-items:center;background:#e9dfd5;color:#3c1232;border-radius:.22em;padding:0 .14em .04em;margin:0 .02em;cursor:pointer;transition:background .3s,transform .3s;outline:none;white-space:nowrap;vertical-align:baseline;line-height:1.02}
@@ -656,7 +657,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   <div class="wrap hero-grid">
     <div class="focus-in">
     <p class="status"><i aria-hidden="true"></i>Open to senior, lead, and principal roles in 2026</p>
-    <h1 class="big-h" aria-label="Designing complex products people actually understand."><span aria-hidden="true"><span class="w">Designing</span> <span class="pill" id="pill" tabindex="0" role="button" aria-label="Show another word"><span id="pillw">complex</span><i class="caret"></i></span><br><span class="w">products</span> <span class="w">people</span><br><span class="lit w">actually understand.</span></span></h1>
+    <h1 class="big-h" aria-label="Designing complex products people actually understand."><span aria-hidden="true"><span class="l1"><span class="w">Designing</span> <span class="pill" id="pill" tabindex="0" role="button" aria-label="Show another word"><span id="pillw">complex</span><i class="caret"></i></span></span><br><span class="w">products</span> <span class="w">people</span><br><span class="lit w">actually understand.</span></span></h1>
     <p class="lede">I'm <b>José Togbe</b>, a lead UX designer with a decade of experience across financial services, insurance, healthcare, and clinical tools. I focus on high-stakes products, where clarity matters most.</p>
     <div class="cta-row">
       <a class="btn solid" href="#work">See the work</a>
@@ -1175,6 +1176,16 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   var pill=document.getElementById('pill'), out=document.getElementById('pillw'); if(!pill) return;
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var words=['complex','regulated','high-stakes','clinical','financial'], i=0, busy=false, timer=null;
+  // size the headline so "Designing" plus the longest word always fits on one line
+  var h=document.querySelector('#intro .big-h'), l1=h.querySelector('.l1');
+  function fitH(){
+    if(innerWidth<600){ h.style.fontSize=''; return; }
+    h.style.fontSize=''; var keep=out.textContent; out.textContent='high-stakes';
+    var max=h.parentElement.clientWidth, w=l1.getBoundingClientRect().width, fs=parseFloat(getComputedStyle(h).fontSize);
+    if(w>max) h.style.fontSize=Math.floor(fs*max/w*0.98)+'px';
+    out.textContent=keep;
+  }
+  fitH(); addEventListener('resize',fitH); document.fonts&&document.fonts.ready.then(fitH);
   if(!reduce){ document.querySelectorAll('#intro .big-h .w, #intro .pill').forEach(function(w,k){ w.style.animationDelay=(.12+k*.09)+'s'; w.classList.add('in'); }); }
   function type(next,done){
     busy=true; var cur=out.textContent;
