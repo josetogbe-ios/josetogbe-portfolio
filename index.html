@@ -486,8 +486,20 @@ h2{font-size:clamp(38px,5.4vw,68px);line-height:1.02;letter-spacing:-.04em;font-
 .feature{position:relative;display:grid;grid-template-columns:1.25fr 1fr;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:var(--surface);margin-bottom:22px;min-height:560px}
 .feature .stage{position:relative;overflow:hidden;padding:48px 0 0 48px;display:flex;align-items:flex-end}
 .feature .stage::before{content:"";position:absolute;inset:0;background:var(--tint);opacity:.9}
-.feature .stage img{position:relative;width:100%;border-radius:14px 0 0 0;box-shadow:0 30px 80px rgba(0,0,0,.45);transition:transform .7s cubic-bezier(.2,.7,.2,1)}
-.feature:hover .stage img{transform:translateY(-8px)}
+.feature .stage .demo{position:relative;width:100%;border-radius:14px 0 0 0;box-shadow:0 30px 80px rgba(0,0,0,.45);transition:transform .7s cubic-bezier(.2,.7,.2,1);overflow:hidden}
+.feature .stage .demo>img{display:block;width:100%}
+.feature:hover .stage .demo{transform:translateY(-8px)}
+/* live walkthrough layered on the screenshot */
+.demo .ring{position:absolute;border-radius:10px;box-shadow:0 0 0 2px #2f7bff,0 0 0 6px rgba(47,123,255,.22),0 0 0 9999px rgba(8,10,20,.28);opacity:0;transition:left .8s cubic-bezier(.6,0,.2,1),top .8s cubic-bezier(.6,0,.2,1),width .8s cubic-bezier(.6,0,.2,1),height .8s cubic-bezier(.6,0,.2,1),opacity .4s;pointer-events:none}
+.demo .cur{position:absolute;width:22px;height:22px;margin:-3px 0 0 -4px;transition:left .9s cubic-bezier(.6,0,.2,1),top .9s cubic-bezier(.6,0,.2,1),transform .15s;filter:drop-shadow(0 2px 3px rgba(0,0,0,.35));pointer-events:none;z-index:3}
+.demo .cur.down{transform:scale(.82)}
+.demo .rip{position:absolute;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;border:2px solid #2f7bff;opacity:0;pointer-events:none;z-index:2}
+.demo .rip.go{animation:rip .6s ease-out}
+@keyframes rip{from{opacity:.9;transform:scale(.3)}to{opacity:0;transform:scale(1.4)}}
+.demo .tip{position:absolute;z-index:4;max-width:62%;padding:8px 12px;border-radius:10px;background:#111015;color:#fff;font-size:13px;line-height:1.3;box-shadow:0 10px 24px rgba(0,0,0,.35);opacity:0;transform:translateY(6px);transition:opacity .35s,transform .35s;pointer-events:none;white-space:nowrap}
+.demo .tip.on{opacity:1;transform:none}
+.demo .tip b{color:#7fb2ff;font-weight:600;margin-right:6px}
+@media (max-width:760px){.demo .tip{font-size:11px;padding:6px 9px;white-space:normal;width:max-content;max-width:58vw}.demo .cur{width:16px;height:16px}}
 .feature .copy{padding:48px 46px;display:flex;flex-direction:column}
 .client{font-size:14px;color:var(--muted)}
 .feature h3{font-size:clamp(28px,2.8vw,38px);line-height:1.08;letter-spacing:-.03em;font-weight:400;margin:14px 0 18px}
@@ -580,7 +592,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   .focus-in>*{filter:none;opacity:1;transform:none}
   .ready .focus-in>*{transition:none}
   #aurora{opacity:1;transition:none}
-  .feature .stage img{transition:none}
+  .feature .stage .demo{transition:none}
   html{scroll-behavior:auto}
 }
 </style>
@@ -613,7 +625,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
     <button class="tcard" data-i="3" data-year="2021" data-cap="Schwab Charitable · 20% fewer support calls" style="--c:#ff6fb5" data-accent="#ff6fb5" aria-label="Charles Schwab, 2021 to 2023. Schwab Charitable contributions, 20 percent fewer support calls"><img src="assets/tl/schwab.webp" alt="" loading="lazy"><div class="shade"></div><div class="meta"><div><p class="co">Charles Schwab · Senior UX/UI Designer · 2021 to 2023</p><h3>Schwab Charitable contributions.</h3></div><div class="num"><b>20%</b><span>fewer support calls</span></div></div></button>
     
     <button class="tcard" data-i="4" data-year="2025" data-cap="Freedom Mortgage · 3–4x faster delivery" style="--c:#ffc48a" data-accent="#ffc48a" data-href="#how" aria-label="Freedom Mortgage, 2025 to 2026. Mobile app redesign, 3 to 4 times faster delivery"><img src="assets/tl/freedom.webp" alt="" loading="lazy"><div class="shade"></div><div class="meta"><div><p class="co">Freedom Mortgage · Senior UX Designer · 2025 to 2026</p><h3>Mobile app redesign, shipped with AI.</h3></div><div class="num"><b>3–4x</b><span>faster feature delivery</span></div></div><span class="open">How I work ↓</span></button>
-    <button class="tcard" data-i="5" data-year="Recent" data-cap="Hanger Clinic · $3M revenue growth" style="--c:#ffc48a" data-accent="#ffc48a" data-href="configurator.html" aria-label="Hanger Clinic. Guided device configurator, 3 million dollars revenue growth"><img src="assets/guided-configurator.png" alt="" loading="lazy"><div class="shade"></div><div class="meta"><div><p class="co">Hanger Clinic · Lead designer</p><h3>Guided device configurator.</h3></div><div class="num"><b>$3M</b><span>revenue growth at 30% adoption</span></div></div><span class="open">Read the case study →</span></button>
+    <button class="tcard" data-i="5" data-year="Recent" data-cap="Hanger Clinic · $3M revenue growth" style="--c:#ffc48a" data-accent="#ffc48a" data-href="configurator.html" aria-label="Hanger Clinic. Guided device configurator, 3 million dollars revenue growth"><img src="assets/guided-configurator.png" alt="" loading="lazy"><div class="shade"></div>></div><div class="meta"><div><p class="co">Hanger Clinic · Lead designer</p><h3>Guided device configurator.</h3></div><div class="num"><b>$3M</b><span>revenue growth at 30% adoption</span></div></div><span class="open">Read the case study →</span></button>
     <button class="tcard" data-i="6" data-year="Recent" data-cap="MetLife · beneficiary claims" style="--c:#ff6fb5" data-accent="#ff6fb5" data-href="metlife.html" aria-label="MetLife. Life beneficiary claims experience"><img src="assets/tl/metlife.webp" alt="" loading="lazy"><div class="shade"></div><div class="meta"><div><p class="co">MetLife · Lead UX designer</p><h3>Life beneficiary claims.</h3></div></div><span class="open">Read the case study →</span></button>
     <button class="tcard" data-i="7" data-year="2026" data-cap="Pactara · live on the App Store" style="--c:#c9b8ff" data-accent="#c9b8ff" data-href="#built" aria-label="Pactara, fitness accountability app, designed and built with AI"><img src="assets/tl/pactara.webp" alt="" loading="lazy"><div class="shade"></div><div class="meta"><div><p class="co">Pactara · Designed and built by José · 2026</p><h3>Accountability that keeps you showing up.</h3></div></div><span class="open">See it ↓</span></button>
     <button class="tcard" data-i="8" data-year="2026" data-cap="Slip · live on the App Store" style="--c:#ffb199" data-accent="#ffb199" data-href="#built" aria-label="Slip, dating card app, designed and built with AI"><img src="assets/tl/slip.webp" alt="" loading="lazy"><div class="shade"></div><div class="meta"><div><p class="co">Slip · Designed and built by José · 2026</p><h3>Share a card instead of your number.</h3></div></div><span class="open">See it ↓</span></button>
@@ -697,7 +709,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
     </div>
 
     <article class="feature metlife">
-      <div class="stage"><img src="assets/metlife-landing.png" alt="MetLife Life Insurance Beneficiary Center landing page that beneficiaries reach from their claim kit" loading="lazy"></div>
+      <div class="stage"><div class="demo" data-demo="metlife"><img src="assets/metlife-landing.png" alt="MetLife Life Insurance Beneficiary Center landing page that beneficiaries reach from their claim kit" loading="lazy"></div></div>
       <div class="copy">
         <p class="client">MetLife, life insurance claims</p>
         <h3>Life beneficiary claims experience.</h3>
@@ -709,7 +721,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
     </article>
 
     <article class="feature hanger">
-      <div class="stage"><img src="assets/guided-configurator.png" alt="Hanger Clinic Guided Configurator alignment step for an ankle-foot orthosis order, with sample patient data" loading="lazy"></div>
+      <div class="stage"><div class="demo" data-demo="hanger"><img src="assets/guided-configurator.png" alt="Hanger Clinic Guided Configurator alignment step for an ankle-foot orthosis order, with sample patient data" loading="lazy"></div></div>
       <div class="copy">
         <p class="client">Hanger Clinic, orthotics and prosthetics</p>
         <h3>Guided device configurator.</h3>
@@ -1114,6 +1126,72 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   size(); go(0); onScroll();
   addEventListener('scroll',onScroll,{passive:true});
   addEventListener('resize',function(){ size(); onScroll(); });
+})();
+</script>
+<script>
+/* Case study walkthroughs: a cursor plays through each screen while it is on screen */
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var SCRIPTS={
+    metlife:[
+      {r:[58,19.6,36,9],c:[90,25],t:['Step 1','Find the code in your claim kit'],tp:[44,30.5]},
+      {r:[58,30.2,36,12.2],c:[90,37],t:['Step 2','Create an account'],tp:[44,43.6]},
+      {r:[58,44.6,36,10.6],c:[90,50],t:['Step 3','File and track the claim'],tp:[44,56.4]},
+      {r:[6.4,33.8,15.6,7.4],c:[15,38.5],click:1,t:['Start','One clear first action'],tp:[6.4,42.6]},
+      {r:[6,76,87.5,10],c:[60,79],t:['FAQ','Answers where people get stuck'],tp:[6,64.5]}
+    ],
+    hanger:[
+      {r:[27.4,23.6,69.6,7.2],c:[45,27.5],t:['Measurements','Captured once, reused everywhere'],tp:[27.4,32]},
+      {r:[27.4,30.5,69.6,7.2],c:[45,34.5],t:['Materials','Chosen for this patient'],tp:[27.4,39]},
+      {r:[29.3,43.5,65.8,27],c:[60,55],t:['Alignment','Every setting in one view'],tp:[29.3,72]},
+      {r:[89.6,39.2,3.6,4],c:[91.5,41.2],click:1,t:['Edit','Change a section in place'],tp:[62,45]},
+      {r:[87,89.6,7,4.8],c:[90.5,92],click:1,t:['Review','Order checked before it ships'],tp:[60,82]}
+    ]
+  };
+  var CURSOR='<svg viewBox="0 0 24 24"><path d="M4 2l15 9.5-6.6 1.3 3.9 7.4-2.9 1.5-3.8-7.4L4 19z" fill="#fff" stroke="#111" stroke-width="1.4" stroke-linejoin="round"/></svg>';
+  document.querySelectorAll('.demo[data-demo]').forEach(function(d){
+    var steps=SCRIPTS[d.dataset.demo]; if(!steps||reduce) return;
+    var ring=document.createElement('div'); ring.className='ring';
+    var cur=document.createElement('div'); cur.className='cur'; cur.innerHTML=CURSOR;
+    var rip=document.createElement('div'); rip.className='rip';
+    var tip=document.createElement('div'); tip.className='tip';
+    [ring,rip,cur,tip].forEach(function(e){ e.setAttribute('aria-hidden','true'); d.appendChild(e); });
+    cur.style.left='70%'; cur.style.top='96%';
+    var i=0, timer=null, on=false;
+    function pos(el,x,y){ el.style.left=x+'%'; el.style.top=y+'%'; }
+    // keep the caption inside the visible part of the card on narrow screens
+    function fit(x){ var box=(d.closest('.feature')||d).getBoundingClientRect(), dr=d.getBoundingClientRect();
+      var want=x/100*dr.width, max=(Math.min(box.right,dr.right)-dr.left-10)-tip.offsetWidth; tip.style.left=Math.max(4,Math.min(want,max))+'px'; }
+    function step(){
+      if(!on) return;
+      var s=steps[i]; i=(i+1)%steps.length;
+      tip.classList.remove('on');
+      pos(cur,s.c[0],s.c[1]);
+      ring.style.left=s.r[0]+'%'; ring.style.top=s.r[1]+'%'; ring.style.width=s.r[2]+'%'; ring.style.height=s.r[3]+'%'; ring.style.opacity=1;
+      timer=setTimeout(function(){
+        if(s.click){ cur.classList.add('down'); pos(rip,s.c[0],s.c[1]); rip.classList.remove('go'); void rip.offsetWidth; rip.classList.add('go'); setTimeout(function(){ cur.classList.remove('down'); },160); }
+        tip.innerHTML='<b>'+s.t[0]+'</b>'+s.t[1]; pos(tip,s.tp[0],s.tp[1]); fit(s.tp[0]); tip.classList.add('on');
+        timer=setTimeout(step, i===0?3200:2300);
+      },950);
+    }
+    new IntersectionObserver(function(es){
+      var v=es[0].isIntersecting;
+      if(v&&!on){ on=true; timer=setTimeout(step,500); }
+      else if(!v&&on){ on=false; clearTimeout(timer); }
+    },{threshold:.35}).observe(d);
+  });
+
+  /* Count the big numbers up when they scroll into view */
+  document.querySelectorAll('#work .big, #work .metric .n').forEach(function(el){
+    var node=el.firstChild; if(!node||node.nodeType!==3) return;
+    var m=node.nodeValue.match(/^(\D*)(\d+)(\D*)$/); if(!m||reduce) return;
+    var pre=m[1], end=+m[2], post=m[3], done=false;
+    new IntersectionObserver(function(es,o){
+      if(!es[0].isIntersecting||done) return; done=true; o.disconnect();
+      var t0=performance.now();
+      (function tick(t){ var k=Math.min(1,(t-t0)/1100), e=1-Math.pow(1-k,3); node.nodeValue=pre+Math.round(end*e)+post; if(k<1) requestAnimationFrame(tick); })(t0);
+    },{threshold:.5}).observe(el);
+  });
 })();
 </script>
 </body>
