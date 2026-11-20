@@ -595,6 +595,21 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   .feature .stage .demo{transition:none}
   html{scroll-behavior:auto}
 }
+
+/* Intro: big interactive headline, no image */
+#intro .hero-grid{grid-template-columns:1fr}
+#intro .big-h{font-size:clamp(46px,7.4vw,122px);line-height:.98;letter-spacing:-.05em;font-weight:500;max-width:none}
+#intro .big-h .lit{display:inline-block}
+#intro .big-h .w{display:inline-block;transition:transform .35s cubic-bezier(.2,.8,.2,1),color .35s}
+#intro .big-h .w:hover{transform:translateY(-.06em) rotate(-1.5deg)}
+#intro .pill{display:inline-flex;align-items:center;background:#e9dfd5;color:#3c1232;border-radius:.22em;padding:0 .14em .04em;margin:0 .02em;cursor:pointer;transition:background .3s,transform .3s;outline:none;white-space:nowrap;vertical-align:baseline;line-height:1.02}
+#intro .pill:hover,#intro .pill:focus-visible{background:#fff;transform:rotate(-1.5deg)}
+#intro .pill:focus-visible{box-shadow:0 0 0 3px rgba(255,255,255,.5)}
+#intro .caret{display:inline-block;width:.06em;height:.78em;margin-left:.04em;background:#3c1232;border-radius:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+#intro .big-h .w.in{animation:wordin .7s cubic-bezier(.2,.8,.2,1) both}
+@keyframes wordin{from{opacity:0;transform:translateY(.25em);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+@media (prefers-reduced-motion:reduce){#intro .caret{animation:none;opacity:0}#intro .big-h .w.in{animation:none}}
 </style>
 </head>
 <body>
@@ -641,7 +656,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   <div class="wrap hero-grid">
     <div class="focus-in">
     <p class="status"><i aria-hidden="true"></i>Open to senior, lead, and principal roles in 2026</p>
-    <h1>Designing complex products people <span class="lit">actually understand.</span></h1>
+    <h1 class="big-h" aria-label="Designing complex products people actually understand."><span aria-hidden="true"><span class="w">Designing</span> <span class="pill" id="pill" tabindex="0" role="button" aria-label="Show another word"><span id="pillw">complex</span><i class="caret"></i></span><br><span class="w">products</span> <span class="w">people</span><br><span class="lit w">actually understand.</span></span></h1>
     <p class="lede">I'm <b>José Togbe</b>, a lead UX designer with a decade of experience across financial services, insurance, healthcare, and clinical tools. I focus on high-stakes products, where clarity matters most.</p>
     <div class="cta-row">
       <a class="btn solid" href="#work">See the work</a>
@@ -649,46 +664,6 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
     </div>
     <p class="where">Based in the United States. Remote, hybrid, or open to relocating.</p>
   </div>
-    <div class="huddle" id="huddle">
-      <div class="scaler" id="scaler"><div class="board" id="board">
-        <div class="win" id="win" style="--x:50%">
-          <div class="chrome"><i></i><i></i><i></i><span>yourbank.com/profile</span></div>
-          <div class="pane legacy" aria-hidden="true">
-            <div class="bar">MY ACCOUNT SERVICES <small>Welcome back | Sign Off</small></div>
-            <div class="crumb"><u>Home</u> &gt; <u>Customer Service</u> &gt; <u>Account Services</u> &gt; Profile Maintenance</div>
-            <div class="wrapb">
-              <div class="side"><p class="h">SERVICES</p><p>Statements</p><p>Alerts Setup</p><p>Account Services</p><p>Forms Center</p><p>Contact Info</p><p>Security Center</p><p>Paperless Options</p><p>Help / FAQ</p></div>
-              <div class="main">
-                <div class="warn"><b>IMPORTANT:</b> Profile changes may take 3-5 business days to process. Some changes require a call.</div>
-                <h4>Profile Maintenance</h4>
-                <table><tr><td>Change Mailing Address</td><td>Update Phone Number(s)</td></tr><tr><td>Edit E-Mail Address</td><td>Manage Paperless Settings</td></tr><tr><td>Reset Password</td><td>Change Security Questions</td></tr><tr><td>Add Authorized User</td><td>Order Checks</td></tr><tr><td>Travel Notification</td><td>Stop Payment Request</td></tr><tr><td>Update Employment Info</td><td>Nickname Accounts</td></tr></table>
-                <p class="fine">For changes not listed above, please download the appropriate form from the Forms Center and mail it to the address on your statement. Additional verification may be required for certain requests. See Terms &amp; Conditions.</p>
-              </div>
-            </div>
-          </div>
-          <div class="pane redo" aria-hidden="true"><div class="in">
-            <div class="hd"><h5>Profile</h5><div class="srch">⌕ Search settings</div></div>
-            <div class="grp">
-              <div class="card"><h6>Everyday</h6>
-                <div class="it"><div><b>Mailing address</b><br><span>1420 Oak St, Springfield</span></div>›</div>
-                <div class="it"><div><b>Phone</b><br><span>(713) •••-0188</span></div>›</div>
-                <div class="it"><b>Paperless</b><span class="tg"></span></div>
-              </div>
-              <div class="card"><h6>Security</h6>
-                <div class="it"><div><b>Password</b><br><span>Updated 2 months ago</span></div>›</div>
-                <div class="it"><b>Two-step sign-in</b><span class="on">On</span></div>
-                <div class="it"><div><b>Trusted devices</b><br><span>2 devices</span></div>›</div>
-              </div>
-            </div>
-            <div class="cta"><b>Traveling soon?</b> Add a travel notice in one tap.</div>
-          </div></div>
-          <span class="tagp l">Before</span><span class="tagp r">After</span>
-          <div class="div" id="div" role="slider" tabindex="0" aria-label="Compare before and after" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"><span class="knob">⟷</span></div>
-        </div>
-        <div class="stat"><span class="n" id="statn">0%</span><p>less time to finish common profile tasks<span>Profile management redesign, national bank</span></p></div>
-        <p class="drag">Drag the line to compare</p>
-      </div></div>
-    </div>
   </div>
 </header>
 
@@ -1192,6 +1167,25 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
       (function tick(t){ var k=Math.min(1,(t-t0)/1100), e=1-Math.pow(1-k,3); node.nodeValue=pre+Math.round(end*e)+post; if(k<1) requestAnimationFrame(tick); })(t0);
     },{threshold:.5}).observe(el);
   });
+})();
+</script>
+<script>
+/* Intro headline: words settle in, the highlighted word types through what I design */
+(function(){
+  var pill=document.getElementById('pill'), out=document.getElementById('pillw'); if(!pill) return;
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var words=['complex','regulated','high-stakes','clinical','financial'], i=0, busy=false, timer=null;
+  if(!reduce){ document.querySelectorAll('#intro .big-h .w, #intro .pill').forEach(function(w,k){ w.style.animationDelay=(.12+k*.09)+'s'; w.classList.add('in'); }); }
+  function type(next,done){
+    busy=true; var cur=out.textContent;
+    (function del(){ if(cur.length){ cur=cur.slice(0,-1); out.textContent=cur; setTimeout(del,38); }
+      else { var k=0; (function add(){ out.textContent=next.slice(0,++k); if(k<next.length) setTimeout(add,62); else { busy=false; done&&done(); } })(); } })();
+  }
+  function advance(){ if(busy) return; i=(i+1)%words.length; type(words[i],schedule); }
+  function schedule(){ clearTimeout(timer); if(!reduce) timer=setTimeout(advance,2400); }
+  pill.addEventListener('click',function(){ clearTimeout(timer); advance(); });
+  pill.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); clearTimeout(timer); advance(); } });
+  setTimeout(schedule,1400);
 })();
 </script>
 </body>
